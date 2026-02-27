@@ -203,27 +203,42 @@ Game.nextQuizQuestion = function() {
 // ===== Finish Quiz =====
 Game.finishQuiz = function() {
   if (!Game.quizSession) return;
-  Game.quizSession.done = true;
-  Game.renderQuiz();
-};
-
-// ===== Result Screen =====
-Game.renderQuizResult = function() {
   var s = Game.quizSession;
+  s.done = true;
 
-  // Count correct
+  // Calculate result
   var correct = 0;
   for (var i = 0; i < s.questions.length; i++) {
     if (s.answers[i] === s.questions[i].answer) correct++;
   }
-
-  var tickets = Game.calcQuizReward(correct);
+  s.correct = correct;
+  s.tickets = Game.calcQuizReward(correct);
 
   // Record history
   var qIds = [];
   for (var i = 0; i < s.questions.length; i++) qIds.push(s.questions[i].id);
   Game.recordQuizSession(s.chapterId, qIds);
   Game.saveGame();
+
+  // Render result screen
+  Game.renderQuiz();
+
+  // Auto-trigger gacha after showing result briefly
+  if (s.tickets > 0) {
+    Game.quizGachaChapterId = s.chapterId;
+    setTimeout(function() {
+      if (Game.quizSession && Game.quizSession.done && !Game.isGachaAnimating) {
+        Game.runChapterGachaReward(s.chapterId, s.tickets);
+      }
+    }, 2500);
+  }
+};
+
+// ===== Result Screen =====
+Game.renderQuizResult = function() {
+  var s = Game.quizSession;
+  var correct = s.correct || 0;
+  var tickets = s.tickets || 0;
 
   // Build result HTML
   var html = '<div style="padding:8px;text-align:center">';
@@ -232,7 +247,7 @@ Game.renderQuizResult = function() {
   var scoreColor = correct >= 7 ? '#4caf50' : correct >= 4 ? '#ff9800' : '#f44336';
   html += '<h2 style="color:var(--gold);font-size:20px;margin:0 0 8px">クイズ結果</h2>';
   html += '<div style="font-size:11px;color:var(--text2);margin-bottom:12px">第' + s.chapterId + '章</div>';
-  html += '<div style="font-size:56px;font-weight:bold;color:' + scoreColor + ';line-height:1">' + correct + '</div>';
+  html += '<div style="font-size:56px;font-weight:bold;color:' + scoreColor + ';line-height:1;animation:fadeIn 0.5s">' + correct + '</div>';
   html += '<div style="font-size:15px;color:var(--text2);margin-bottom:16px">/ 10問 正解</div>';
 
   // Per-question results
@@ -254,25 +269,21 @@ Game.renderQuizResult = function() {
     var chData = Game.CHAPTERS ? Game.CHAPTERS[s.chapterId - 1] : null;
     var chName = chData ? chData.name : '';
     html += '<div style="padding:12px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;margin-bottom:12px">' +
-      '<div style="font-size:16px;color:var(--gold);font-weight:bold">第' + s.chapterId + '章限定ガチャ券</div>' +
+      '<div style="font-size:16px;color:var(--gold);font-weight:bold">第' + s.chapterId + '章限定ガチャ</div>' +
       '<div style="font-size:28px;color:var(--gold);font-weight:bold;margin:4px 0">× ' + tickets + '</div>' +
       '<div style="font-size:11px;color:var(--text2)">' + chName + ' の武将のみ排出</div>' +
       '</div>';
-
-    html += '<button class="battle-close-btn" ' +
-      'style="padding:12px 28px;background:linear-gradient(135deg,#7b1fa2,#4a148c);font-size:15px;margin-bottom:8px" ' +
-      'onclick="Game.runChapterGachaReward(' + s.chapterId + ',' + tickets + ')">' +
-      '章限定ガチャを引く！</button><br>';
+    html += '<div style="font-size:14px;color:var(--gold);animation:pulse 1s infinite;margin-bottom:8px">ガチャ自動発動中...</div>';
   } else {
     html += '<div style="font-size:14px;color:var(--text2);margin-bottom:16px;padding:12px;background:rgba(255,255,255,0.04);border-radius:8px">' +
       '4問以上正解で報酬を獲得できます</div>';
+
+    html += '<button class="battle-close-btn" style="padding:10px 24px;margin-bottom:6px" ' +
+      'onclick="Game.quizSession=null;Game.startQuiz(' + s.chapterId + ')">もう一度挑戦</button><br>';
+
+    html += '<button style="background:none;border:none;color:var(--text2);font-size:13px;cursor:pointer;padding:8px;margin-top:4px" ' +
+      'onclick="Game.quizSession=null;Game.renderQuiz()">章選択に戻る</button>';
   }
-
-  html += '<button class="battle-close-btn" style="padding:10px 24px;margin-bottom:6px" ' +
-    'onclick="Game.quizSession=null;Game.startQuiz(' + s.chapterId + ')">もう一度挑戦</button><br>';
-
-  html += '<button style="background:none;border:none;color:var(--text2);font-size:13px;cursor:pointer;padding:8px;margin-top:4px" ' +
-    'onclick="Game.quizSession=null;Game.renderQuiz()">章選択に戻る</button>';
 
   html += '</div>';
   return html;

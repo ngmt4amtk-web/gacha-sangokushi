@@ -279,6 +279,15 @@ Game.endGachaAnim = function() {
   overlay.innerHTML = '';
   Game.isGachaAnimating = false;
   Game.gachaSkipped = false;
+
+  // Quiz gacha: auto-return to quiz chapter select
+  if (Game.quizGachaChapterId) {
+    Game.quizGachaChapterId = null;
+    Game.quizSession = null;
+    Game.switchScreen('quiz');
+    return;
+  }
+
   Game.renderAll();
 };
 
