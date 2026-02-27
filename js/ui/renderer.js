@@ -80,10 +80,11 @@ Game.showDetail = function(charId) {
   if (c.lore) {
     html += '<div class="detail-lore">';
     html += '<div class="lore-tab-bar">';
-    html += '<button class="lore-tab active" onclick="Game.showLore(\'novel\',' + charId + ')">演義</button>';
-    html += '<button class="lore-tab" onclick="Game.showLore(\'history\',' + charId + ')">正史</button>';
+    html += '<button class="lore-tab active" onclick="Game.showLore(\'history\',' + charId + ')">正史</button>';
+    html += '<button class="lore-tab" onclick="Game.showLore(\'novel\',' + charId + ')">演義</button>';
+    html += '<button class="lore-tab" onclick="Game.showLore(\'diff\',' + charId + ')">違い</button>';
     html += '</div>';
-    html += '<div class="lore-text" id="lore-text">' + (c.lore.novel || '') + '</div>';
+    html += '<div class="lore-text" id="lore-text">' + (c.lore.history || '') + '</div>';
     html += '</div>';
   }
 
@@ -144,8 +145,9 @@ Game.showLore = function(type, charId) {
   if (!c || !c.lore) return;
   document.getElementById('lore-text').textContent = c.lore[type] || '';
   var tabs = document.querySelectorAll('.lore-tab');
-  tabs[0].classList.toggle('active', type === 'novel');
-  tabs[1].classList.toggle('active', type === 'history');
+  tabs[0].classList.toggle('active', type === 'history');
+  tabs[1].classList.toggle('active', type === 'novel');
+  tabs[2].classList.toggle('active', type === 'diff');
 };
 
 Game.statBar = function(label, val, max, cls) {
