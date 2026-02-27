@@ -1,0 +1,252 @@
+/* ======== GACHA ANIMATION ======== */
+
+/* Overlay */
+#gacha-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95); z-index: 200;
+  display: none; align-items: center; justify-content: center;
+}
+#gacha-overlay.show { display: flex; }
+
+.gacha-anim-container {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+}
+.gacha-anim-container.shake {
+  animation: gachaShake 0.3s ease-out;
+}
+
+/* Skip button */
+.gacha-skip {
+  position: absolute; top: 16px; right: 16px;
+  padding: 8px 20px; border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px; color: rgba(255,255,255,0.5);
+  font-size: 13px; cursor: pointer; z-index: 10;
+  transition: all 0.2s;
+}
+.gacha-skip:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+/* Done button */
+.gacha-done-btn {
+  padding: 14px 50px; border: none; border-radius: 10px;
+  background: linear-gradient(135deg, #f57f17, #e65100);
+  color: #fff; font-size: 16px; font-weight: bold;
+  cursor: pointer; margin-top: 24px; transition: transform 0.2s;
+  z-index: 10;
+}
+.gacha-done-btn:active { transform: scale(0.95); }
+
+/* Scroll */
+.scroll-wrapper {
+  width: 200px; height: 260px;
+  position: relative;
+  animation: scrollAppear 0.4s ease-out;
+}
+.scroll-wrapper.small {
+  width: 160px; height: 210px;
+}
+.scroll-bg {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #3e2723, #5d4037, #3e2723);
+  border: 2px solid rgba(255,215,0,0.4);
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+.scroll-bg::before {
+  content: ''; position: absolute;
+  top: 8px; left: 8px; right: 8px; bottom: 8px;
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 4px;
+}
+.scroll-bg::after {
+  content: '召'; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 60px; color: rgba(255,215,0,0.15);
+  font-weight: bold;
+}
+
+/* Seal */
+.scroll-seal {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: radial-gradient(circle, #b71c1c, #7f0000);
+  border-radius: 50%;
+  border: 2px solid rgba(255,215,0,0.4);
+  box-shadow: 0 0 15px rgba(183,28,28,0.5);
+  transition: all 0.5s;
+  z-index: 2;
+}
+.scroll-seal::after {
+  content: '封'; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 24px; color: rgba(255,215,0,0.6);
+  font-weight: bold;
+}
+.scroll-seal.cracking {
+  animation: sealCrack 0.6s ease-out;
+  box-shadow: 0 0 25px rgba(255,215,0,0.6);
+}
+.scroll-seal.shattering {
+  animation: sealShatter 0.5s ease-out forwards;
+}
+
+/* Glow */
+.scroll-glow {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 8px; pointer-events: none; z-index: 1;
+  transition: all 0.5s;
+}
+.scroll-glow.golden {
+  box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 0 80px rgba(255,215,0,0.2);
+  background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+}
+.scroll-glow.intense {
+  box-shadow: 0 0 60px rgba(255,215,0,0.6), 0 0 120px rgba(255,215,0,0.3);
+  background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
+}
+.scroll-glow.rainbow {
+  animation: rainbowGlow 0.5s linear infinite;
+}
+
+/* Reveal card */
+.gacha-reveal-card {
+  width: 280px; padding: 20px;
+  border-radius: 16px; text-align: center;
+  position: relative; overflow: hidden;
+  animation: revealAppear 0.5s ease-out;
+}
+.gacha-reveal-card.n { background: linear-gradient(135deg, #424242, #616161); border: 2px solid var(--n); }
+.gacha-reveal-card.r { background: linear-gradient(135deg, #1565c0, #1976d2); border: 2px solid var(--r); }
+.gacha-reveal-card.sr { background: linear-gradient(135deg, #6a1b9a, #8e24aa); border: 2px solid var(--sr); box-shadow: 0 0 30px rgba(171,71,188,0.4); }
+.gacha-reveal-card.ssr { background: linear-gradient(135deg, #e65100, #f57f17); border: 2px solid var(--ssr); box-shadow: 0 0 40px rgba(255,215,0,0.5); }
+.gacha-reveal-card.ur { background: linear-gradient(135deg, #880e4f, #c2185b); border: 2px solid var(--ur); box-shadow: 0 0 50px rgba(255,64,129,0.6); animation: revealAppear 0.5s ease-out, rainbow 2s linear infinite; }
+
+.reveal-flash {
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  pointer-events: none;
+  animation: flashSweep 1s ease-out;
+}
+.reveal-flash.sr { background: radial-gradient(circle, rgba(171,71,188,0.3), transparent 60%); }
+.reveal-flash.ssr { background: radial-gradient(circle, rgba(255,215,0,0.4), transparent 60%); }
+.reveal-flash.ur { background: radial-gradient(circle, rgba(255,64,129,0.5), transparent 60%); }
+
+.reveal-avatar {
+  width: 180px; height: 180px;
+  border-radius: 12px; margin: 0 auto 12px;
+  display: block; border: 2px solid rgba(255,255,255,0.3);
+}
+.reveal-stars { font-size: 20px; color: var(--gold); margin: 8px 0; }
+.reveal-name { font-size: 24px; font-weight: bold; margin: 4px 0; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+.reveal-rarity { font-size: 14px; color: rgba(255,255,255,0.7); margin: 4px 0; }
+.reveal-new {
+  font-size: 18px; font-weight: bold; color: #ff5722;
+  animation: pulse 0.8s infinite;
+  margin-top: 8px;
+}
+.reveal-dupe { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 8px; }
+
+/* Multi-pull grid */
+.multi-scroll-intro {
+  display: flex; align-items: center; justify-content: center;
+}
+
+.multi-grid {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 6px; padding: 16px; max-width: 380px;
+}
+
+.multi-card-slot {
+  width: 68px; height: 95px; border-radius: 6px;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s;
+}
+.multi-card-slot.revealed { transform: scale(1); }
+
+.multi-card-back {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #3e2723, #5d4037);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.multi-card-back::after {
+  content: '?'; font-size: 24px; color: rgba(255,215,0,0.3); font-weight: bold;
+}
+
+.multi-card-face {
+  width: 100%; height: 100%;
+  background-size: cover; background-position: center;
+  border-radius: 6px;
+  position: relative;
+  animation: cardFlip 0.3s ease-out;
+}
+.multi-card-face.n { border: 2px solid var(--n); }
+.multi-card-face.r { border: 2px solid var(--r); }
+.multi-card-face.sr { border: 2px solid var(--sr); box-shadow: 0 0 10px rgba(171,71,188,0.4); }
+.multi-card-face.ssr { border: 2px solid var(--ssr); box-shadow: 0 0 15px rgba(255,215,0,0.5); }
+.multi-card-face.ur { border: 2px solid var(--ur); box-shadow: 0 0 20px rgba(255,64,129,0.6); animation: cardFlip 0.3s ease-out, rainbow 2s linear infinite; }
+
+.multi-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9) 40%);
+  padding: 14px 2px 3px; text-align: center;
+}
+.multi-card-stars { font-size: 7px; color: var(--gold); }
+.multi-card-name { font-size: 10px; font-weight: bold; text-shadow: 1px 1px 2px #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.multi-card-new {
+  position: absolute; top: 2px; left: 2px;
+  font-size: 8px; padding: 1px 4px; border-radius: 3px;
+  background: #f44336; color: #fff; font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+/* Animations */
+@keyframes scrollAppear {
+  from { opacity: 0; transform: scale(0.5) rotateY(90deg); }
+  to { opacity: 1; transform: scale(1) rotateY(0); }
+}
+@keyframes sealCrack {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  30% { transform: translate(-50%, -50%) scale(1.2); }
+  60% { transform: translate(-50%, -50%) scale(0.9); }
+  100% { transform: translate(-50%, -50%) scale(1.05); }
+}
+@keyframes sealShatter {
+  0% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+@keyframes rainbowGlow {
+  0% { box-shadow: 0 0 60px rgba(255,0,0,0.5), 0 0 120px rgba(255,0,0,0.2); }
+  17% { box-shadow: 0 0 60px rgba(255,136,0,0.5), 0 0 120px rgba(255,136,0,0.2); }
+  33% { box-shadow: 0 0 60px rgba(255,255,0,0.5), 0 0 120px rgba(255,255,0,0.2); }
+  50% { box-shadow: 0 0 60px rgba(0,255,0,0.5), 0 0 120px rgba(0,255,0,0.2); }
+  67% { box-shadow: 0 0 60px rgba(0,136,255,0.5), 0 0 120px rgba(0,136,255,0.2); }
+  83% { box-shadow: 0 0 60px rgba(136,0,255,0.5), 0 0 120px rgba(136,0,255,0.2); }
+  100% { box-shadow: 0 0 60px rgba(255,0,0,0.5), 0 0 120px rgba(255,0,0,0.2); }
+}
+@keyframes revealAppear {
+  from { opacity: 0; transform: scale(0.3); }
+  60% { transform: scale(1.1); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes flashSweep {
+  from { opacity: 1; transform: rotate(0deg); }
+  to { opacity: 0; transform: rotate(30deg); }
+}
+@keyframes cardFlip {
+  from { transform: rotateY(90deg); opacity: 0; }
+  to { transform: rotateY(0); opacity: 1; }
+}
+@keyframes gachaShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-8px); }
+  30% { transform: translateX(6px); }
+  50% { transform: translateX(-5px); }
+  70% { transform: translateX(3px); }
+  90% { transform: translateX(-2px); }
+}

@@ -1,0 +1,208 @@
+// ======== STAGE & CHAPTER DATA ========
+window.Game = window.Game || {};
+
+Game.ENEMY_TEMPLATES = {
+  yellowTurban: { names:['黄巾賊','黄巾兵','黄巾将'], atkRange:[50,80], hpRange:[300,500], defRange:[20,40] },
+  dongzhuoArmy: { names:['董卓軍兵','西涼騎兵','暴虐兵'], atkRange:[65,95], hpRange:[400,600], defRange:[30,50] },
+  warlordArmy: { names:['諸侯兵','軍閥兵','精鋭兵'], atkRange:[80,120], hpRange:[500,800], defRange:[35,60] },
+  weiArmy: { names:['魏軍兵','魏精鋭','曹操軍兵'], atkRange:[100,150], hpRange:[600,900], defRange:[45,70] },
+  wuArmy: { names:['呉軍兵','呉水軍','呉精鋭'], atkRange:[90,140], hpRange:[550,850], defRange:[40,65] },
+  shuArmy: { names:['蜀軍兵','蜀精鋭','蜀山兵'], atkRange:[95,145], hpRange:[580,880], defRange:[42,68] },
+  nanman: { names:['南蛮兵','蛮族戦士','象兵'], atkRange:[110,160], hpRange:[700,1000], defRange:[35,55] },
+  jinArmy: { names:['晋軍兵','晋精鋭','晋重装兵'], atkRange:[130,180], hpRange:[800,1200], defRange:[55,85] },
+};
+
+Game.CHAPTERS = [
+  // Chapter 1
+  {
+    id:1, name:'黄巾の乱', year:'184年', desc:'太平道の蜂起から天下大乱の幕が開く',
+    stages:[
+      { id:'1-1', name:'潁川の戦い', difficulty:1, enemyTemplate:'yellowTurban', enemyCount:2, bossName:null,
+        rewards:{ medals:20, tickets:1 }, isBoss:false,
+        storyBefore:'黄巾賊が各地で蜂起。義勇軍として立ち上がれ。', storyAfter:'黄巾賊を撃退した。だが戦いは始まったばかりだ。' },
+      { id:'1-2', name:'広宗の戦い', difficulty:1, enemyTemplate:'yellowTurban', enemyCount:2, bossName:null,
+        rewards:{ medals:25, tickets:1 }, isBoss:false,
+        storyBefore:'張角の本拠地を目指して進軍する。', storyAfter:'黄巾の勢いは衰えつつある。' },
+      { id:'1-3', name:'汜水関', difficulty:2, enemyTemplate:'dongzhuoArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:35, tickets:1 }, isBoss:false,
+        storyBefore:'董卓打倒のため、諸侯が連合を組んだ。', storyAfter:'汜水関を突破。華雄は討たれた。' },
+      { id:'1-4', name:'虎牢関', difficulty:2, enemyTemplate:'dongzhuoArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:40, tickets:1 }, isBoss:false,
+        storyBefore:'虎牢関には呂布が待ち構えている。', storyAfter:'三英の活躍で虎牢関を突破した！' },
+      { id:'1-5', name:'洛陽炎上', difficulty:3, enemyTemplate:'dongzhuoArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:50, tickets:1 }, isBoss:false,
+        storyBefore:'董卓は洛陽に火を放ち長安へ逃走した。', storyAfter:'洛陽の惨状に怒りが込み上げる。' },
+      { id:'1-6', name:'董卓討伐', difficulty:4, enemyTemplate:'dongzhuoArmy', enemyCount:4, bossName:'董卓',
+        rewards:{ medals:100, tickets:3 }, isBoss:true,
+        storyBefore:'暴虐の太師・董卓との最終決戦。', storyAfter:'董卓は倒れた。だが天下の乱は終わらない…' },
+    ]
+  },
+  // Chapter 2
+  {
+    id:2, name:'群雄割拠', year:'190-199年', desc:'諸侯が覇を競い、乱世は深まる',
+    stages:[
+      { id:'2-1', name:'徐州争奪', difficulty:3, enemyTemplate:'warlordArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:45, tickets:1 }, isBoss:false,
+        storyBefore:'呂布が徐州を奪い、群雄の争いが激化する。', storyAfter:'徐州の地は血で染まった。' },
+      { id:'2-2', name:'宛城の変', difficulty:3, enemyTemplate:'warlordArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:50, tickets:1 }, isBoss:false,
+        storyBefore:'張繍が曹操に反旗を翻した。典韋の最期の戦い。', storyAfter:'典韋の犠牲により曹操は生き延びた。' },
+      { id:'2-3', name:'下邳の戦い', difficulty:4, enemyTemplate:'warlordArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:60, tickets:1 }, isBoss:false,
+        storyBefore:'呂布を下邳に追い詰めた。', storyAfter:'天下無双の飛将が倒れた。' },
+      { id:'2-4', name:'白馬の戦い', difficulty:4, enemyTemplate:'warlordArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:55, tickets:1 }, isBoss:false,
+        storyBefore:'袁紹が南下を開始。白馬が最初の戦場となる。', storyAfter:'関羽が顔良を斬った。' },
+      { id:'2-5', name:'烏巣の夜襲', difficulty:5, enemyTemplate:'warlordArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:70, tickets:1 }, isBoss:false,
+        storyBefore:'許攸の寝返りにより、袁紹の兵糧庫の場所が判明。', storyAfter:'烏巣の兵糧を焼いた。勝利は目前だ。' },
+      { id:'2-6', name:'官渡の決戦', difficulty:6, enemyTemplate:'warlordArmy', enemyCount:5, bossName:'袁紹',
+        rewards:{ medals:150, tickets:3 }, isBoss:true,
+        storyBefore:'天下の覇権を賭けた官渡の大決戦。', storyAfter:'袁紹は敗走した。曹操が中原の覇者となる。' },
+    ]
+  },
+  // Chapter 3
+  {
+    id:3, name:'赤壁の戦い', year:'208年', desc:'天下三分の大戦が始まる',
+    stages:[
+      { id:'3-1', name:'長坂の戦い', difficulty:5, enemyTemplate:'weiArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:65, tickets:1 }, isBoss:false,
+        storyBefore:'曹操の大軍が南下。民を連れた劉備軍は追い詰められる。', storyAfter:'趙雲が阿斗を守り抜いた！' },
+      { id:'3-2', name:'孫劉同盟', difficulty:5, enemyTemplate:'weiArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:70, tickets:1 }, isBoss:false,
+        storyBefore:'諸葛亮が呉を訪れ、孫権を説得する。', storyAfter:'同盟成立。赤壁での決戦が決まった。' },
+      { id:'3-3', name:'赤壁前哨戦', difficulty:6, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:80, tickets:1 }, isBoss:false,
+        storyBefore:'曹操の水軍が長江に展開した。', storyAfter:'東風を待つのみ…' },
+      { id:'3-4', name:'赤壁の火攻め', difficulty:7, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:90, tickets:2 }, isBoss:false,
+        storyBefore:'東風が吹いた！黄蓋の火船が出撃する！', storyAfter:'赤壁の大火が天下を変えた！' },
+      { id:'3-5', name:'南郡争奪', difficulty:6, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:85, tickets:1 }, isBoss:false,
+        storyBefore:'曹操撤退後、南郡を巡り呉と争う。', storyAfter:'荊州の地を手に入れた。' },
+      { id:'3-6', name:'合肥の死闘', difficulty:8, enemyTemplate:'weiArmy', enemyCount:5, bossName:'張遼',
+        rewards:{ medals:200, tickets:3 }, isBoss:true,
+        storyBefore:'合肥で張遼が待ち受ける。遼来来！', storyAfter:'合肥を巡る戦いは決着がつかず…三国鼎立が確定した。' },
+    ]
+  },
+  // Chapter 4
+  {
+    id:4, name:'三国鼎立', year:'209-219年', desc:'蜀の建国と漢中争奪',
+    stages:[
+      { id:'4-1', name:'入蜀の戦い', difficulty:7, enemyTemplate:'shuArmy', enemyCount:3, bossName:null,
+        rewards:{ medals:85, tickets:1 }, isBoss:false,
+        storyBefore:'劉備が益州へ進軍する。', storyAfter:'成都陥落。劉備が蜀を手に入れた。' },
+      { id:'4-2', name:'潼関の戦い', difficulty:7, enemyTemplate:'warlordArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:90, tickets:1 }, isBoss:false,
+        storyBefore:'馬超が曹操に反旗を翻した。', storyAfter:'曹操を追い詰めるも、賈詡の離間の計に敗れた。' },
+      { id:'4-3', name:'落鳳坡', difficulty:7, enemyTemplate:'shuArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:95, tickets:1 }, isBoss:false,
+        storyBefore:'龐統が先陣を切る。嫌な予感がする…', storyAfter:'鳳雛散る…龐統は落鳳坡で流れ矢に倒れた。' },
+      { id:'4-4', name:'漢中争奪', difficulty:8, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:100, tickets:1 }, isBoss:false,
+        storyBefore:'漢中を巡り、曹操と劉備が激突する。', storyAfter:'法正の策が冴える。' },
+      { id:'4-5', name:'定軍山', difficulty:8, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:110, tickets:2 }, isBoss:false,
+        storyBefore:'黄忠が夏侯淵に挑む。', storyAfter:'老将・黄忠が夏侯淵を一刀のもとに斬った！' },
+      { id:'4-6', name:'漢中王即位', difficulty:9, enemyTemplate:'weiArmy', enemyCount:5, bossName:'曹操影',
+        rewards:{ medals:250, tickets:3 }, isBoss:true,
+        storyBefore:'漢中を制し、劉備が漢中王を称する。', storyAfter:'蜀漢の基盤が完成した。だが運命は…' },
+    ]
+  },
+  // Chapter 5
+  {
+    id:5, name:'荊州の落日', year:'219-223年', desc:'関羽の最期と夷陵の悲劇',
+    stages:[
+      { id:'5-1', name:'樊城の戦い', difficulty:8, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:100, tickets:1 }, isBoss:false,
+        storyBefore:'関羽が樊城を攻め、于禁を降す。威震華夏。', storyAfter:'関羽の武名が天下に轟いた。' },
+      { id:'5-2', name:'白衣渡江', difficulty:9, enemyTemplate:'wuArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:110, tickets:1 }, isBoss:false,
+        storyBefore:'呂蒙が商人に偽装して荊州に迫る。', storyAfter:'荊州の守りが崩れた…' },
+      { id:'5-3', name:'麦城の悲劇', difficulty:9, enemyTemplate:'wuArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:120, tickets:2 }, isBoss:false,
+        storyBefore:'関羽が麦城に追い詰められた。', storyAfter:'武聖、ここに散る…' },
+      { id:'5-4', name:'南蛮征伐', difficulty:8, enemyTemplate:'nanman', enemyCount:4, bossName:null,
+        rewards:{ medals:100, tickets:1 }, isBoss:false,
+        storyBefore:'諸葛亮が南方の蛮族を征伐する。', storyAfter:'七縦七擒。孟獲の心を攻め落とした。' },
+      { id:'5-5', name:'夷陵の炎', difficulty:10, enemyTemplate:'wuArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:130, tickets:2 }, isBoss:false,
+        storyBefore:'劉備が関羽の仇討ちに呉へ出撃する。', storyAfter:'陸遜の火計…蜀軍壊滅。' },
+      { id:'5-6', name:'白帝城の遺詔', difficulty:10, enemyTemplate:'wuArmy', enemyCount:5, bossName:'陸遜',
+        rewards:{ medals:300, tickets:3 }, isBoss:true,
+        storyBefore:'夷陵の大敗から這い上がれるか。', storyAfter:'劉備は白帝城で崩御…「君の才は曹丕の十倍」諸葛亮に後事を託した。' },
+    ]
+  },
+  // Chapter 6
+  {
+    id:6, name:'出師の表', year:'227-234年', desc:'諸葛亮の北伐',
+    stages:[
+      { id:'6-1', name:'第一次北伐', difficulty:10, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:120, tickets:1 }, isBoss:false,
+        storyBefore:'出師表を奉り、諸葛亮が北伐を開始する。', storyAfter:'天水の姜維が蜀に降った。' },
+      { id:'6-2', name:'街亭の失陥', difficulty:10, enemyTemplate:'weiArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:130, tickets:1 }, isBoss:false,
+        storyBefore:'馬謖に街亭の守備を任せた。', storyAfter:'街亭失陥…泣いて馬謖を斬る。' },
+      { id:'6-3', name:'空城の計', difficulty:11, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:140, tickets:1 }, isBoss:false,
+        storyBefore:'司馬懿の大軍が迫る。城には兵がいない。', storyAfter:'城門を開け放ち琴を弾く。司馬懿は退いた。' },
+      { id:'6-4', name:'木牛流馬', difficulty:11, enemyTemplate:'weiArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:150, tickets:2 }, isBoss:false,
+        storyBefore:'兵糧輸送のために発明した木牛流馬を駆使する。', storyAfter:'補給線を確保。北伐は続く。' },
+      { id:'6-5', name:'上方谷の火', difficulty:12, enemyTemplate:'weiArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:160, tickets:2 }, isBoss:false,
+        storyBefore:'司馬懿を上方谷に誘い込んだ。', storyAfter:'天がこの火を消すとは…司馬懿は豪雨に救われた。' },
+      { id:'6-6', name:'五丈原の星', difficulty:13, enemyTemplate:'weiArmy', enemyCount:5, bossName:'司馬懿',
+        rewards:{ medals:400, tickets:4 }, isBoss:true,
+        storyBefore:'諸葛亮、最後の北伐。五丈原での決戦。', storyAfter:'星が落ちた…臥龍は五丈原に散った。「鞠躬尽瘁、死而後已」' },
+    ]
+  },
+  // Chapter 7
+  {
+    id:7, name:'姜維の北伐', year:'234-263年', desc:'蜀漢最後の戦い',
+    stages:[
+      { id:'7-1', name:'段谷の戦い', difficulty:12, enemyTemplate:'weiArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:150, tickets:1 }, isBoss:false,
+        storyBefore:'姜維が北伐を継続する。段谷で鄧艾と激突。', storyAfter:'段谷は厳しい敗北だった…' },
+      { id:'7-2', name:'高平陵の変', difficulty:12, enemyTemplate:'weiArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:140, tickets:1 }, isBoss:false,
+        storyBefore:'魏国内で司馬懿がクーデターを起こす。', storyAfter:'司馬氏が魏の実権を握った。' },
+      { id:'7-3', name:'洮水の戦い', difficulty:13, enemyTemplate:'weiArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:160, tickets:2 }, isBoss:false,
+        storyBefore:'姜維が洮水で魏軍を撃破する。', storyAfter:'久々の大勝利。だが蜀の国力は…' },
+      { id:'7-4', name:'黄皓の讒言', difficulty:11, enemyTemplate:'shuArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:130, tickets:1 }, isBoss:false,
+        storyBefore:'宦官・黄皓が蜀漢の政治を蝕む。', storyAfter:'内憂外患。蜀の運命は風前の灯火。' },
+      { id:'7-5', name:'剣閣の防衛', difficulty:13, enemyTemplate:'jinArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:170, tickets:2 }, isBoss:false,
+        storyBefore:'鍾会の大軍が剣閣に迫る。', storyAfter:'剣閣の守りは鉄壁。だが鄧艾が別の道を…' },
+      { id:'7-6', name:'陰平越え', difficulty:14, enemyTemplate:'jinArmy', enemyCount:5, bossName:'鄧艾',
+        rewards:{ medals:450, tickets:4 }, isBoss:true,
+        storyBefore:'鄧艾が陰平の険路を越えて蜀の背後に現れた！', storyAfter:'綿竹で蜀軍は壊滅…成都が陥落し、蜀漢は滅亡した。' },
+    ]
+  },
+  // Chapter 8
+  {
+    id:8, name:'天下統一', year:'263-280年', desc:'三国時代の終幕',
+    stages:[
+      { id:'8-1', name:'鍾会の反乱', difficulty:13, enemyTemplate:'jinArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:160, tickets:2 }, isBoss:false,
+        storyBefore:'蜀征伐後、鍾会と姜維が反乱を企てる。', storyAfter:'反乱は失敗。鍾会も姜維も散った。' },
+      { id:'8-2', name:'司馬炎の即位', difficulty:13, enemyTemplate:'jinArmy', enemyCount:4, bossName:null,
+        rewards:{ medals:150, tickets:1 }, isBoss:false,
+        storyBefore:'司馬炎が魏から禅譲を受け、晋を建国する。', storyAfter:'晋王朝が誕生した。残るは呉のみ。' },
+      { id:'8-3', name:'羊祜の遺策', difficulty:14, enemyTemplate:'jinArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:170, tickets:2 }, isBoss:false,
+        storyBefore:'羊祜が遺した呉征伐の大戦略。', storyAfter:'徳を以て呉の民心を崩した。' },
+      { id:'8-4', name:'杜預の南下', difficulty:14, enemyTemplate:'wuArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:180, tickets:2 }, isBoss:false,
+        storyBefore:'杜預が破竹の勢いで南下する。', storyAfter:'呉軍は次々と降伏した。' },
+      { id:'8-5', name:'建業陥落', difficulty:15, enemyTemplate:'wuArmy', enemyCount:5, bossName:null,
+        rewards:{ medals:200, tickets:2 }, isBoss:false,
+        storyBefore:'晋の大軍が呉の都・建業に迫る。', storyAfter:'孫皓は降伏した。' },
+      { id:'8-6', name:'天下統一', difficulty:16, enemyTemplate:'jinArmy', enemyCount:5, bossName:'天下の亡霊',
+        rewards:{ medals:500, tickets:5 }, isBoss:true,
+        storyBefore:'三国の英傑たちの意志が集う最終決戦。', storyAfter:'百年に及ぶ三国の戦乱は、ここに幕を閉じた。天下は再び一つに。' },
+    ]
+  },
+];

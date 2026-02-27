@@ -1,0 +1,204 @@
+/* ======== BATTLE OVERLAY ======== */
+
+#battle-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.95); z-index: 180;
+  display: none; flex-direction: column;
+  overflow-y: auto;
+}
+#battle-overlay.show { display: flex; }
+
+.battle-header {
+  text-align: center; padding: 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5), transparent);
+}
+.battle-header h3 {
+  font-size: 18px; color: var(--gold);
+  text-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+.battle-field {
+  flex: 1; padding: 8px 16px; position: relative;
+}
+
+.battle-side {
+  margin: 8px 0;
+}
+.battle-side-label {
+  font-size: 12px; font-weight: bold; color: var(--text2);
+  margin-bottom: 4px; padding-left: 4px;
+}
+
+.battle-unit {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px; margin: 3px 0;
+  background: rgba(255,255,255,0.05); border-radius: 8px;
+  transition: all 0.3s;
+}
+.battle-unit.dead { opacity: 0.3; }
+.battle-unit.attacking {
+  animation: unitAttack 0.3s ease-out;
+}
+.battle-unit .unit-avatar {
+  width: 36px; height: 36px; border-radius: 6px;
+  flex-shrink: 0;
+}
+.battle-unit .unit-name {
+  font-size: 12px; font-weight: bold;
+  min-width: 50px; white-space: nowrap;
+}
+.battle-unit .unit-hp-bar {
+  flex: 1; height: 14px;
+  background: rgba(255,255,255,0.1); border-radius: 7px;
+  overflow: hidden; position: relative;
+}
+.hp-fill {
+  height: 100%; border-radius: 7px;
+  transition: width 0.3s;
+}
+.hp-fill.ally { background: linear-gradient(90deg, #4caf50, #8bc34a); }
+.hp-fill.enemy { background: linear-gradient(90deg, #f44336, #ff5722); }
+.unit-hp-text {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Battle log */
+.battle-log {
+  max-height: 200px; overflow-y: auto;
+  padding: 8px; margin: 10px 0;
+  background: rgba(0,0,0,0.4); border-radius: 8px;
+  font-size: 12px; line-height: 1.6;
+}
+.battle-log p { margin: 2px 0; padding: 1px 0; }
+.battle-log .skill { color: #ffd700; }
+.battle-log .crit { color: #ff5722; }
+.battle-log .heal { color: #4caf50; }
+
+/* Damage numbers */
+.dmg-num {
+  position: absolute; z-index: 10;
+  font-size: 18px; font-weight: bold;
+  color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  pointer-events: none;
+  animation: dmgFloat 0.8s ease-out forwards;
+}
+.dmg-num.crit { font-size: 24px; color: #ff5722; }
+.dmg-num.skill { color: #ffd700; font-size: 20px; }
+.dmg-num.heal { color: #4caf50; }
+
+/* Battle result */
+.battle-result {
+  text-align: center; padding: 24px;
+  animation: fadeIn 0.5s;
+}
+.battle-result h2 { font-size: 28px; margin-bottom: 12px; }
+.battle-result.win h2 { color: var(--gold); text-shadow: 0 0 20px rgba(255,215,0,0.5); }
+.battle-result.lose h2 { color: #f44336; }
+.battle-result .reward {
+  font-size: 20px; color: var(--gold); font-weight: bold;
+  margin: 8px 0;
+}
+
+.battle-close-btn {
+  padding: 12px 32px; border: none; border-radius: 8px;
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  color: #fff; font-size: 14px; font-weight: bold;
+  cursor: pointer; margin-top: 12px; transition: transform 0.2s;
+}
+.battle-close-btn:active { transform: scale(0.95); }
+
+/* Skill flash overlay */
+.skill-flash {
+  position: fixed; top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px; font-weight: bold;
+  text-shadow: 0 0 20px currentColor, 0 4px 12px rgba(0,0,0,0.8);
+  pointer-events: none; z-index: 250;
+  animation: skillFlash 1.2s ease-out forwards;
+}
+
+/* Shake effects */
+.shake-unit {
+  animation: shakeUnit 0.3s ease-out;
+}
+.screen-shake {
+  animation: gachaShake 0.2s ease-out;
+}
+
+/* Battle screen */
+.chapter-tab-bar {
+  display: flex; gap: 0; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 12px;
+}
+.chapter-tab {
+  flex: 0 0 auto; padding: 8px 16px;
+  border: none; font-size: 12px; font-weight: bold;
+  background: rgba(255,255,255,0.05); color: var(--text2);
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+}
+.chapter-tab.active {
+  background: rgba(255,215,0,0.15); color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+}
+.chapter-tab:first-child { border-radius: 8px 0 0 8px; }
+.chapter-tab:last-child { border-radius: 0 8px 8px 0; }
+
+.chapter-banner {
+  background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,152,0,0.05));
+  border: 1px solid rgba(255,215,0,0.3); border-radius: 12px;
+  padding: 16px; text-align: center; margin-bottom: 12px;
+}
+.chapter-banner-title { font-size: 18px; font-weight: bold; color: var(--gold); }
+.chapter-banner-year { font-size: 13px; color: var(--text2); margin: 4px 0; }
+.chapter-banner-desc { font-size: 12px; color: var(--text); }
+
+.battle-team-info {
+  display: flex; justify-content: space-between;
+  padding: 8px 12px; margin-bottom: 10px;
+  background: rgba(255,255,255,0.05); border-radius: 8px;
+  font-size: 13px;
+}
+.battle-settings {
+  background: rgba(255,255,255,0.03); border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.stage-list { margin-bottom: 16px; }
+
+.stage-btn.current {
+  border-color: var(--gold);
+  background: rgba(255,215,0,0.08);
+}
+.stage-btn.locked {
+  opacity: 0.4; cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes unitAttack {
+  0% { transform: translateX(0); }
+  30% { transform: translateX(12px); }
+  100% { transform: translateX(0); }
+}
+@keyframes dmgFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  50% { opacity: 1; transform: translateY(-30px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-60px) scale(0.8); }
+}
+@keyframes skillFlash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  60% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes shakeUnit {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
