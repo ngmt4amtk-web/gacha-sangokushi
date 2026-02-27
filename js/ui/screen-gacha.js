@@ -40,7 +40,7 @@ Game.renderGacha = function() {
     // Rates
     html += '<div class="rate-info">' +
       '<div style="font-weight:bold;margin-bottom:6px">排出確率</div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--ur)">UR ★5</span><span>0.3%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--ur)">UR ★5</span><span>0.1%</span></div>' +
       '<div class="rate-row"><span class="rarity" style="color:var(--ssr)">SSR ★4</span><span>1.5%</span></div>' +
       '<div class="rate-row"><span class="rarity" style="color:var(--sr)">SR ★3</span><span>18.2%</span></div>' +
       '<div class="rate-row"><span class="rarity" style="color:var(--r)">R ★2</span><span>35%</span></div>' +
