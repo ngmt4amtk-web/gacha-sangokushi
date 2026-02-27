@@ -50,7 +50,7 @@ Game.getStageEnemies = function(stageData, chapterData) {
     var atk = Math.floor((tmpl.atkRange[0] + Math.random() * (tmpl.atkRange[1] - tmpl.atkRange[0])) * mult);
     var hp = Math.floor((tmpl.hpRange[0] + Math.random() * (tmpl.hpRange[1] - tmpl.hpRange[0])) * mult);
     var def = Math.floor((tmpl.defRange[0] + Math.random() * (tmpl.defRange[1] - tmpl.defRange[0])) * mult);
-    enemies.push({ name: name, atk: atk, hp: hp, maxHp: hp, def: def, isBoss: isBoss, alive: true });
+    enemies.push({ name: name, atk: atk, hp: hp, maxHp: hp, def: def, isBoss: isBoss, alive: true, buffs: [], debuffs: [], counterFlag: false, counterMult: 0 });
   }
   return enemies;
 };
@@ -94,7 +94,9 @@ Game.startBattle = function(stageId) {
       teamChars.push({
         id: s.id, name: s.name, atk: finalAtk, hp: finalHp, def: finalDef, spd: s.spd,
         maxHp: finalHp, currentHp: finalHp, alive: true,
-        skillName: s.skillName, skillDesc: s.skillDesc, skillMult: s.skillMult, skillTarget: s.skillTarget, rarity: s.rarity
+        skillName: s.skillName, skillDesc: s.skillDesc, skillMult: s.skillMult,
+        skillTarget: s.skillTarget, skillType: s.skillType, rarity: s.rarity,
+        buffs: [], debuffs: [], counterFlag: false, counterMult: 0
       });
     }
   }
@@ -182,6 +184,61 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
     setTimeout(function() { el.remove(); }, 800);
   }
 
+  // Buff/debuff effective stat helpers
+  function getEffectiveAtk(unit) {
+    var base = unit.atk;
+    var mult = 1;
+    (unit.buffs || []).forEach(function(b) { if (b.stat === 'atk') mult += b.amount; });
+    (unit.debuffs || []).forEach(function(d) { if (d.stat === 'atk') mult -= d.amount; });
+    return Math.max(1, Math.floor(base * Math.max(0.1, mult)));
+  }
+  function getEffectiveDef(unit) {
+    var base = unit.def;
+    var mult = 1;
+    (unit.buffs || []).forEach(function(b) { if (b.stat === 'def') mult += b.amount; });
+    (unit.debuffs || []).forEach(function(d) { if (d.stat === 'def') mult -= d.amount; });
+    return Math.max(0, Math.floor(base * Math.max(0, mult)));
+  }
+
+  // Tick down buffs/debuffs at turn start
+  function tickBuffsDebuffs() {
+    var allCombatants = allies.concat(enemies);
+    allCombatants.forEach(function(u) {
+      if (u.buffs) {
+        u.buffs.forEach(function(b) { b.turns--; });
+        u.buffs = u.buffs.filter(function(b) { return b.turns > 0; });
+      }
+      if (u.debuffs) {
+        u.debuffs.forEach(function(d) { d.turns--; });
+        u.debuffs = u.debuffs.filter(function(d) { return d.turns > 0; });
+      }
+    });
+  }
+
+  // Parse buff/debuff from skill description
+  function parseSkillEffects(desc) {
+    var effects = [];
+    // ATK UP: "攻撃力30%UP" or "攻撃25%UP" or "ATK15%UP"
+    var atkUp = desc.match(/攻撃力?(\d+)%UP/i) || desc.match(/ATK(\d+)%UP/i);
+    if (atkUp) effects.push({ stat: 'atk', amount: parseInt(atkUp[1]) / 100, isBuff: true });
+    // DEF UP: "防御35%UP" or "DEF10%UP"
+    var defUp = desc.match(/防御(\d+)%UP/i) || desc.match(/DEF(\d+)%UP/i);
+    if (defUp) effects.push({ stat: 'def', amount: parseInt(defUp[1]) / 100, isBuff: true });
+    // ATK DOWN: "攻撃力20%DOWN" or "攻撃20%DOWN"
+    var atkDown = desc.match(/攻撃力?(\d+)%DOWN/i) || desc.match(/ATK(\d+)%DOWN/i);
+    if (atkDown) effects.push({ stat: 'atk', amount: parseInt(atkDown[1]) / 100, isBuff: false });
+    // DEF DOWN: "防御25%DOWN" or "DEF30%DOWN"
+    var defDown = desc.match(/防御(\d+)%DOWN/i) || desc.match(/DEF(\d+)%DOWN/i);
+    if (defDown) effects.push({ stat: 'def', amount: parseInt(defDown[1]) / 100, isBuff: false });
+    // HP drain: "HP10%減"
+    var hpDrain = desc.match(/HP(\d+)%減/);
+    if (hpDrain) effects.push({ stat: 'hpDrain', amount: parseInt(hpDrain[1]) / 100 });
+    // HP recovery: "HP(\d+)%回復"
+    var hpHeal = desc.match(/HP(\d+)%回復/);
+    if (hpHeal) effects.push({ stat: 'hpHeal', amount: parseInt(hpHeal[1]) / 100 });
+    return effects;
+  }
+
   // Sort by speed
   var allUnits = [];
   allies.forEach(function(a, i) { allUnits.push({ unit: a, idx: i, isAlly: true }); });
@@ -191,6 +248,10 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
     while (true) {
       turn++;
       if (turn > 50) break;
+
+      // Tick buffs/debuffs (skip turn 1)
+      if (turn > 1) tickBuffsDebuffs();
+
       addLog('--- ターン ' + turn + ' ---');
       await wait(200);
 
@@ -210,10 +271,15 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
           var target = livingEnemies[Math.floor(Math.random() * livingEnemies.length)];
           var targetIdx = enemies.indexOf(target);
           var useSkill = Math.random() < 0.3;
+          var unitAtk = getEffectiveAtk(unit);
 
           if (useSkill && unit.skillName) {
             var skillMult = unit.skillMult || 1.2;
-            if (unit.skillDesc && unit.skillDesc.indexOf('回復') >= 0) {
+            var sType = unit.skillType || 'damage';
+            var sDesc = unit.skillDesc || '';
+
+            // === HEAL ===
+            if (sType === 'heal' || sDesc.indexOf('回復') >= 0) {
               var healAmt = Math.floor(unit.maxHp * 0.1 * skillMult);
               allies.forEach(function(al, ai) {
                 if (al.alive) {
@@ -221,28 +287,199 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
                   spawnDmgNum(document.getElementById('ally-' + ai), healAmt, 'heal');
                 }
               });
+              // Check for additional buff effects in heal skills
+              var healEffects = parseSkillEffects(sDesc);
+              healEffects.forEach(function(eff) {
+                if (eff.isBuff) {
+                  allies.forEach(function(al) {
+                    if (al.alive) al.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                  });
+                }
+              });
               addLog(unit.name + 'の【' + unit.skillName + '】発動！ 味方全体' + healAmt + '回復！', 'heal');
               Game.playSound('medal');
-            } else if (unit.skillTarget === 'all_enemy' || (unit.skillDesc && unit.skillDesc.indexOf('全体') >= 0)) {
-              var dmg = Math.floor(unit.atk * skillMult * 0.8);
+
+            // === BUFF ===
+            } else if (sType === 'buff') {
+              var buffEffects = parseSkillEffects(sDesc);
+              var buffTexts = [];
+              buffEffects.forEach(function(eff) {
+                if (eff.stat === 'hpDrain') {
+                  // HP drain side effect (董卓、孫皓、馬謖)
+                  allies.forEach(function(al, ai) {
+                    if (al.alive) {
+                      var drain = Math.floor(al.maxHp * eff.amount);
+                      al.currentHp = Math.max(1, al.currentHp - drain);
+                      spawnDmgNum(document.getElementById('ally-' + ai), drain, '');
+                    }
+                  });
+                  buffTexts.push('HP' + Math.round(eff.amount * 100) + '%減');
+                } else if (eff.isBuff) {
+                  allies.forEach(function(al) {
+                    if (al.alive) al.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                  });
+                  var statName = eff.stat === 'atk' ? '攻撃力' : '防御力';
+                  buffTexts.push(statName + Math.round(eff.amount * 100) + '%UP');
+                }
+              });
+              // If skill is 馬謖 style (self-KO + team buff), handle the self-KO
+              if (sDesc.indexOf('戦闘不能') >= 0) {
+                unit.currentHp = 0;
+                unit.alive = false;
+                buffTexts.push('自身戦闘不能');
+              }
+              addLog(unit.name + 'の【' + unit.skillName + '】発動！ ' + buffTexts.join('、') + '(3ターン)！', 'skill');
+              Game.playSound('medal');
+
+            // === DEBUFF ===
+            } else if (sType === 'debuff') {
+              var debuffEffects = parseSkillEffects(sDesc);
+              var debuffTexts = [];
+              var debuffTargets = (unit.skillTarget === 'all_enemy' || unit.skillTarget === 'all' || sDesc.indexOf('敵全体') >= 0)
+                ? livingEnemies : [target];
+              debuffEffects.forEach(function(eff) {
+                if (eff.isBuff) {
+                  // Hybrid: buff allies too (司馬懿 etc)
+                  allies.forEach(function(al) {
+                    if (al.alive) al.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                  });
+                  var bStatName = eff.stat === 'atk' ? '攻撃力' : '防御力';
+                  debuffTexts.push('味方' + bStatName + Math.round(eff.amount * 100) + '%UP');
+                } else if (eff.stat !== 'hpDrain' && eff.stat !== 'hpHeal') {
+                  debuffTargets.forEach(function(t) {
+                    t.debuffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                  });
+                  var statName = eff.stat === 'atk' ? '攻撃力' : '防御力';
+                  debuffTexts.push(statName + Math.round(eff.amount * 100) + '%DOWN');
+                }
+              });
+              // Some debuffs also deal damage (陸遜 etc)
+              if (sDesc.indexOf('ダメージ') >= 0) {
+                var dmg = Math.floor(unitAtk * skillMult * 0.8);
+                debuffTargets.forEach(function(t) {
+                  var actualDmg = Math.max(1, dmg - getEffectiveDef(t) * 0.3);
+                  t.hp -= actualDmg;
+                  spawnDmgNum(document.getElementById('enemy-' + enemies.indexOf(t)), actualDmg, 'skill');
+                });
+                debuffTexts.push(dmg + 'ダメージ');
+              }
+              // Stun effect: "行動不能" (貂蝉)
+              if (sDesc.indexOf('行動不能') >= 0) {
+                debuffTargets.forEach(function(t) {
+                  t.debuffs.push({ stat: 'stun', amount: 1, turns: 2 });
+                });
+                debuffTexts.push('行動不能');
+              }
+              var targetText = debuffTargets.length > 1 ? '敵全体' : target.name;
+              addLog(unit.name + 'の【' + unit.skillName + '】発動！ ' + targetText + 'の' + debuffTexts.join('、') + '(3ターン)！', 'skill');
+              Game.playSound('hit');
+
+            // === COUNTER ===
+            } else if (sType === 'counter') {
+              unit.counterFlag = true;
+              unit.counterMult = skillMult;
+              // Counter skills may also buff DEF
+              var counterEffects = parseSkillEffects(sDesc);
+              counterEffects.forEach(function(eff) {
+                if (eff.isBuff) {
+                  unit.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                }
+              });
+              addLog(unit.name + 'の【' + unit.skillName + '】発動！ <span style="color:#ff9800">反撃態勢！</span>', 'skill');
+              Game.playSound('medal');
+
+            // === RANDOM (左慈) ===
+            } else if (sType === 'random') {
+              var roll = Math.random();
+              if (roll < 0.33) {
+                // ATK big buff
+                allies.forEach(function(al) { if (al.alive) al.buffs.push({ stat: 'atk', amount: 0.5, turns: 3 }); });
+                addLog(unit.name + 'の【' + unit.skillName + '】発動！ <span style="color:#ffd700">味方全体攻撃力50%UP！</span>', 'skill');
+              } else if (roll < 0.66) {
+                // Big heal
+                var healAmt = Math.floor(unit.maxHp * 0.2 * skillMult);
+                allies.forEach(function(al, ai) {
+                  if (al.alive) {
+                    al.currentHp = Math.min(al.maxHp, al.currentHp + healAmt);
+                    spawnDmgNum(document.getElementById('ally-' + ai), healAmt, 'heal');
+                  }
+                });
+                addLog(unit.name + 'の【' + unit.skillName + '】発動！ <span style="color:#4caf50">味方全体' + healAmt + '回復！</span>', 'heal');
+              } else {
+                // Enemy DEF big down
+                livingEnemies.forEach(function(e) { e.debuffs.push({ stat: 'def', amount: 0.3, turns: 3 }); });
+                addLog(unit.name + 'の【' + unit.skillName + '】発動！ <span style="color:#9c27b0">敵全体防御30%DOWN！</span>', 'skill');
+              }
+              Game.playSound('medal');
+
+            // === MULTI TARGET DAMAGE ===
+            } else if (unit.skillTarget === 'multi') {
+              var targets = [];
+              var pool = livingEnemies.slice();
+              for (var ti = 0; ti < Math.min(2, pool.length); ti++) {
+                var picked = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+                targets.push(picked);
+              }
+              targets.forEach(function(t) {
+                var dmg = Math.floor(unitAtk * skillMult);
+                var actualDmg = Math.max(1, dmg - getEffectiveDef(t) * 0.3);
+                t.hp -= actualDmg;
+                spawnDmgNum(document.getElementById('enemy-' + enemies.indexOf(t)), actualDmg, 'skill');
+              });
+              addLog(unit.name + 'の【' + unit.skillName + '】発動！ ' + targets.length + '体に' + Math.floor(unitAtk * skillMult) + 'ダメージ！', 'skill');
+              Game.playSound('hit');
+
+            // === ALL ENEMY DAMAGE ===
+            } else if (unit.skillTarget === 'all_enemy' || sDesc.indexOf('敵全体') >= 0 || sDesc.indexOf('全体に') >= 0) {
+              var dmg = Math.floor(unitAtk * skillMult * 0.8);
               livingEnemies.forEach(function(e) {
-                var actualDmg = Math.max(1, dmg - e.def * 0.3);
+                var actualDmg = Math.max(1, dmg - getEffectiveDef(e) * 0.3);
                 e.hp -= actualDmg;
                 spawnDmgNum(document.getElementById('enemy-' + enemies.indexOf(e)), actualDmg, 'skill');
               });
+              // Check for additional buff/debuff effects on damage skills
+              var dmgEffects = parseSkillEffects(sDesc);
+              dmgEffects.forEach(function(eff) {
+                if (eff.isBuff) {
+                  allies.forEach(function(al) { if (al.alive) al.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 }); });
+                } else if (!eff.isBuff && eff.stat !== 'hpDrain' && eff.stat !== 'hpHeal') {
+                  livingEnemies.forEach(function(e) { e.debuffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 }); });
+                }
+              });
+              // Self-heal component (趙雲 etc)
+              if (sDesc.indexOf('自己HP') >= 0 || sDesc.indexOf('自身HP') >= 0) {
+                var selfHeal = Math.floor(unit.maxHp * 0.1);
+                unit.currentHp = Math.min(unit.maxHp, unit.currentHp + selfHeal);
+              }
               addLog(unit.name + 'の【' + unit.skillName + '】発動！ 全体に' + dmg + 'ダメージ！', 'skill');
               Game.playSound('hit');
+
+            // === SINGLE TARGET DAMAGE (default) ===
             } else {
-              var dmg = Math.floor(unit.atk * skillMult);
-              var actualDmg = Math.max(1, dmg - target.def * 0.3);
+              var dmg = Math.floor(unitAtk * skillMult);
+              var actualDmg = Math.max(1, dmg - getEffectiveDef(target) * 0.3);
               target.hp -= actualDmg;
               spawnDmgNum(document.getElementById('enemy-' + targetIdx), actualDmg, 'skill');
+              // Self ATK buff on some single-target skills
+              var singleEffects = parseSkillEffects(sDesc);
+              singleEffects.forEach(function(eff) {
+                if (eff.isBuff && (sDesc.indexOf('自身') >= 0 || sDesc.indexOf('自己') >= 0)) {
+                  unit.buffs.push({ stat: eff.stat, amount: eff.amount, turns: 3 });
+                }
+              });
+              // Self-heal component
+              if (sDesc.indexOf('自己HP') >= 0 || sDesc.indexOf('自身HP') >= 0) {
+                var selfHeal = Math.floor(unit.maxHp * 0.1 * skillMult);
+                unit.currentHp = Math.min(unit.maxHp, unit.currentHp + selfHeal);
+                spawnDmgNum(document.getElementById('ally-' + entry.idx), selfHeal, 'heal');
+              }
               addLog(unit.name + 'の【' + unit.skillName + '】発動！ ' + target.name + 'に' + actualDmg + 'ダメージ！', 'skill');
               Game.playSound('hit');
             }
           } else {
-            var dmg = Math.floor(unit.atk * (0.85 + Math.random() * 0.3));
-            var actualDmg = Math.max(1, dmg - target.def * 0.5);
+            // Normal attack
+            var dmg = Math.floor(unitAtk * (0.85 + Math.random() * 0.3));
+            var actualDmg = Math.max(1, dmg - getEffectiveDef(target) * 0.5);
             var isCrit = Math.random() < 0.15;
             var finalDmg = isCrit ? Math.floor(actualDmg * 1.5) : actualDmg;
             target.hp -= finalDmg;
@@ -257,19 +494,38 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
 
         } else {
           // Enemy attacks
+          // Check for stun debuff
+          var isStunned = (unit.debuffs || []).some(function(d) { return d.stat === 'stun'; });
+          if (isStunned) {
+            addLog(unit.name + 'は行動不能！');
+            await wait(200);
+            continue;
+          }
+
           var livingAllies = allies.filter(function(a) { return a.alive; });
           if (livingAllies.length === 0) break;
           var target = livingAllies[Math.floor(Math.random() * livingAllies.length)];
           var targetIdx = allies.indexOf(target);
-          var dmg = Math.floor(unit.atk * (0.85 + Math.random() * 0.3));
-          var actualDmg = Math.max(1, dmg - target.def * 0.5);
+          var enemyAtk = getEffectiveAtk(unit);
+          var dmg = Math.floor(enemyAtk * (0.85 + Math.random() * 0.3));
+          var actualDmg = Math.max(1, dmg - getEffectiveDef(target) * 0.5);
           target.currentHp -= actualDmg;
           spawnDmgNum(document.getElementById('ally-' + targetIdx), actualDmg, '');
           addLog(unit.name + 'の攻撃！ ' + target.name + 'に' + actualDmg + 'ダメージ！');
           Game.playSound('hit');
 
+          // Counter-attack check
+          if (target.counterFlag && target.alive && target.currentHp > 0) {
+            var counterDmg = Math.floor(getEffectiveAtk(target) * target.counterMult);
+            var counterActual = Math.max(1, counterDmg - getEffectiveDef(unit) * 0.3);
+            unit.hp -= counterActual;
+            spawnDmgNum(document.getElementById('enemy-' + enemies.indexOf(unit)), counterActual, 'skill');
+            addLog('<span style="color:#ff9800">' + target.name + 'の反撃！</span> ' + unit.name + 'に' + counterActual + 'ダメージ！', 'skill');
+          }
+
           if (target.currentHp <= 0) {
             target.currentHp = 0; target.alive = false;
+            target.counterFlag = false;
             addLog(target.name + 'が戦闘不能！', 'crit');
           }
         }

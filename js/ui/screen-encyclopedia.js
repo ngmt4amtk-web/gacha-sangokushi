@@ -251,6 +251,7 @@ Game.renderEncWeapons = function() {
         '</div>';
       if (ws.skillName) {
         html += '<div class="weapon-enc-skill">' + ws.skillName + '</div>';
+        html += '<div style="font-size:10px;color:var(--text2);margin-top:2px">' + (w.skillDesc || '') + '</div>';
       }
       if (ws.totsu > 0) {
         html += '<div style="font-size:10px;color:var(--gold)">' + ws.totsu + '凸</div>';

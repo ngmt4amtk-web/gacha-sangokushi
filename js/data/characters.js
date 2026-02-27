@@ -81,8 +81,8 @@ Game.CHARACTERS = [
   // 6: 董卓 (SR)
   {
     id:6, name:'董卓', title:'暴虐の太師', rarity:3, type:1, faction:3, chapter:1,
-    atk:160, hp:1200, def:100, spd:35,
-    skill:{ name:'暴虐の宴', desc:'味方全体攻撃25%UP+HP10%減', type:'buff', mult:1.25, target:'all_ally' },
+    atk:195, hp:1400, def:115, spd:35,
+    skill:{ name:'暴虐の宴', desc:'味方全体攻撃力25%UP+HP10%減', type:'buff', mult:1.25, target:'all_ally' },
     lore:{
       novel:'西涼の軍閥の長として漢の朝廷を牛耳り、少帝を廃して献帝を立てた暴君。洛陽を焼き払い長安に遷都する暴挙に、天下の諸侯が反旗を翻した。',
       history:'隴西臨洮の人。北方異民族との戦いで武功を積み、霊帝崩御の混乱に乗じて入京。相国を称して権力を掌握したが、初平三年に養子の呂布に殺された。'
@@ -192,7 +192,7 @@ Game.CHARACTERS = [
   {
     id:15, name:'陳宮', title:'義に殉ずる軍師', rarity:2, type:1, faction:3, chapter:2,
     atk:95, hp:850, def:60, spd:48,
-    skill:{ name:'命懸けの献策', desc:'敵全体の防御25%DOWN', type:'debuff', mult:1.0, target:'all_enemy' },
+    skill:{ name:'命懸けの献策', desc:'敵全体の防御30%DOWN+攻撃力10%DOWN(3ターン)', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
       novel:'呂布に仕えた軍師。曹操に捕らえられた際、降伏を勧められるも「仁義を知る者は二君に仕えぬ」と拒絶し、従容として死に臨んだ。',
       history:'東郡の人。初め曹操に従ったが離反し、呂布を迎えて徐州を奪取。下邳落城後、曹操の再三の勧告を退け処刑された。'
@@ -645,8 +645,8 @@ Game.CHARACTERS = [
   // 52: 司馬懿 (UR)
   {
     id:52, name:'司馬懿', title:'冢虎', rarity:5, type:1, faction:1, chapter:7,
-    atk:270, hp:2300, def:170, spd:48,
-    skill:{ name:'冢虎の深淵', desc:'敵全体の能力を20%封印+攻撃力160%ダメージ', type:'damage', mult:1.6, target:'all_enemy' },
+    atk:240, hp:2800, def:200, spd:42,
+    skill:{ name:'冢虎の深淵', desc:'味方全体防御35%UP+敵全体攻撃力20%DOWN(3ターン)', type:'debuff', mult:1.0, target:'all' },
     lore:{
       novel:'「狼顧の相」を持つ魏の最高参謀。諸葛亮の北伐を五度にわたり退け、空城の計にすら動じなかった忍耐の化身。最後に天下を手にしたのは、この冢虎であった。',
       history:'河内温県の人。曹操に仕え、曹丕・曹叡・曹芳の三代に重用された。高平陵の変で曹爽を排除し、魏の実権を掌握。晋王朝の基礎を築いた。'
