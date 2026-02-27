@@ -1,7 +1,7 @@
 // ======== GACHA SYSTEM ========
 window.Game = window.Game || {};
 
-// Rates: N=45%, R=35%, SR=18.3%, SSR=1.5%, UR=0.2%
+// Rates: N=45%, R=35%, SR=18.4%, SSR=1.5%, UR=0.1%
 // Pity at 80, soft pity from 65
 
 Game.doGachaPull = function() {
@@ -19,7 +19,7 @@ Game.doGachaPull = function() {
   else if (g.pity >= 65) {
     var bonus = (g.pity - 64) * 0.04;
     var roll = Math.random();
-    if (roll < (0.002 + bonus)) { rarity = 5; g.pity = 0; } // UR
+    if (roll < (0.001 + bonus)) { rarity = 5; g.pity = 0; } // UR
     else if (roll < (0.018 + bonus * 2)) { rarity = 4; g.pity = 0; } // SSR
     else if (roll < 0.200) rarity = 3; // SR
     else if (roll < 0.550) rarity = 2; // R
@@ -27,7 +27,7 @@ Game.doGachaPull = function() {
   }
   else {
     var roll = Math.random();
-    if (roll < 0.002) { rarity = 5; g.pity = 0; } // UR 0.2%
+    if (roll < 0.001) { rarity = 5; g.pity = 0; } // UR 0.1%
     else if (roll < 0.018) { rarity = 4; g.pity = 0; } // SSR 1.5%
     else if (roll < 0.200) rarity = 3; // SR 18.2%
     else if (roll < 0.550) rarity = 2; // R 35%
@@ -58,7 +58,8 @@ Game.processGachaPull = function(charId) {
     g.owned[charId].count++;
     g.owned[charId].totsu++;
   }
-  if (Game.CHARACTERS[charId] && Game.CHARACTERS[charId].rarity >= 4) g.ssrPulled++;
+  var ch = Game.getChar(charId);
+  if (ch && ch.rarity >= 4) g.ssrPulled++;
   return { charId: charId, isNew: isNew };
 };
 
@@ -121,14 +122,16 @@ Game.doWeaponPull = function() {
     var sigRoll = Math.random();
     var sigCumul = 0;
     var sigRates = {1:0.00002, 2:0.000006, 3:0.000002, 4:0.000001, 5:0.0000002};
-    for (var sid = 0; sid < Game.CHARACTERS.length; sid++) {
-      if (!Game.SIGNATURE_ITEMS[sid]) continue;
-      if (Game.state.ownedSignatures[sid]) continue; // already owned
-      var sch = Game.CHARACTERS[sid];
+    for (var si = 0; si < Game.CHARACTERS.length; si++) {
+      var sch = Game.CHARACTERS[si];
+      if (!sch) continue;
+      var schId = sch.id;
+      if (!Game.SIGNATURE_ITEMS[schId]) continue;
+      if (Game.state.ownedSignatures[schId]) continue; // already owned
       sigCumul += sigRates[sch.rarity] || 0;
       if (sigRoll < sigCumul) {
-        Game.state.ownedSignatures[sid] = true;
-        signatureId = sid;
+        Game.state.ownedSignatures[schId] = true;
+        signatureId = schId;
         break;
       }
     }

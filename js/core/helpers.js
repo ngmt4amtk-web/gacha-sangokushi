@@ -12,7 +12,7 @@ Game.rarityClass = function(r) {
 };
 
 Game.getChar = function(id) {
-  return Game.CHARACTERS ? Game.CHARACTERS[id] : null;
+  return Game.CHAR_BY_ID ? Game.CHAR_BY_ID[id] : null;
 };
 
 Game.getCharStats = function(id) {

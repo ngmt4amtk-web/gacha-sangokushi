@@ -1,5 +1,5 @@
 // ======== CHARACTER DATABASE (正史準拠 v13) ========
-// 77 characters: 7 UR, 14 SSR, 27 SR, 22 R, 7 N
+// 77 characters: 7 UR, 15 SSR, 26 SR, 22 R, 7 N
 // All based on 正史三国志 (陳寿) and 晋書
 window.Game = window.Game || {};
 
@@ -216,10 +216,10 @@ Game.CHARACTERS = [
     voiceLine:'学問も武芸も、国のためにある',
     look:{skin:'#f0c8a0',hair:'topknot',hc:'#222',beard:'short',gear:'helmet',wpn:'spear',out:'#1565c0'}
   },
-  // 76: 曹操[若] (SR) ★NEW★
+  // 76: 曹操[若] (SSR) ★NEW★
   {
-    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:3, type:1, faction:1, chapter:3,
-    atk:165, hp:1200, def:100, spd:50,
+    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:4, type:1, faction:1, chapter:3,
+    atk:185, hp:1350, def:110, spd:52,
     skill:{ name:'唯才是挙', desc:'味方全体攻撃力20%UP(3ターン)+味方全体HP8%回復', type:'buff', mult:1.2, target:'all_ally' },
     lore:{
       novel:'宦官の家系に生まれながら乱世に名乗りを上げた若き曹孟徳。陳留で挙兵し、兗州を拠点に呂布・袁術と戦いながら群雄の中を駆け上がる。',
@@ -957,3 +957,7 @@ Game.CHARACTERS = [
     look:{skin:'#c0392b',hair:'long',hc:'#111',beard:'long',gear:'crown',wpn:'guandao',out:'#ffd700'}
   }
 ];
+
+// Build ID lookup map (array is sorted by chapter, not by ID)
+Game.CHAR_BY_ID = {};
+Game.CHARACTERS.forEach(function(c) { if (c) Game.CHAR_BY_ID[c.id] = c; });

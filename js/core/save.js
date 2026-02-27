@@ -48,7 +48,7 @@ Game.migrateV1 = function(old) {
   if (old.owned) {
     for (var id in old.owned) {
       var nid = parseInt(id);
-      if (nid < 40 && Game.CHARACTERS && Game.CHARACTERS[nid]) {
+      if (nid < 40 && Game.getChar(nid)) {
         g.owned[nid] = old.owned[id];
       }
     }

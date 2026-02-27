@@ -95,7 +95,7 @@ Game.startBattle = function(stageId) {
       var finalDef = Math.floor(s.def * (1 + defBonus));
       // Signature item: transfer boost info
       var sigBoost = null;
-      var charType = Game.CHARACTERS[id] ? Game.CHARACTERS[id].type : -1;
+      var charType = Game.getChar(id) ? Game.getChar(id).type : -1;
       if (s.hasSignature && Game.getSignatureBoost) {
         sigBoost = Game.getSignatureBoost(charType);
       }

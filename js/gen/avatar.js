@@ -51,7 +51,7 @@ Game.genAvatar = function(charId, sz) {
   if (Game.avatarCache[k]) return Game.avatarCache[k];
   var cv = document.createElement('canvas'); cv.width = cv.height = sz;
   var x = cv.getContext('2d');
-  var c = Game.CHARACTERS ? Game.CHARACTERS[charId] : null;
+  var c = Game.CHAR_BY_ID ? Game.CHAR_BY_ID[charId] : null;
   if (!c) return '';
   var rng = Game.seedRng(charId * 7919 + 42);
   var lk = c.look || Game.CHAR_LOOKS[charId] || Game.autoLook(c, rng);
