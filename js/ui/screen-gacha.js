@@ -49,7 +49,8 @@ Game.renderGacha = function() {
       '</div>';
 
     // Chapter pool info
-    html += '<div class="section-title">排出対象武将 (第' + g.currentChapter + '章まで)</div>';
+    var poolLabel = (g.ngPlusLevel || 0) >= 1 ? '排出対象武将 (全開放)' : '排出対象武将 (第' + g.currentChapter + '章まで)';
+    html += '<div class="section-title">' + poolLabel + '</div>';
     html += '<div class="char-grid">';
     pool.forEach(function(c) {
       var rc = Game.rarityClass(c.rarity);

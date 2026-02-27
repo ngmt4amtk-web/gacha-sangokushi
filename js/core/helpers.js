@@ -84,6 +84,9 @@ Game.getOwnedCount = function() {
 
 Game.getGachaPool = function() {
   if (!Game.CHARACTERS) return [];
+  if ((Game.state.ngPlusLevel || 0) >= 1) {
+    return Game.CHARACTERS.filter(function(c) { return c; });
+  }
   var chapter = Game.state.currentChapter;
   return Game.CHARACTERS.filter(function(c) {
     return c && c.chapter <= chapter;
