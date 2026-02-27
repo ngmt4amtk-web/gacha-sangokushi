@@ -34,7 +34,7 @@ Game.renderQuizChapterSelect = function() {
 
   // Chapter grid
   html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 4px">';
-  for (var ch = 1; ch <= 8; ch++) {
+  for (var ch = 1; ch <= Game.CHAPTERS.length; ch++) {
     var unlocked = ch <= g.currentChapter;
     var chData = Game.CHAPTERS ? Game.CHAPTERS[ch - 1] : null;
     var qCount = (Game.QUIZ_QUESTIONS && Game.QUIZ_QUESTIONS[ch]) ? Game.QUIZ_QUESTIONS[ch].length : 0;

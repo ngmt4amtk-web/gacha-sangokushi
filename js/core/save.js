@@ -11,6 +11,10 @@ Game.loadGame = function() {
     var d = localStorage.getItem(Game.SAVE_KEY);
     if (d) {
       var loaded = JSON.parse(d);
+      // Run migrations if save is older than current version
+      if (loaded.saveVersion && loaded.saveVersion < Game.SAVE_VERSION) {
+        loaded = Game.migrateSave(loaded);
+      }
       if (loaded.saveVersion === Game.SAVE_VERSION) {
         var def = Game.defaultState();
         for (var key in def) {
@@ -68,6 +72,34 @@ Game.migrateV1 = function(old) {
   Game.saveGame();
 };
 
+// --- Save Migrations ---
+Game.migrateSave = function(saved) {
+  // v11 → v12: 旧8章→新12章マイグレーション
+  if (saved.saveVersion < 12) {
+    var chapterMap = {1:2, 2:4, 3:5, 4:7, 5:9, 6:10, 7:11, 8:12};
+    var oldChapter = saved.currentChapter || 1;
+    saved.currentChapter = chapterMap[oldChapter] || oldChapter;
+
+    // 前の章のボスステージをクリア済みにする（新IDで）
+    // 各章のボスステージID: 1-6, 2-7, 3-8, 4-9, 5-10, 6-11, 7-12, 8-13, 9-14, 10-16, 11-18, 12-22
+    if (!saved.clearedStages) saved.clearedStages = {};
+    var bossIds = ['1-6','2-7','3-8','4-9','5-10','6-11','7-12','8-13','9-14','10-16','11-18','12-22'];
+    for (var i = 0; i < bossIds.length; i++) {
+      var chNum = parseInt(bossIds[i].split('-')[0]);
+      if (chNum < saved.currentChapter) {
+        saved.clearedStages[bossIds[i]] = true;
+      }
+    }
+
+    // クイズ履歴もリセット（章番号が変わるため）
+    saved.quizHistory = {};
+
+    saved.saveVersion = 12;
+  }
+
+  return saved;
+};
+
 Game.exportSave = function() {
   return btoa(JSON.stringify(Game.state));
 };
@@ -75,7 +107,15 @@ Game.exportSave = function() {
 Game.importSave = function(str) {
   try {
     var data = JSON.parse(atob(str));
+    // Run migrations if needed
+    if (data.saveVersion && data.saveVersion < Game.SAVE_VERSION) {
+      data = Game.migrateSave(data);
+    }
     if (data.saveVersion === Game.SAVE_VERSION) {
+      var def = Game.defaultState();
+      for (var key in def) {
+        if (!(key in data)) data[key] = def[key];
+      }
       Game.state = data;
       Game.saveGame();
       return true;

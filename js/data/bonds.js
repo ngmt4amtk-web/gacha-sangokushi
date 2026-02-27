@@ -4,7 +4,7 @@ window.Game = window.Game || {};
 Game.BONDS = [
   // ===== Sworn (5) =====
   {
-    id:0, name:'桃園の誓い', category:'sworn', chapter:1,
+    id:0, name:'桃園の誓い', category:'sworn', chapter:3,
     heroes:[0,1,2], minRequired:3,
     discoveryChance:0.15, isIF:false,
     effect:{ atk:0.25, hp:0.15, def:0.10 },
@@ -16,7 +16,7 @@ Game.BONDS = [
     hint:'寝則同床――三つの命が一つとなる'
   },
   {
-    id:1, name:'江東の虎', category:'sworn', chapter:2,
+    id:1, name:'江東の虎', category:'sworn', chapter:8,
     heroes:[4,17,26], minRequired:3,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.25, def:0.15 },
@@ -28,7 +28,7 @@ Game.BONDS = [
     hint:'虎が子を生み、子がまた虎を生む――長江を渡る血脈三代'
   },
   {
-    id:2, name:'五虎将', category:'sworn', chapter:5,
+    id:2, name:'五虎将', category:'sworn', chapter:7,
     heroes:[1,2,20,33,45], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.35, hp:0.10, def:0.05 },
@@ -40,7 +40,7 @@ Game.BONDS = [
     hint:'万人の敵と称された者たちの一巻'
   },
   {
-    id:3, name:'覇道の始まり', category:'sworn', chapter:1,
+    id:3, name:'覇道の始まり', category:'sworn', chapter:4,
     heroes:[3,12,13], minRequired:3,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.20 },
@@ -52,7 +52,7 @@ Game.BONDS = [
     hint:'陳留に旗あり――隻眼と双戟、覇者の礎となりし者たち'
   },
   {
-    id:4, name:'呉下の阿蒙', category:'sworn', chapter:6,
+    id:4, name:'呉下の阿蒙', category:'sworn', chapter:8,
     heroes:[26,47,22], minRequired:3,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.20, def:0.15 },
@@ -66,7 +66,7 @@ Game.BONDS = [
 
   // ===== Rival (5) =====
   {
-    id:5, name:'虎牢関の死闘', category:'rival', chapter:1,
+    id:5, name:'虎牢関の死闘', category:'rival', chapter:3,
     heroes:[7,1,2], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.40, hp:-0.10, def:0 },
@@ -78,7 +78,7 @@ Game.BONDS = [
     hint:'飛将と万人の敵が虎牢に会するとき'
   },
   {
-    id:6, name:'狼顧と臥龍', category:'rival', chapter:7,
+    id:6, name:'狼顧と臥龍', category:'rival', chapter:10,
     heroes:[36,52], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.30, hp:0.10, def:0.10 },
@@ -90,7 +90,7 @@ Game.BONDS = [
     hint:'五丈原の秋風に散りし星と、狼のごとく顧みる影'
   },
   {
-    id:7, name:'宿命の対峙', category:'rival', chapter:6,
+    id:7, name:'宿命の対峙', category:'rival', chapter:8,
     heroes:[1,47], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.25, hp:0.05, def:0.10 },
@@ -102,7 +102,7 @@ Game.BONDS = [
     hint:'白衣の船が大江を渡るとき、武聖の背後が崩れる'
   },
   {
-    id:8, name:'四世三公の矜持', category:'rival', chapter:1,
+    id:8, name:'四世三公の矜持', category:'rival', chapter:4,
     heroes:[8,3], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -114,7 +114,7 @@ Game.BONDS = [
     hint:'四世三公と宦官の孫――官渡の烽火が決する二つの道'
   },
   {
-    id:9, name:'北伐の宿敵', category:'rival', chapter:7,
+    id:9, name:'北伐の宿敵', category:'rival', chapter:11,
     heroes:[53,54], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.25, hp:0.10, def:0.05 },
@@ -128,7 +128,7 @@ Game.BONDS = [
 
   // ===== Strategic (5) =====
   {
-    id:10, name:'赤壁の炎', category:'strategic', chapter:3,
+    id:10, name:'赤壁の炎', category:'strategic', chapter:7,
     heroes:[36,21,37], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.45, hp:0, def:-0.10 },
@@ -140,7 +140,7 @@ Game.BONDS = [
     hint:'操軍の船は首尾相接す――炎を知る者を集めよ'
   },
   {
-    id:11, name:'五大謀臣', category:'strategic', chapter:4,
+    id:11, name:'五大謀臣', category:'strategic', chapter:8,
     heroes:[28,29,30,56,57], minRequired:3,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.20 },
@@ -152,7 +152,7 @@ Game.BONDS = [
     hint:'才策謀略、世の奇士――帷幄の中に座して三人を求めよ'
   },
   {
-    id:12, name:'三顧の礼', category:'strategic', chapter:5,
+    id:12, name:'三顧の礼', category:'strategic', chapter:7,
     heroes:[0,36,34], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.30, hp:0.15, def:0.05 },
@@ -164,7 +164,7 @@ Game.BONDS = [
     hint:'臥龍・鳳雛を得れば天下を得ると水鏡は言った――草廬の主と共に'
   },
   {
-    id:13, name:'美周郎', category:'strategic', chapter:3,
+    id:13, name:'美周郎', category:'strategic', chapter:5,
     heroes:[21,17], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.10, def:0.05 },
@@ -176,7 +176,7 @@ Game.BONDS = [
     hint:'総角の好み――喬公の二嬢を娶りし刎頸の友'
   },
   {
-    id:14, name:'夷陵の火計', category:'strategic', chapter:6,
+    id:14, name:'夷陵の火計', category:'strategic', chapter:9,
     heroes:[51,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -202,7 +202,7 @@ Game.BONDS = [
     hint:'侍婢と手戟と父子の名――鳳儀亭に月蝕が満ちる'
   },
   {
-    id:16, name:'泣いて馬謖を斬る', category:'betrayal', chapter:6,
+    id:16, name:'泣いて馬謖を斬る', category:'betrayal', chapter:10,
     heroes:[36,48], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:-0.05, def:0 },
@@ -214,7 +214,7 @@ Game.BONDS = [
     hint:'山に依りて水を失い、涙は法の前に乾く'
   },
   {
-    id:17, name:'反骨の相', category:'betrayal', chapter:5,
+    id:17, name:'反骨の相', category:'betrayal', chapter:7,
     heroes:[43,36], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:-0.05, def:0 },
@@ -228,7 +228,7 @@ Game.BONDS = [
 
   // ===== Family (3) =====
   {
-    id:18, name:'曹家一門', category:'family', chapter:4,
+    id:18, name:'曹家一門', category:'family', chapter:9,
     heroes:[3,12,50], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.25 },
@@ -240,7 +240,7 @@ Game.BONDS = [
     hint:'同車に語るを許され、禅譲に手を伸ばした血族の三つの意志'
   },
   {
-    id:19, name:'孫家三代', category:'family', chapter:3,
+    id:19, name:'孫家三代', category:'family', chapter:8,
     heroes:[4,17,26], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.25, def:0.15 },
@@ -252,7 +252,7 @@ Game.BONDS = [
     hint:'長江の険に三代の虎が吼える――父は拓き、兄は広げ、弟は守る'
   },
   {
-    id:20, name:'蜀漢の継承', category:'family', chapter:8,
+    id:20, name:'蜀漢の継承', category:'family', chapter:11,
     heroes:[0,36,53,63], minRequired:3,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -266,7 +266,7 @@ Game.BONDS = [
 
   // ===== IF/NG+ (4) =====
   {
-    id:21, name:'もう一つの赤壁', category:'if', chapter:5,
+    id:21, name:'もう一つの赤壁', category:'if', chapter:7,
     heroes:[36,21,3], minRequired:3,
     discoveryChance:0.05, isIF:true,
     effect:{ atk:0.40, hp:0.10, def:0.10 },
@@ -278,7 +278,7 @@ Game.BONDS = [
     hint:'赤壁の炎が敵ではなく味方を照らしたならば'
   },
   {
-    id:22, name:'天下三分の夢', category:'if', chapter:7,
+    id:22, name:'天下三分の夢', category:'if', chapter:8,
     heroes:[0,3,26], minRequired:3,
     discoveryChance:0.05, isIF:true,
     effect:{ atk:0.15, hp:0.30, def:0.15 },
@@ -290,7 +290,7 @@ Game.BONDS = [
     hint:'三つの天命が争わず一つの御座を支えたならば'
   },
   {
-    id:23, name:'乱世の覇者たち', category:'if', chapter:8,
+    id:23, name:'乱世の覇者たち', category:'if', chapter:12,
     heroes:[7,52,60], minRequired:3,
     discoveryChance:0.03, isIF:true,
     effect:{ atk:0.50, hp:0.10, def:0.10 },
@@ -302,7 +302,7 @@ Game.BONDS = [
     hint:'飛将の膂力、狼顧の忍、統一の冠――三つの時が交わるとき'
   },
   {
-    id:24, name:'歴史を超えた絆', category:'if', chapter:8,
+    id:24, name:'歴史を超えた絆', category:'if', chapter:12,
     heroes:[44,36,52,60], minRequired:4,
     discoveryChance:0.02, isIF:true,
     effect:{ atk:0.35, hp:0.25, def:0.20 },
@@ -328,7 +328,7 @@ Game.BONDS = [
     hint:'空の器が届いたとき、王佐の才は旧朝への忠に殉じた'
   },
   {
-    id:26, name:'敵陣の友誼', category:'sworn', chapter:3,
+    id:26, name:'敵陣の友誼', category:'sworn', chapter:8,
     heroes:[1,23], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:0.05, def:0.05 },
@@ -340,7 +340,7 @@ Game.BONDS = [
     hint:'厚恩は知れども義は背けず――封印して去った賜物の道'
   },
   {
-    id:27, name:'白帝の遺詔', category:'sworn', chapter:6,
+    id:27, name:'白帝の遺詔', category:'sworn', chapter:7,
     heroes:[0,36], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.10, hp:0.25, def:0.15 },
@@ -352,7 +352,7 @@ Game.BONDS = [
     hint:'君可自取――白帝に響いた四文字が千年を縛る'
   },
   {
-    id:28, name:'三馬同槽', category:'family', chapter:8,
+    id:28, name:'三馬同槽', category:'family', chapter:12,
     heroes:[52,60], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -366,7 +366,7 @@ Game.BONDS = [
 
   // ===== Synergy Bonds =====
   {
-    id:29, name:'背水の献策', category:'strategic', chapter:2,
+    id:29, name:'背水の献策', category:'strategic', chapter:3,
     heroes:[15,7], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.40, hp:-0.10, def:0 },
@@ -378,7 +378,7 @@ Game.BONDS = [
     hint:'下邳に散りし義の軍師と、二度主を弑した飛将の邂逅'
   },
   {
-    id:30, name:'定軍山の決戦', category:'rival', chapter:6,
+    id:30, name:'定軍山の決戦', category:'rival', chapter:7,
     heroes:[45,55], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:0, def:0.05 },
@@ -390,7 +390,7 @@ Game.BONDS = [
     hint:'定軍山を駆け下る老弓と、白地将軍と嘆かれた疾風の影'
   },
   {
-    id:31, name:'南蛮夫妻', category:'family', chapter:5,
+    id:31, name:'南蛮夫妻', category:'family', chapter:9,
     heroes:[39,40], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -402,7 +402,7 @@ Game.BONDS = [
     hint:'七擒七縦に折れぬ誇り――火神の血を引く刀と、王の膝'
   },
   {
-    id:32, name:'七擒七縦', category:'strategic', chapter:5,
+    id:32, name:'七擒七縦', category:'strategic', chapter:9,
     heroes:[36,39], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.20, def:0.20 },
@@ -414,7 +414,7 @@ Game.BONDS = [
     hint:'心を攻むるを上と為す――七度の縄と七度の赦し'
   },
   {
-    id:33, name:'毒士と暴君', category:'betrayal', chapter:4,
+    id:33, name:'毒士と暴君', category:'betrayal', chapter:8,
     heroes:[30,6], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.35, hp:-0.10, def:0 },
@@ -426,7 +426,7 @@ Game.BONDS = [
     hint:'一言で長安を地獄に変えた毒舌と、その最初の主'
   },
   {
-    id:34, name:'魏の鉄壁', category:'sworn', chapter:8,
+    id:34, name:'魏の鉄壁', category:'sworn', chapter:10,
     heroes:[65,52], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:-0.10, hp:0.25, def:0.35 },
@@ -450,7 +450,7 @@ Game.BONDS = [
     hint:'偽降の船に火種を積み、三代に仕えし老将が走る'
   },
   {
-    id:36, name:'老将の誇り', category:'sworn', chapter:6,
+    id:36, name:'老将の誇り', category:'sworn', chapter:7,
     heroes:[45,49], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.10, def:0.15 },
@@ -462,7 +462,7 @@ Game.BONDS = [
     hint:'断頭将軍と百歩穿楊――白髪に宿る矜持の共鳴'
   },
   {
-    id:37, name:'神医の恩', category:'strategic', chapter:2,
+    id:37, name:'神医の恩', category:'strategic', chapter:4,
     heroes:[18,3], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.10, hp:0.30, def:0.10 },
@@ -474,7 +474,7 @@ Game.BONDS = [
     hint:'頭風の苦に鍼を刺す者――獄中に灰と消えた医書の主'
   },
   {
-    id:38, name:'蜀の双璧策士', category:'strategic', chapter:4,
+    id:38, name:'蜀の双璧策士', category:'strategic', chapter:7,
     heroes:[34,46], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0, def:-0.10 },
@@ -486,7 +486,7 @@ Game.BONDS = [
     hint:'鳳雛は雒城に散り、孝直ありせばと丞相が嘆く――二つの翼'
   },
   {
-    id:39, name:'禅譲の系譜', category:'family', chapter:8,
+    id:39, name:'禅譲の系譜', category:'family', chapter:12,
     heroes:[50,60], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.10 },
@@ -498,7 +498,7 @@ Game.BONDS = [
     hint:'禅譲の詔書は二度書かれた――受けた者がまた渡す皮肉'
   },
   {
-    id:40, name:'合肥の衝撃', category:'rival', chapter:3,
+    id:40, name:'合肥の衝撃', category:'rival', chapter:8,
     heroes:[23,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:-0.05, def:0.05 },
@@ -510,7 +510,7 @@ Game.BONDS = [
     hint:'遼来来――その喊声に啼く子も黙る、八百対十万の衝撃'
   },
   {
-    id:41, name:'蜀の矛と盾', category:'sworn', chapter:5,
+    id:41, name:'蜀の矛と盾', category:'sworn', chapter:7,
     heroes:[43,20], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:0.05, def:0.05 },
@@ -536,7 +536,7 @@ Game.BONDS = [
     hint:'蒼天已に死す――黄天の旗を掲げし兄弟の残影'
   },
   {
-    id:43, name:'同門の絆', category:'sworn', chapter:1,
+    id:43, name:'同門の絆', category:'sworn', chapter:3,
     heroes:[9,0], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -548,7 +548,7 @@ Game.BONDS = [
     hint:'盧植の門に同じく学びし者たち――白馬と草鞋の道'
   },
   {
-    id:44, name:'汜水関の猛威', category:'rival', chapter:1,
+    id:44, name:'汜水関の猛威', category:'rival', chapter:2,
     heroes:[10,7], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.35, hp:-0.05, def:0 },
@@ -572,7 +572,7 @@ Game.BONDS = [
     hint:'四世三公の血が二つに裂け――一方は僭帝し蜜を求めて死す'
   },
   {
-    id:46, name:'仙道の邂逅', category:'sworn', chapter:3,
+    id:46, name:'仙道の邂逅', category:'sworn', chapter:9,
     heroes:[19,27], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.10, hp:0.20, def:0.15 },
@@ -584,7 +584,7 @@ Game.BONDS = [
     hint:'符水と幻術――覇者を惑わす仙の道を歩む者たち'
   },
   {
-    id:47, name:'小覇王と義将', category:'sworn', chapter:3,
+    id:47, name:'小覇王と義将', category:'sworn', chapter:6,
     heroes:[24,17], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -596,7 +596,7 @@ Game.BONDS = [
     hint:'一騎討ちの末に縄を解き、信じて帰した者と帰った者'
   },
   {
-    id:48, name:'錦帆の勇', category:'sworn', chapter:3,
+    id:48, name:'錦帆の勇', category:'sworn', chapter:8,
     heroes:[25,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.15 },
@@ -620,7 +620,7 @@ Game.BONDS = [
     hint:'勇冠三軍と称されながら白馬に散った河北の二つ星'
   },
   {
-    id:50, name:'漢臣の矜持', category:'sworn', chapter:4,
+    id:50, name:'漢臣の矜持', category:'sworn', chapter:6,
     heroes:[35,0], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.10, hp:0.20, def:0.15 },
@@ -656,7 +656,7 @@ Game.BONDS = [
     hint:'胡笳十八拍――異郷に子を残し、金璧に贖われた才女の涙'
   },
   {
-    id:53, name:'弓腰姫', category:'family', chapter:5,
+    id:53, name:'弓腰姫', category:'family', chapter:6,
     heroes:[42,0], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.10, hp:0.20, def:0.20 },
@@ -668,7 +668,7 @@ Game.BONDS = [
     hint:'侍婢百人が刀を執る寝室――虎の妹が嫁いだ仁の陣営'
   },
   {
-    id:54, name:'呉の柱石', category:'sworn', chapter:7,
+    id:54, name:'呉の柱石', category:'sworn', chapter:10,
     heroes:[58,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -680,7 +680,7 @@ Game.BONDS = [
     hint:'驢馬に「之子」と書き加えた神童――才が驕りに変わるとき'
   },
   {
-    id:55, name:'天機の占', category:'strategic', chapter:7,
+    id:55, name:'天機の占', category:'strategic', chapter:10,
     heroes:[59,52], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.20 },
@@ -692,7 +692,7 @@ Game.BONDS = [
     hint:'天機を読む者と天機を動かす者――高平陵に卦は成就す'
   },
   {
-    id:56, name:'襄陽の遺志', category:'sworn', chapter:8,
+    id:56, name:'襄陽の遺志', category:'sworn', chapter:12,
     heroes:[61,62], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -704,7 +704,7 @@ Game.BONDS = [
     hint:'峴山の石に涙し、その遺志を継いだ者が天下を一つにする'
   },
   {
-    id:57, name:'破竹の勢い', category:'strategic', chapter:8,
+    id:57, name:'破竹の勢い', category:'strategic', chapter:12,
     heroes:[62,60], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.10, def:0.10 },
@@ -716,7 +716,7 @@ Game.BONDS = [
     hint:'破竹の如く数節を割れば後は自ら解く――統一への最後の一手'
   },
   {
-    id:58, name:'二士争功', category:'betrayal', chapter:8,
+    id:58, name:'二士争功', category:'betrayal', chapter:11,
     heroes:[64,54], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.35, hp:-0.10, def:0 },
@@ -728,7 +728,7 @@ Game.BONDS = [
     hint:'剣閣と陰平、二つの道から国を滅ぼした者たちの骨肉の末路'
   },
   {
-    id:59, name:'亡国の主', category:'family', chapter:8,
+    id:59, name:'亡国の主', category:'family', chapter:12,
     heroes:[66,63], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.05, hp:0.25, def:0.20 },
@@ -740,7 +740,7 @@ Game.BONDS = [
     hint:'安楽を思い故国を忘れた宴と暴虐の宴――二つの亡国が辿る異なる黄昏'
   },
   {
-    id:60, name:'白眉の才', category:'strategic', chapter:8,
+    id:60, name:'白眉の才', category:'strategic', chapter:9,
     heroes:[67,36], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -754,7 +754,7 @@ Game.BONDS = [
 
   // ===== Second-bond additions (8 bonds, IDs 61-68) =====
   {
-    id:61, name:'猛虎と刺客', category:'sworn', chapter:2,
+    id:61, name:'猛虎と刺客', category:'sworn', chapter:4,
     heroes:[13,3], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -766,7 +766,7 @@ Game.BONDS = [
     hint:'張繍の宴に双戟が折れ、門に仁王立ちの壮士が散る'
   },
   {
-    id:62, name:'温酒斬華雄', category:'rival', chapter:1,
+    id:62, name:'温酒斬華雄', category:'rival', chapter:3,
     heroes:[10,1], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.35, hp:-0.05, def:0 },
@@ -778,7 +778,7 @@ Game.BONDS = [
     hint:'酒、尚温かなるうちに――馬弓手が一閃で名を上げた刻'
   },
   {
-    id:63, name:'蜀漢の老兵', category:'sworn', chapter:6,
+    id:63, name:'蜀漢の老兵', category:'sworn', chapter:7,
     heroes:[11,45], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -790,7 +790,7 @@ Game.BONDS = [
     hint:'乱を始めし地公の旗と、山城に定めし老弓の一矢'
   },
   {
-    id:64, name:'書生大都督', category:'strategic', chapter:6,
+    id:64, name:'書生大都督', category:'strategic', chapter:9,
     heroes:[51,47], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.15 },
@@ -802,7 +802,7 @@ Game.BONDS = [
     hint:'師が推した書生の名は長江を覆い、五十余営を焼く炎となる'
   },
   {
-    id:65, name:'合肥の双壁', category:'rival', chapter:3,
+    id:65, name:'合肥の双壁', category:'rival', chapter:8,
     heroes:[55,23], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.05, def:0.10 },
@@ -814,7 +814,7 @@ Game.BONDS = [
     hint:'三日五百里の疾風と、八百で十万を破った雷――東西の守護者'
   },
   {
-    id:66, name:'入蜀の策', category:'strategic', chapter:4,
+    id:66, name:'入蜀の策', category:'strategic', chapter:6,
     heroes:[33,34], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.05, def:0.15 },
@@ -826,7 +826,7 @@ Game.BONDS = [
     hint:'雒城に散りし鳳雛の策と、成都を震わせた西涼の威名'
   },
   {
-    id:67, name:'魏の知恵袋', category:'strategic', chapter:7,
+    id:67, name:'魏の知恵袋', category:'strategic', chapter:4,
     heroes:[56,29], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -838,7 +838,7 @@ Game.BONDS = [
     hint:'潁川の叔父と甥――王佐の大略と十二の密策'
   },
   {
-    id:68, name:'晋の統一戦', category:'sworn', chapter:8,
+    id:68, name:'晋の統一戦', category:'sworn', chapter:12,
     heroes:[61,62,60], minRequired:3,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.15 },
@@ -851,7 +851,7 @@ Game.BONDS = [
   },
   // === Additional bonds (69-83) for full 2-bond coverage ===
   {
-    id:69, name:'方術の系譜', category:'sworn', chapter:1,
+    id:69, name:'方術の系譜', category:'sworn', chapter:9,
     heroes:[5,27], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.08, hp:0.10 },
@@ -863,7 +863,7 @@ Game.BONDS = [
     hint:'太平の道と仙境の術――天の理を異なる道から求めた二人'
   },
   {
-    id:70, name:'界橋の死闘', category:'rival', chapter:1,
+    id:70, name:'界橋の死闘', category:'rival', chapter:4,
     heroes:[9,31], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.12, def:0.08 },
@@ -875,7 +875,7 @@ Game.BONDS = [
     hint:'白馬の旗が翻る橋上で、河北の猛将が立ちはだかる'
   },
   {
-    id:71, name:'傾城の華', category:'sworn', chapter:2,
+    id:71, name:'傾城の華', category:'sworn', chapter:5,
     heroes:[14,38], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ hp:0.12, def:0.08 },
@@ -887,7 +887,7 @@ Game.BONDS = [
     hint:'一人は連環に身を投じ、一人は東南の風と共に――乱世に咲いた二輪の花'
   },
   {
-    id:72, name:'去留の岐路', category:'betrayal', chapter:2,
+    id:72, name:'去留の岐路', category:'betrayal', chapter:4,
     heroes:[15,28], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.10, hp:0.08 },
@@ -899,7 +899,7 @@ Game.BONDS = [
     hint:'一つの旗を見て去った者と留まった者――知略は同じ、信の置き所が違った'
   },
   {
-    id:73, name:'四世三公の残照', category:'family', chapter:2,
+    id:73, name:'四世三公の残照', category:'family', chapter:4,
     heroes:[16,32], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.08, def:0.10 },
@@ -911,7 +911,7 @@ Game.BONDS = [
     hint:'四代にわたる公卿の家名を背負い、一人は璽に溺れ、一人は白馬に散った'
   },
   {
-    id:74, name:'乱世の遺才', category:'sworn', chapter:2,
+    id:74, name:'乱世の遺才', category:'sworn', chapter:5,
     heroes:[18,41], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ hp:0.15 },
@@ -923,7 +923,7 @@ Game.BONDS = [
     hint:'五禽の術で身体を癒す者と、胡笳の音で魂を綴る者'
   },
   {
-    id:75, name:'天意を聴く者', category:'sworn', chapter:3,
+    id:75, name:'天意を聴く者', category:'sworn', chapter:10,
     heroes:[19,59], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ atk:0.06, hp:0.10, def:0.06 },
@@ -935,7 +935,7 @@ Game.BONDS = [
     hint:'神水を施す者と星を読む者――天の声を聴いた二人の異能'
   },
   {
-    id:76, name:'大局の眼', category:'strategic', chapter:3,
+    id:76, name:'大局の眼', category:'strategic', chapter:5,
     heroes:[22,57], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.08, def:0.10 },
@@ -947,7 +947,7 @@ Game.BONDS = [
     hint:'東南に王業を説く者と、中原で十策を献ずる者――視座の高さだけが同じ'
   },
   {
-    id:77, name:'義侠の士', category:'sworn', chapter:3,
+    id:77, name:'義侠の士', category:'sworn', chapter:6,
     heroes:[24,25], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.12, hp:0.06 },
@@ -959,7 +959,7 @@ Game.BONDS = [
     hint:'弓の名手が義に殉じ、鈴の侠客が夜を切り裂く――型破りの武が東方に轟く'
   },
   {
-    id:78, name:'忠節の果て', category:'sworn', chapter:4,
+    id:78, name:'忠節の果て', category:'sworn', chapter:9,
     heroes:[35,67], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ hp:0.10, def:0.10 },
@@ -971,7 +971,7 @@ Game.BONDS = [
     hint:'退路を断たれた忠と、炎の中に散った才――天のみが報いなかった'
   },
   {
-    id:79, name:'武の女傑', category:'sworn', chapter:5,
+    id:79, name:'武の女傑', category:'sworn', chapter:9,
     heroes:[40,42], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ atk:0.10, hp:0.08 },
@@ -983,7 +983,7 @@ Game.BONDS = [
     hint:'南方の炎と東方の弓弦――武を纏い、乱世の男たちに退かなかった'
   },
   {
-    id:80, name:'義烈の魂', category:'sworn', chapter:6,
+    id:80, name:'義烈の魂', category:'sworn', chapter:8,
     heroes:[44,49], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ atk:0.15, def:0.08 },
@@ -995,7 +995,7 @@ Game.BONDS = [
     hint:'千里を走る忠義と、首を刎ねよと叫ぶ矜持――敵すら膝を折る気概'
   },
   {
-    id:81, name:'才幹と慢心', category:'strategic', chapter:6,
+    id:81, name:'才幹と慢心', category:'strategic', chapter:10,
     heroes:[46,48], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.10, hp:0.06 },
@@ -1007,7 +1007,7 @@ Game.BONDS = [
     hint:'恩讐を忘れぬ策士と山上に登った参謀――才は同じ、戒めが違った'
   },
   {
-    id:82, name:'老臣の壁', category:'sworn', chapter:7,
+    id:82, name:'老臣の壁', category:'sworn', chapter:10,
     heroes:[58,65], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ def:0.15, hp:0.08 },
@@ -1019,7 +1019,7 @@ Game.BONDS = [
     hint:'東方で筆を執る重鎮と、堅城を背に退かぬ武将――二つの柱が若き主を支えた'
   },
   {
-    id:83, name:'末路の暗転', category:'betrayal', chapter:8,
+    id:83, name:'末路の暗転', category:'betrayal', chapter:12,
     heroes:[64,66], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.10, hp:0.10 },

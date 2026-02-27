@@ -24,7 +24,7 @@ Game.checkChapterUnlock = function() {
   }
 };
 
-// New Game+ (覇道モード) on chapter 8 clear
+// New Game+ (覇道モード) on final chapter clear
 Game.checkNewGamePlus = function() {
   var g = Game.state;
   if (!Game.CHAPTERS) return;

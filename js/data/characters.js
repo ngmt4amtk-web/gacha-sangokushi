@@ -8,7 +8,7 @@ Game.CHARACTERS = [
   // ===== Chapter 1 (12): 黄巾の乱〜群雄割拠 =====
   // 0: 劉備 (SSR)
   {
-    id:0, name:'劉備', title:'漢中王', rarity:4, type:1, faction:0, chapter:1,
+    id:0, name:'劉備', title:'漢中王', rarity:4, type:1, faction:0, chapter:3,
     atk:195, hp:1600, def:110, spd:50,
     skill:{ name:'仁徳の絆', desc:'味方全体のHPを15%回復し攻撃力10%UP', type:'heal', mult:1.5, target:'all_ally' },
     lore:{
@@ -20,7 +20,7 @@ Game.CHARACTERS = [
   },
   // 1: 関羽 (SSR)
   {
-    id:1, name:'関羽', title:'武聖', rarity:4, type:0, faction:0, chapter:1,
+    id:1, name:'関羽', title:'武聖', rarity:4, type:0, faction:0, chapter:3,
     atk:240, hp:1400, def:120, spd:48,
     skill:{ name:'青龍偃月斬', desc:'敵単体に攻撃力200%ダメージ', type:'damage', mult:2.0, target:'single' },
     lore:{
@@ -32,7 +32,7 @@ Game.CHARACTERS = [
   },
   // 2: 張飛 (SR)
   {
-    id:2, name:'張飛', title:'燕人張飛', rarity:3, type:0, faction:0, chapter:1,
+    id:2, name:'張飛', title:'燕人張飛', rarity:3, type:0, faction:0, chapter:3,
     atk:185, hp:1100, def:85, spd:55,
     skill:{ name:'蛇矛乱舞', desc:'敵全体に攻撃力120%ダメージ', type:'damage', mult:1.2, target:'all_enemy' },
     lore:{
@@ -44,7 +44,7 @@ Game.CHARACTERS = [
   },
   // 3: 曹操 (SSR)
   {
-    id:3, name:'曹操', title:'治世の能臣', rarity:4, type:1, faction:1, chapter:1,
+    id:3, name:'曹操', title:'治世の能臣', rarity:4, type:1, faction:1, chapter:4,
     atk:220, hp:1500, def:125, spd:52,
     skill:{ name:'覇道の剣', desc:'味方全体の攻撃力30%UP(3ターン)', type:'buff', mult:1.3, target:'all_ally' },
     lore:{
@@ -56,7 +56,7 @@ Game.CHARACTERS = [
   },
   // 4: 孫堅 (SR)
   {
-    id:4, name:'孫堅', title:'江東の虎', rarity:3, type:0, faction:2, chapter:1,
+    id:4, name:'孫堅', title:'江東の虎', rarity:3, type:0, faction:2, chapter:3,
     atk:170, hp:1050, def:90, spd:58,
     skill:{ name:'猛虎の咆哮', desc:'敵単体に攻撃力150%ダメージ+自身ATK15%UP', type:'damage', mult:1.5, target:'single' },
     lore:{
@@ -80,7 +80,7 @@ Game.CHARACTERS = [
   },
   // 6: 董卓 (SR)
   {
-    id:6, name:'董卓', title:'暴虐の太師', rarity:3, type:1, faction:3, chapter:1,
+    id:6, name:'董卓', title:'暴虐の太師', rarity:3, type:1, faction:3, chapter:2,
     atk:195, hp:1400, def:115, spd:35,
     skill:{ name:'暴虐の宴', desc:'味方全体攻撃力25%UP+HP10%減', type:'buff', mult:1.25, target:'all_ally' },
     lore:{
@@ -92,7 +92,7 @@ Game.CHARACTERS = [
   },
   // 7: 呂布 (UR)
   {
-    id:7, name:'呂布', title:'飛将', rarity:5, type:0, faction:3, chapter:1,
+    id:7, name:'呂布', title:'飛将', rarity:5, type:0, faction:3, chapter:2,
     atk:290, hp:2000, def:130, spd:65,
     skill:{ name:'天下無双', desc:'敵単体に攻撃力250%ダメージ', type:'damage', mult:2.5, target:'single' },
     lore:{
@@ -104,7 +104,7 @@ Game.CHARACTERS = [
   },
   // 8: 袁紹 (R)
   {
-    id:8, name:'袁紹', title:'四世三公', rarity:2, type:1, faction:3, chapter:1,
+    id:8, name:'袁紹', title:'四世三公', rarity:2, type:1, faction:3, chapter:2,
     atk:100, hp:900, def:75, spd:40,
     skill:{ name:'名門の威光', desc:'味方全体攻撃力15%UP', type:'buff', mult:1.15, target:'all_ally' },
     lore:{
@@ -116,7 +116,7 @@ Game.CHARACTERS = [
   },
   // 9: 公孫瓚 (R)
   {
-    id:9, name:'公孫瓚', title:'白馬将軍', rarity:2, type:2, faction:3, chapter:1,
+    id:9, name:'公孫瓚', title:'白馬将軍', rarity:2, type:2, faction:3, chapter:2,
     atk:115, hp:830, def:60, spd:62,
     skill:{ name:'白馬義従', desc:'先制攻撃+攻撃力130%', type:'damage', mult:1.3, target:'single' },
     lore:{
@@ -154,7 +154,7 @@ Game.CHARACTERS = [
   // ===== Chapter 2 (8): 群雄割拠〜呂布の最期 =====
   // 12: 夏侯惇 (SR)
   {
-    id:12, name:'夏侯惇', title:'隻眼の猛将', rarity:3, type:0, faction:1, chapter:2,
+    id:12, name:'夏侯惇', title:'隻眼の猛将', rarity:3, type:0, faction:1, chapter:4,
     atk:175, hp:1150, def:95, spd:50,
     skill:{ name:'隻眼の怒り', desc:'被ダメージ時に反撃(攻撃力80%)', type:'counter', mult:0.8, target:'self' },
     lore:{
@@ -166,7 +166,7 @@ Game.CHARACTERS = [
   },
   // 13: 典韋 (SR)
   {
-    id:13, name:'典韋', title:'古の悪来', rarity:3, type:0, faction:1, chapter:2,
+    id:13, name:'典韋', title:'古の悪来', rarity:3, type:0, faction:1, chapter:3,
     atk:190, hp:1050, def:88, spd:45,
     skill:{ name:'悪来の双戟', desc:'敵単体に攻撃力170%ダメージ', type:'damage', mult:1.7, target:'single' },
     lore:{
@@ -190,7 +190,7 @@ Game.CHARACTERS = [
   },
   // 15: 陳宮 (R)
   {
-    id:15, name:'陳宮', title:'義に殉ずる軍師', rarity:2, type:1, faction:3, chapter:2,
+    id:15, name:'陳宮', title:'義に殉ずる軍師', rarity:2, type:1, faction:3, chapter:3,
     atk:95, hp:850, def:60, spd:48,
     skill:{ name:'命懸けの献策', desc:'敵全体の防御30%DOWN+攻撃力10%DOWN(3ターン)', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -214,7 +214,7 @@ Game.CHARACTERS = [
   },
   // 17: 孫策 (SSR)
   {
-    id:17, name:'孫策', title:'小覇王', rarity:4, type:0, faction:2, chapter:2,
+    id:17, name:'孫策', title:'小覇王', rarity:4, type:0, faction:2, chapter:3,
     atk:230, hp:1350, def:100, spd:63,
     skill:{ name:'覇王の突進', desc:'敵2体に攻撃力150%ダメージ', type:'damage', mult:1.5, target:'multi' },
     lore:{
@@ -226,7 +226,7 @@ Game.CHARACTERS = [
   },
   // 18: 華佗 (N)
   {
-    id:18, name:'華佗', title:'神医', rarity:1, type:1, faction:3, chapter:2,
+    id:18, name:'華佗', title:'神医', rarity:1, type:1, faction:3, chapter:1,
     atk:45, hp:700, def:50, spd:42,
     skill:{ name:'神医の術', desc:'味方全体HP12%回復+攻撃力8%UP', type:'heal', mult:1.12, target:'all_ally' },
     lore:{
@@ -238,7 +238,7 @@ Game.CHARACTERS = [
   },
   // 19: 于吉 (N)
   {
-    id:19, name:'于吉', title:'仙人', rarity:1, type:1, faction:3, chapter:2,
+    id:19, name:'于吉', title:'仙人', rarity:1, type:1, faction:3, chapter:1,
     atk:50, hp:750, def:52, spd:40,
     skill:{ name:'太平清領道', desc:'味方全体HP10%回復+蘇生30%', type:'heal', mult:1.1, target:'all_ally' },
     lore:{
@@ -252,7 +252,7 @@ Game.CHARACTERS = [
   // ===== Chapter 3 (8): 赤壁前夜〜三国鼎立 =====
   // 20: 趙雲 (SSR)
   {
-    id:20, name:'趙雲', title:'常山の龍', rarity:4, type:2, faction:0, chapter:3,
+    id:20, name:'趙雲', title:'常山の龍', rarity:4, type:2, faction:0, chapter:6,
     atk:225, hp:1450, def:115, spd:62,
     skill:{ name:'龍胆一閃', desc:'敵単体に攻撃力180%+自己HP10%回復', type:'damage', mult:1.8, target:'single' },
     lore:{
@@ -264,7 +264,7 @@ Game.CHARACTERS = [
   },
   // 21: 周瑜 (SSR)
   {
-    id:21, name:'周瑜', title:'美周郎', rarity:4, type:1, faction:2, chapter:3,
+    id:21, name:'周瑜', title:'美周郎', rarity:4, type:1, faction:2, chapter:5,
     atk:210, hp:1450, def:105, spd:55,
     skill:{ name:'赤壁の業火', desc:'敵全体に攻撃力140%ダメージ', type:'damage', mult:1.4, target:'all_enemy' },
     lore:{
@@ -276,7 +276,7 @@ Game.CHARACTERS = [
   },
   // 22: 魯粛 (SR)
   {
-    id:22, name:'魯粛', title:'呉の柱石', rarity:3, type:1, faction:2, chapter:3,
+    id:22, name:'魯粛', title:'呉の柱石', rarity:3, type:1, faction:2, chapter:5,
     atk:140, hp:1200, def:95, spd:45,
     skill:{ name:'天下三分の策', desc:'味方全体HP10%回復+防御15%UP', type:'heal', mult:1.1, target:'all_ally' },
     lore:{
@@ -288,7 +288,7 @@ Game.CHARACTERS = [
   },
   // 23: 張遼 (SR)
   {
-    id:23, name:'張遼', title:'威震逍遥津', rarity:3, type:2, faction:1, chapter:3,
+    id:23, name:'張遼', title:'威震逍遥津', rarity:3, type:2, faction:1, chapter:8,
     atk:180, hp:1100, def:88, spd:60,
     skill:{ name:'遼来来', desc:'敵2体に攻撃力100%ダメージ', type:'damage', mult:1.0, target:'multi' },
     lore:{
@@ -300,7 +300,7 @@ Game.CHARACTERS = [
   },
   // 24: 太史慈 (R)
   {
-    id:24, name:'太史慈', title:'義の弓豪', rarity:2, type:2, faction:2, chapter:3,
+    id:24, name:'太史慈', title:'義の弓豪', rarity:2, type:2, faction:2, chapter:6,
     atk:125, hp:850, def:62, spd:58,
     skill:{ name:'精密射撃', desc:'敵単体に攻撃力145%ダメージ', type:'damage', mult:1.45, target:'single' },
     lore:{
@@ -312,7 +312,7 @@ Game.CHARACTERS = [
   },
   // 25: 甘寧 (R)
   {
-    id:25, name:'甘寧', title:'錦帆賊', rarity:2, type:0, faction:2, chapter:3,
+    id:25, name:'甘寧', title:'錦帆賊', rarity:2, type:0, faction:2, chapter:5,
     atk:130, hp:870, def:58, spd:60,
     skill:{ name:'百騎夜襲', desc:'敵単体に攻撃力150%+先制', type:'damage', mult:1.5, target:'single' },
     lore:{
@@ -324,7 +324,7 @@ Game.CHARACTERS = [
   },
   // 26: 孫権 (SR)
   {
-    id:26, name:'孫権', title:'呉大帝', rarity:3, type:1, faction:2, chapter:3,
+    id:26, name:'孫権', title:'呉大帝', rarity:3, type:1, faction:2, chapter:8,
     atk:155, hp:1250, def:98, spd:48,
     skill:{ name:'呉の結束', desc:'味方全体HP8%回復+攻撃5%UP', type:'heal', mult:1.05, target:'all_ally' },
     lore:{
@@ -336,7 +336,7 @@ Game.CHARACTERS = [
   },
   // 27: 左慈 (N)
   {
-    id:27, name:'左慈', title:'仙術使い', rarity:1, type:1, faction:3, chapter:3,
+    id:27, name:'左慈', title:'仙術使い', rarity:1, type:1, faction:3, chapter:9,
     atk:55, hp:720, def:52, spd:45,
     skill:{ name:'変化の術', desc:'ランダムで超強力効果(ATK50%UPか全体回復20%かDEF30%DOWN)', type:'random', mult:1.5, target:'random' },
     lore:{
@@ -374,7 +374,7 @@ Game.CHARACTERS = [
   },
   // 30: 賈詡 (SR)
   {
-    id:30, name:'賈詡', title:'毒士', rarity:3, type:1, faction:3, chapter:4,
+    id:30, name:'賈詡', title:'毒士', rarity:3, type:1, faction:3, chapter:8,
     atk:155, hp:1150, def:90, spd:50,
     skill:{ name:'毒士の計', desc:'敵全体の攻撃力15%DOWN+防御10%DOWN', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -410,7 +410,7 @@ Game.CHARACTERS = [
   },
   // 33: 馬超 (SR)
   {
-    id:33, name:'馬超', title:'錦馬超', rarity:3, type:0, faction:0, chapter:4,
+    id:33, name:'馬超', title:'錦馬超', rarity:3, type:0, faction:0, chapter:6,
     atk:185, hp:1080, def:82, spd:62,
     skill:{ name:'西涼の疾風', desc:'敵単体に攻撃力160%ダメージ', type:'damage', mult:1.6, target:'single' },
     lore:{
@@ -422,7 +422,7 @@ Game.CHARACTERS = [
   },
   // 34: 龐統 (SR)
   {
-    id:34, name:'龐統', title:'鳳雛', rarity:3, type:1, faction:0, chapter:4,
+    id:34, name:'龐統', title:'鳳雛', rarity:3, type:1, faction:0, chapter:6,
     atk:165, hp:1100, def:88, spd:50,
     skill:{ name:'鳳雛の計', desc:'敵全体の防御15%DOWN+攻撃力10%DOWN', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -434,7 +434,7 @@ Game.CHARACTERS = [
   },
   // 35: 黄権 (N)
   {
-    id:35, name:'黄権', title:'忠義の臣', rarity:1, type:1, faction:0, chapter:4,
+    id:35, name:'黄権', title:'忠義の臣', rarity:1, type:1, faction:0, chapter:6,
     atk:55, hp:680, def:55, spd:42,
     skill:{ name:'忠言の盾', desc:'味方全体防御15%UP+HP5%回復', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -448,7 +448,7 @@ Game.CHARACTERS = [
   // ===== Chapter 5 (8): 天下三分〜南征 =====
   // 36: 諸葛亮 (UR)
   {
-    id:36, name:'諸葛亮', title:'臥龍', rarity:5, type:1, faction:0, chapter:5,
+    id:36, name:'諸葛亮', title:'臥龍', rarity:5, type:1, faction:0, chapter:7,
     atk:260, hp:2200, def:150, spd:52,
     skill:{ name:'臥龍の天火', desc:'敵全体に攻撃力150%ダメージ+味方全体攻撃15%UP', type:'damage', mult:1.5, target:'all_enemy' },
     lore:{
@@ -484,7 +484,7 @@ Game.CHARACTERS = [
   },
   // 39: 孟獲 (R)
   {
-    id:39, name:'孟獲', title:'南蛮王', rarity:2, type:0, faction:3, chapter:5,
+    id:39, name:'孟獲', title:'南蛮王', rarity:2, type:0, faction:3, chapter:9,
     atk:140, hp:1000, def:80, spd:42,
     skill:{ name:'南蛮王の力', desc:'被ダメ50%減+反撃120%', type:'counter', mult:1.2, target:'self' },
     lore:{
@@ -496,7 +496,7 @@ Game.CHARACTERS = [
   },
   // 40: 祝融 (R)
   {
-    id:40, name:'祝融', title:'祝融夫人', rarity:2, type:2, faction:3, chapter:5,
+    id:40, name:'祝融', title:'祝融夫人', rarity:2, type:2, faction:3, chapter:9,
     atk:130, hp:830, def:58, spd:58,
     skill:{ name:'火神の加護', desc:'敵全体に攻撃力120%+火傷+味方ATK10%UP', type:'damage', mult:1.2, target:'all_enemy' },
     lore:{
@@ -520,7 +520,7 @@ Game.CHARACTERS = [
   },
   // 42: 孫尚香 (R)
   {
-    id:42, name:'孫尚香', title:'弓腰姫', rarity:2, type:2, faction:0, chapter:5,
+    id:42, name:'孫尚香', title:'弓腰姫', rarity:2, type:2, faction:0, chapter:6,
     atk:120, hp:860, def:62, spd:60,
     skill:{ name:'弓腰姫の奮迅', desc:'敵単体に攻撃力150%+自己ATK20%UP', type:'damage', mult:1.5, target:'single' },
     lore:{
@@ -532,7 +532,7 @@ Game.CHARACTERS = [
   },
   // 43: 魏延 (SR)
   {
-    id:43, name:'魏延', title:'反骨の猛将', rarity:3, type:0, faction:0, chapter:5,
+    id:43, name:'魏延', title:'反骨の猛将', rarity:3, type:0, faction:0, chapter:7,
     atk:180, hp:1100, def:82, spd:55,
     skill:{ name:'反骨の刃', desc:'敵単体に攻撃力160%ダメージ(暴走時220%)', type:'damage', mult:1.6, target:'single' },
     lore:{
@@ -546,7 +546,7 @@ Game.CHARACTERS = [
   // ===== Chapter 6 (8): 荊州の争い〜北伐 =====
   // 44: 関羽[神] (UR)
   {
-    id:44, name:'関羽[神]', title:'武神', rarity:5, type:0, faction:0, chapter:6,
+    id:44, name:'関羽[神]', title:'武神', rarity:5, type:0, faction:0, chapter:8,
     atk:280, hp:2100, def:160, spd:55,
     skill:{ name:'武神降臨', desc:'敵全体に攻撃力200%ダメージ+味方全体HP10%回復', type:'damage', mult:2.0, target:'all_enemy' },
     lore:{
@@ -558,7 +558,7 @@ Game.CHARACTERS = [
   },
   // 45: 黄忠 (SR)
   {
-    id:45, name:'黄忠', title:'老将', rarity:3, type:0, faction:0, chapter:6,
+    id:45, name:'黄忠', title:'老将', rarity:3, type:0, faction:0, chapter:7,
     atk:175, hp:1050, def:85, spd:45,
     skill:{ name:'百歩穿楊', desc:'敵単体に攻撃力175%ダメージ(会心率UP)', type:'damage', mult:1.75, target:'single' },
     lore:{
@@ -570,7 +570,7 @@ Game.CHARACTERS = [
   },
   // 46: 法正 (SR)
   {
-    id:46, name:'法正', title:'蜀の軍師', rarity:3, type:1, faction:0, chapter:6,
+    id:46, name:'法正', title:'蜀の軍師', rarity:3, type:1, faction:0, chapter:7,
     atk:158, hp:1100, def:85, spd:50,
     skill:{ name:'反間の計', desc:'敵の最強ユニットの攻撃力25%DOWN', type:'debuff', mult:1.0, target:'single' },
     lore:{
@@ -582,7 +582,7 @@ Game.CHARACTERS = [
   },
   // 47: 呂蒙 (SR)
   {
-    id:47, name:'呂蒙', title:'呉下の阿蒙にあらず', rarity:3, type:1, faction:2, chapter:6,
+    id:47, name:'呂蒙', title:'呉下の阿蒙にあらず', rarity:3, type:1, faction:2, chapter:8,
     atk:165, hp:1150, def:92, spd:52,
     skill:{ name:'白衣渡江', desc:'敵の防御を無視して攻撃力130%ダメージ', type:'damage', mult:1.3, target:'single' },
     lore:{
@@ -594,7 +594,7 @@ Game.CHARACTERS = [
   },
   // 48: 馬謖 (R)
   {
-    id:48, name:'馬謖', title:'街亭の罪人', rarity:2, type:1, faction:0, chapter:6,
+    id:48, name:'馬謖', title:'街亭の罪人', rarity:2, type:1, faction:0, chapter:10,
     atk:95, hp:750, def:50, spd:48,
     skill:{ name:'山上布陣', desc:'味方全体攻撃35%UP+自身戦闘不能', type:'buff', mult:1.35, target:'all_ally' },
     lore:{
@@ -606,7 +606,7 @@ Game.CHARACTERS = [
   },
   // 49: 厳顔 (R)
   {
-    id:49, name:'厳顔', title:'断頭将軍', rarity:2, type:0, faction:0, chapter:6,
+    id:49, name:'厳顔', title:'断頭将軍', rarity:2, type:0, faction:0, chapter:7,
     atk:125, hp:950, def:80, spd:40,
     skill:{ name:'老将の意地', desc:'被ダメ時反撃(攻撃力100%)+防御20%UP', type:'counter', mult:1.0, target:'self' },
     lore:{
@@ -618,7 +618,7 @@ Game.CHARACTERS = [
   },
   // 50: 曹丕 (SR)
   {
-    id:50, name:'曹丕', title:'魏の初代皇帝', rarity:3, type:1, faction:1, chapter:6,
+    id:50, name:'曹丕', title:'魏の初代皇帝', rarity:3, type:1, faction:1, chapter:9,
     atk:160, hp:1200, def:100, spd:50,
     skill:{ name:'禅譲の威', desc:'味方全体攻撃力15%UP+防御10%UP', type:'buff', mult:1.15, target:'all_ally' },
     lore:{
@@ -630,7 +630,7 @@ Game.CHARACTERS = [
   },
   // 51: 陸遜 (SSR)
   {
-    id:51, name:'陸遜', title:'呉の大都督', rarity:4, type:1, faction:2, chapter:6,
+    id:51, name:'陸遜', title:'呉の大都督', rarity:4, type:1, faction:2, chapter:9,
     atk:200, hp:1400, def:100, spd:52,
     skill:{ name:'夷陵の火計', desc:'敵全体に攻撃力130%ダメージ+防御15%DOWN', type:'damage', mult:1.3, target:'all_enemy' },
     lore:{
@@ -644,7 +644,7 @@ Game.CHARACTERS = [
   // ===== Chapter 7 (8): 北伐〜五丈原 =====
   // 52: 司馬懿 (UR)
   {
-    id:52, name:'司馬懿', title:'冢虎', rarity:5, type:1, faction:1, chapter:7,
+    id:52, name:'司馬懿', title:'冢虎', rarity:5, type:1, faction:1, chapter:10,
     atk:240, hp:2800, def:200, spd:42,
     skill:{ name:'冢虎の深淵', desc:'味方全体防御35%UP+敵全体攻撃力20%DOWN(3ターン)', type:'debuff', mult:1.0, target:'all' },
     lore:{
@@ -656,7 +656,7 @@ Game.CHARACTERS = [
   },
   // 53: 姜維 (SSR)
   {
-    id:53, name:'姜維', title:'蜀漢最後の希望', rarity:4, type:0, faction:0, chapter:7,
+    id:53, name:'姜維', title:'蜀漢最後の希望', rarity:4, type:0, faction:0, chapter:10,
     atk:215, hp:1400, def:105, spd:58,
     skill:{ name:'北伐の誓い', desc:'敵全体に攻撃力140%ダメージ+自身ATK20%UP', type:'damage', mult:1.4, target:'all_enemy' },
     lore:{
@@ -668,7 +668,7 @@ Game.CHARACTERS = [
   },
   // 54: 鄧艾 (SR)
   {
-    id:54, name:'鄧艾', title:'奇策の将', rarity:3, type:2, faction:1, chapter:7,
+    id:54, name:'鄧艾', title:'奇策の将', rarity:3, type:2, faction:1, chapter:11,
     atk:170, hp:1100, def:88, spd:58,
     skill:{ name:'陰平越え', desc:'防御を無視して敵単体に攻撃力155%ダメージ', type:'damage', mult:1.55, target:'single' },
     lore:{
@@ -692,7 +692,7 @@ Game.CHARACTERS = [
   },
   // 56: 荀攸 (R)
   {
-    id:56, name:'荀攸', title:'謀の達人', rarity:2, type:1, faction:1, chapter:7,
+    id:56, name:'荀攸', title:'謀の達人', rarity:2, type:1, faction:1, chapter:4,
     atk:100, hp:850, def:65, spd:48,
     skill:{ name:'密計', desc:'敵単体の攻撃力20%DOWN+防御15%DOWN', type:'debuff', mult:1.0, target:'single' },
     lore:{
@@ -704,7 +704,7 @@ Game.CHARACTERS = [
   },
   // 57: 程昱 (R)
   {
-    id:57, name:'程昱', title:'剛毅の参謀', rarity:2, type:1, faction:1, chapter:7,
+    id:57, name:'程昱', title:'剛毅の参謀', rarity:2, type:1, faction:1, chapter:4,
     atk:105, hp:880, def:70, spd:45,
     skill:{ name:'鉄壁の守り', desc:'味方全体防御20%UP', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -716,7 +716,7 @@ Game.CHARACTERS = [
   },
   // 58: 張昭 (N)
   {
-    id:58, name:'張昭', title:'呉の長老', rarity:1, type:1, faction:2, chapter:7,
+    id:58, name:'張昭', title:'呉の長老', rarity:1, type:1, faction:2, chapter:10,
     atk:50, hp:700, def:55, spd:38,
     skill:{ name:'長老の訓戒', desc:'味方全体防御12%UP+HP5%回復', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -728,7 +728,7 @@ Game.CHARACTERS = [
   },
   // 59: 管輅 (N)
   {
-    id:59, name:'管輅', title:'天機の占師', rarity:1, type:1, faction:3, chapter:7,
+    id:59, name:'管輅', title:'天機の占師', rarity:1, type:1, faction:3, chapter:10,
     atk:45, hp:720, def:50, spd:42,
     skill:{ name:'天機の占', desc:'全スキル発動率UP+敵の弱点露出DEF20%DOWN', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -742,7 +742,7 @@ Game.CHARACTERS = [
   // ===== Chapter 8 (8): 三国統一〜晋 =====
   // 60: 司馬炎 (UR)
   {
-    id:60, name:'司馬炎', title:'天下統一の帝', rarity:5, type:1, faction:1, chapter:8,
+    id:60, name:'司馬炎', title:'天下統一の帝', rarity:5, type:1, faction:1, chapter:12,
     atk:255, hp:2400, def:165, spd:50,
     skill:{ name:'天下統一', desc:'味方全体攻撃力25%UP+HP20%回復+敵全体攻撃力15%DOWN', type:'buff', mult:1.25, target:'all' },
     lore:{
@@ -754,7 +754,7 @@ Game.CHARACTERS = [
   },
   // 61: 羊祜 (SR)
   {
-    id:61, name:'羊祜', title:'仁徳の将', rarity:3, type:1, faction:1, chapter:8,
+    id:61, name:'羊祜', title:'仁徳の将', rarity:3, type:1, faction:1, chapter:12,
     atk:150, hp:1200, def:100, spd:45,
     skill:{ name:'徳化の策', desc:'味方全体HP12%回復+防御15%UP', type:'heal', mult:1.12, target:'all_ally' },
     lore:{
@@ -766,7 +766,7 @@ Game.CHARACTERS = [
   },
   // 62: 杜預 (SR)
   {
-    id:62, name:'杜預', title:'破竹の将', rarity:3, type:2, faction:1, chapter:8,
+    id:62, name:'杜預', title:'破竹の将', rarity:3, type:2, faction:1, chapter:12,
     atk:165, hp:1100, def:85, spd:55,
     skill:{ name:'破竹の勢い', desc:'敵全体に攻撃力120%ダメージ+防御10%DOWN', type:'damage', mult:1.2, target:'all_enemy' },
     lore:{
@@ -778,7 +778,7 @@ Game.CHARACTERS = [
   },
   // 63: 劉禅 (R)
   {
-    id:63, name:'劉禅', title:'安楽公', rarity:2, type:1, faction:0, chapter:8,
+    id:63, name:'劉禅', title:'安楽公', rarity:2, type:1, faction:0, chapter:11,
     atk:80, hp:900, def:70, spd:35,
     skill:{ name:'楽不思蜀', desc:'味方全体HP10%回復(被ダメ20%UP)', type:'heal', mult:1.1, target:'all_ally' },
     lore:{
@@ -790,7 +790,7 @@ Game.CHARACTERS = [
   },
   // 64: 鍾会 (SR)
   {
-    id:64, name:'鍾会', title:'野心の策士', rarity:3, type:1, faction:1, chapter:8,
+    id:64, name:'鍾会', title:'野心の策士', rarity:3, type:1, faction:1, chapter:11,
     atk:170, hp:1100, def:85, spd:52,
     skill:{ name:'権謀術数', desc:'敵全体の攻撃力20%DOWN+自身ATK20%UP', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -814,7 +814,7 @@ Game.CHARACTERS = [
   },
   // 66: 孫皓 (R)
   {
-    id:66, name:'孫皓', title:'呉の末帝', rarity:2, type:1, faction:2, chapter:8,
+    id:66, name:'孫皓', title:'呉の末帝', rarity:2, type:1, faction:2, chapter:12,
     atk:90, hp:850, def:60, spd:40,
     skill:{ name:'暴政', desc:'味方全体攻撃力20%UP+HP10%減', type:'buff', mult:1.2, target:'all_ally' },
     lore:{
@@ -826,7 +826,7 @@ Game.CHARACTERS = [
   },
   // 67: 馬良 (N)
   {
-    id:67, name:'馬良', title:'白眉', rarity:1, type:1, faction:0, chapter:8,
+    id:67, name:'馬良', title:'白眉', rarity:1, type:1, faction:0, chapter:9,
     atk:55, hp:680, def:48, spd:46,
     skill:{ name:'白眉の知恵', desc:'味方全体攻撃力10%UP+HP5%回復', type:'buff', mult:1.1, target:'all_ally' },
     lore:{
