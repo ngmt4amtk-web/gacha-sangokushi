@@ -1,5 +1,5 @@
 // ======== CHARACTER DATABASE (正史準拠 v13) ========
-// 77 characters: 7 UR, 15 SSR, 26 SR, 22 R, 7 N
+// 77 characters: 7 UR, 14 SSR, 27 SR, 22 R, 7 N
 // All based on 正史三国志 (陳寿) and 晋書
 window.Game = window.Game || {};
 
@@ -22,7 +22,7 @@ Game.CHARACTERS = [
   },
   // 10: 華雄 (R)
   {
-    id:10, name:'華雄', title:'猛将', rarity:2, type:0, faction:3, chapter:1,
+    id:10, name:'華雄', title:'猛将', rarity:2, type:0, faction:3, chapter:2,
     atk:120, hp:850, def:65, spd:50,
     skill:{ name:'猛攻', desc:'敵単体に攻撃力140%ダメージ', type:'damage', mult:1.4, target:'single' },
     lore:{
@@ -34,7 +34,7 @@ Game.CHARACTERS = [
   },
   // 11: 廖化 (N)
   {
-    id:11, name:'廖化', title:'蜀漢の先鋒', rarity:1, type:0, faction:0, chapter:1,
+    id:11, name:'廖化', title:'蜀漢の先鋒', rarity:1, type:0, faction:0, chapter:7,
     atk:60, hp:600, def:45, spd:48,
     skill:{ name:'先駆けの槍', desc:'敵単体に攻撃力100%ダメージ+味方全体攻撃力8%UP(3ターン)', type:'damage', mult:1.0, target:'single' },
     lore:{
@@ -96,7 +96,7 @@ Game.CHARACTERS = [
   },
   // 9: 公孫瓚 (R)
   {
-    id:9, name:'公孫瓚', title:'白馬将軍', rarity:2, type:2, faction:3, chapter:2,
+    id:9, name:'公孫瓚', title:'白馬将軍', rarity:2, type:2, faction:3, chapter:1,
     atk:115, hp:830, def:60, spd:62,
     skill:{ name:'白馬義従', desc:'敵単体に攻撃力130%ダメージ', type:'damage', mult:1.3, target:'single' },
     lore:{
@@ -122,7 +122,7 @@ Game.CHARACTERS = [
   // ===== Chapter 3: 群雄割拠 (192-199年) =====
   // 0: 劉備 (SSR)
   {
-    id:0, name:'劉備', title:'漢中王', rarity:4, type:1, faction:0, chapter:3,
+    id:0, name:'劉備', title:'漢中王', rarity:4, type:1, faction:0, chapter:1,
     atk:195, hp:1600, def:110, spd:50,
     skill:{ name:'仁徳の絆', desc:'味方全体HP15%回復+味方全体攻撃力10%UP(3ターン)', type:'heal', mult:1.5, target:'all_ally' },
     lore:{
@@ -134,7 +134,7 @@ Game.CHARACTERS = [
   },
   // 1: 関羽 (SSR)
   {
-    id:1, name:'関羽', title:'武聖', rarity:4, type:0, faction:0, chapter:3,
+    id:1, name:'関羽', title:'武聖', rarity:4, type:0, faction:0, chapter:1,
     atk:240, hp:1400, def:120, spd:48,
     skill:{ name:'青龍偃月斬', desc:'敵単体に攻撃力200%ダメージ', type:'damage', mult:2.0, target:'single' },
     lore:{
@@ -146,7 +146,7 @@ Game.CHARACTERS = [
   },
   // 2: 張飛 (SR)
   {
-    id:2, name:'張飛', title:'燕人張飛', rarity:3, type:0, faction:0, chapter:3,
+    id:2, name:'張飛', title:'燕人張飛', rarity:3, type:0, faction:0, chapter:1,
     atk:185, hp:1100, def:85, spd:55,
     skill:{ name:'蛇矛乱舞', desc:'敵全体に攻撃力120%ダメージ', type:'damage', mult:1.2, target:'all_enemy' },
     lore:{
@@ -158,7 +158,7 @@ Game.CHARACTERS = [
   },
   // 4: 孫堅 (SR)
   {
-    id:4, name:'孫堅', title:'江東の虎', rarity:3, type:0, faction:2, chapter:3,
+    id:4, name:'孫堅', title:'江東の虎', rarity:3, type:0, faction:2, chapter:2,
     atk:170, hp:1050, def:90, spd:58,
     skill:{ name:'猛虎の咆哮', desc:'敵単体に攻撃力150%ダメージ+自身攻撃力15%UP(3ターン)', type:'damage', mult:1.5, target:'single' },
     lore:{
@@ -216,10 +216,10 @@ Game.CHARACTERS = [
     voiceLine:'学問も武芸も、国のためにある',
     look:{skin:'#f0c8a0',hair:'topknot',hc:'#222',beard:'short',gear:'helmet',wpn:'spear',out:'#1565c0'}
   },
-  // 76: 曹操[若] (SSR) ★NEW★
+  // 76: 曹操[若] (SR) ★NEW★
   {
-    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:4, type:1, faction:1, chapter:3,
-    atk:185, hp:1350, def:110, spd:52,
+    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:3, type:1, faction:1, chapter:3,
+    atk:165, hp:1200, def:100, spd:50,
     skill:{ name:'唯才是挙', desc:'味方全体攻撃力20%UP(3ターン)+味方全体HP8%回復', type:'buff', mult:1.2, target:'all_ally' },
     lore:{
       novel:'宦官の家系に生まれながら乱世に名乗りを上げた若き曹孟徳。陳留で挙兵し、兗州を拠点に呂布・袁術と戦いながら群雄の中を駆け上がる。',
@@ -464,7 +464,7 @@ Game.CHARACTERS = [
   },
   // 24: 太史慈 (R)
   {
-    id:24, name:'太史慈', title:'義の弓豪', rarity:2, type:2, faction:2, chapter:6,
+    id:24, name:'太史慈', title:'義の弓豪', rarity:2, type:2, faction:2, chapter:3,
     atk:125, hp:850, def:62, spd:58,
     skill:{ name:'精密射撃', desc:'敵単体に攻撃力145%ダメージ', type:'damage', mult:1.45, target:'single' },
     lore:{
@@ -600,7 +600,7 @@ Game.CHARACTERS = [
   // ===== Chapter 8: 荊州の落日 (219-220年) =====
   // 23: 張遼 (UR)
   {
-    id:23, name:'張遼', title:'威震逍遥津', rarity:5, type:2, faction:1, chapter:8,
+    id:23, name:'張遼', title:'威震逍遥津', rarity:5, type:2, faction:1, chapter:6,
     atk:320, hp:2000, def:140, spd:75,
     skill:{ name:'遼来来', desc:'敵単体に攻撃力300%ダメージ+自身攻撃力20%UP(3ターン)', type:'damage', mult:3.0, target:'single' },
     lore:{
@@ -612,7 +612,7 @@ Game.CHARACTERS = [
   },
   // 19: 徐晃 (SSR) ★NEW★
   {
-    id:19, name:'徐晃', title:'周亞夫の風', rarity:4, type:0, faction:1, chapter:8,
+    id:19, name:'徐晃', title:'周亞夫の風', rarity:4, type:0, faction:1, chapter:7,
     atk:230, hp:1400, def:105, spd:48,
     skill:{ name:'深溝高塁', desc:'敵単体に攻撃力180%ダメージ+自身防御20%UP(3ターン)', type:'damage', mult:1.8, target:'single' },
     lore:{
@@ -624,7 +624,7 @@ Game.CHARACTERS = [
   },
   // 26: 孫権 (SR)
   {
-    id:26, name:'孫権', title:'呉大帝', rarity:3, type:1, faction:2, chapter:8,
+    id:26, name:'孫権', title:'呉大帝', rarity:3, type:1, faction:2, chapter:5,
     atk:155, hp:1250, def:98, spd:48,
     skill:{ name:'呉の結束', desc:'味方全体攻撃力15%UP+味方全体HP10%回復', type:'buff', mult:1.15, target:'all_ally' },
     lore:{
@@ -648,7 +648,7 @@ Game.CHARACTERS = [
   },
   // 38: 于禁 (SR/守) ★NEW★
   {
-    id:38, name:'于禁', title:'五子良将筆頭', rarity:3, type:3, faction:1, chapter:8,
+    id:38, name:'于禁', title:'五子良将筆頭', rarity:3, type:3, faction:1, chapter:7,
     atk:148, hp:1144, def:109, spd:40,
     skill:{ name:'軍令鉄則', desc:'味方全体防御25%UP(3ターン)+味方全体攻撃力10%UP(3ターン)', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -660,7 +660,7 @@ Game.CHARACTERS = [
   },
   // 47: 呂蒙 (SSR)
   {
-    id:47, name:'呂蒙', title:'呉下の阿蒙にあらず', rarity:4, type:1, faction:2, chapter:8,
+    id:47, name:'呂蒙', title:'呉下の阿蒙にあらず', rarity:4, type:1, faction:2, chapter:6,
     atk:200, hp:1400, def:105, spd:52,
     skill:{ name:'白衣渡江', desc:'敵単体に攻撃力180%ダメージ+敵全体防御20%DOWN(3ターン)', type:'damage', mult:1.8, target:'single' },
     lore:{
@@ -672,7 +672,7 @@ Game.CHARACTERS = [
   },
   // 65: 曹仁 (SR/守)
   {
-    id:65, name:'曹仁', title:'魏の壁', rarity:3, type:3, faction:1, chapter:8,
+    id:65, name:'曹仁', title:'魏の壁', rarity:3, type:3, faction:1, chapter:7,
     atk:145, hp:1170, def:112, spd:38,
     skill:{ name:'鉄壁防衛', desc:'味方全体防御30%UP(3ターン)+味方全体HP10%回復', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -698,7 +698,7 @@ Game.CHARACTERS = [
   },
   // 50: 曹丕 (SR)
   {
-    id:50, name:'曹丕', title:'魏の初代皇帝', rarity:3, type:1, faction:1, chapter:9,
+    id:50, name:'曹丕', title:'魏の初代皇帝', rarity:3, type:1, faction:1, chapter:8,
     atk:160, hp:1200, def:100, spd:50,
     skill:{ name:'禅譲の威', desc:'味方全体攻撃力15%UP+味方全体防御10%UP(3ターン)', type:'buff', mult:1.15, target:'all_ally' },
     lore:{
@@ -710,7 +710,7 @@ Game.CHARACTERS = [
   },
   // 51: 陸遜 (SSR)
   {
-    id:51, name:'陸遜', title:'呉の大都督', rarity:4, type:1, faction:2, chapter:9,
+    id:51, name:'陸遜', title:'呉の大都督', rarity:4, type:1, faction:2, chapter:8,
     atk:200, hp:1400, def:100, spd:52,
     skill:{ name:'夷陵の火計', desc:'敵全体に攻撃力140%ダメージ+敵全体防御15%DOWN(3ターン)', type:'damage', mult:1.4, target:'all_enemy' },
     lore:{
@@ -722,7 +722,7 @@ Game.CHARACTERS = [
   },
   // 67: 馬良 (N)
   {
-    id:67, name:'馬良', title:'白眉', rarity:1, type:1, faction:0, chapter:9,
+    id:67, name:'馬良', title:'白眉', rarity:1, type:1, faction:0, chapter:8,
     atk:55, hp:680, def:48, spd:46,
     skill:{ name:'白眉の知恵', desc:'味方全体攻撃力10%UP+味方全体HP5%回復', type:'buff', mult:1.1, target:'all_ally' },
     lore:{
@@ -734,7 +734,7 @@ Game.CHARACTERS = [
   },
   // 75: 曹植 (R) ★NEW★
   {
-    id:75, name:'曹植', title:'七歩の詩人', rarity:2, type:1, faction:1, chapter:9,
+    id:75, name:'曹植', title:'七歩の詩人', rarity:2, type:1, faction:1, chapter:8,
     atk:95, hp:850, def:65, spd:45,
     skill:{ name:'七歩成詩', desc:'味方全体攻撃力15%UP(3ターン)+敵全体攻撃力10%DOWN(3ターン)', type:'buff', mult:1.15, target:'all_ally' },
     lore:{
@@ -760,7 +760,7 @@ Game.CHARACTERS = [
   },
   // 48: 馬謖 (R)
   {
-    id:48, name:'馬謖', title:'街亭の罪人', rarity:2, type:1, faction:0, chapter:10,
+    id:48, name:'馬謖', title:'街亭の罪人', rarity:2, type:1, faction:0, chapter:9,
     atk:95, hp:750, def:50, spd:48,
     skill:{ name:'山上布陣', desc:'味方全体攻撃力35%UP(3ターン)+自身HP100%減', type:'buff', mult:1.35, target:'all_ally' },
     lore:{
@@ -772,7 +772,7 @@ Game.CHARACTERS = [
   },
   // 53: 姜維 (SSR)
   {
-    id:53, name:'姜維', title:'蜀漢最後の希望', rarity:4, type:0, faction:0, chapter:10,
+    id:53, name:'姜維', title:'蜀漢最後の希望', rarity:4, type:0, faction:0, chapter:9,
     atk:215, hp:1400, def:105, spd:58,
     skill:{ name:'北伐の誓い', desc:'敵全体に攻撃力140%ダメージ+自身攻撃力20%UP(3ターン)', type:'damage', mult:1.4, target:'all_enemy' },
     lore:{
@@ -784,7 +784,7 @@ Game.CHARACTERS = [
   },
   // 58: 張昭 (N)
   {
-    id:58, name:'張昭', title:'呉の長老', rarity:1, type:1, faction:2, chapter:10,
+    id:58, name:'張昭', title:'呉の長老', rarity:1, type:1, faction:2, chapter:9,
     atk:50, hp:700, def:55, spd:38,
     skill:{ name:'長老の訓戒', desc:'味方全体防御12%UP(3ターン)+HP5%回復', type:'buff', mult:1.0, target:'all_ally' },
     lore:{
@@ -796,7 +796,7 @@ Game.CHARACTERS = [
   },
   // 59: 管輅 (N)
   {
-    id:59, name:'管輅', title:'天機の占師', rarity:1, type:1, faction:3, chapter:10,
+    id:59, name:'管輅', title:'天機の占師', rarity:1, type:1, faction:3, chapter:9,
     atk:45, hp:720, def:50, spd:42,
     skill:{ name:'天機の占', desc:'敵全体の防御20%DOWN(3ターン)', type:'debuff', mult:1.0, target:'all_enemy' },
     lore:{
@@ -846,7 +846,7 @@ Game.CHARACTERS = [
   },
   // 70: 司馬師 (SR) ★NEW★
   {
-    id:70, name:'司馬師', title:'三千の死士', rarity:3, type:1, faction:1, chapter:11,
+    id:70, name:'司馬師', title:'三千の死士', rarity:3, type:1, faction:1, chapter:10,
     atk:165, hp:1150, def:95, spd:50,
     skill:{ name:'高平陵の変', desc:'味方全体攻撃力20%UP(3ターン)+味方全体防御15%UP(3ターン)', type:'buff', mult:1.2, target:'all_ally' },
     lore:{
@@ -932,7 +932,7 @@ Game.CHARACTERS = [
   },
   // 73: 丁奉 (SR) ★NEW★
   {
-    id:73, name:'丁奉', title:'雪中の老将', rarity:3, type:0, faction:2, chapter:12,
+    id:73, name:'丁奉', title:'雪中の老将', rarity:3, type:0, faction:2, chapter:10,
     atk:180, hp:1150, def:90, spd:52,
     skill:{ name:'雪中急襲', desc:'敵単体に攻撃力165%ダメージ+敵単体の防御15%DOWN(3ターン)', type:'damage', mult:1.65, target:'single' },
     lore:{
