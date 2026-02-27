@@ -9,7 +9,7 @@ Game.CHAR_LOOKS = {
   2:{skin:'#5d4037',hair:'wild',hc:'#111',beard:'circle',gear:null,wpn:'snake_spear',out:'#37474f'},
   3:{skin:'#f0c8a0',hair:'topknot',hc:'#222',beard:'short',gear:'crown_helm',wpn:'sword',out:'#1565c0'},
   7:{skin:'#f0c8a0',hair:'wild',hc:'#222',beard:null,gear:'pheasant',wpn:'halberd',out:'#4a148c'},
-  14:{skin:'#fce4ec',hair:'updo',hc:'#222',beard:null,gear:'hairpin',wpn:null,out:'#e91e63',fem:true},
+  14:{skin:'#d4a574',hair:'wild',hc:'#111',beard:'short',gear:'headband',wpn:'mace',out:'#1565c0'},
   36:{skin:'#f0c8a0',hair:'long',hc:'#222',beard:null,gear:'scholar',wpn:'fan',out:'#e0e0e0'},
   44:{skin:'#c0392b',hair:'long',hc:'#111',beard:'long',gear:'crown',wpn:'guandao',out:'#ffd700'},
   52:{skin:'#f0c8a0',hair:'topknot',hc:'#333',beard:'goatee',gear:'crown_helm',wpn:'fan',out:'#0d47a1'},
@@ -32,14 +32,16 @@ Game.autoLook = function(c, rng) {
   var gW = ['helmet','iron_helm',null,'headband'];
   var gI = ['scholar','cloth_hat',null];
   var gS = [null,'headband','light_helm'];
+  var gD = ['helmet','iron_helm','crown_helm',null];
   var wW = ['sword','spear','axe','mace','halberd'];
   var wI = ['fan','scroll','staff',null];
   var wS = ['bow','dual_blade','dagger','spear'];
+  var wD = ['sword','spear','mace','halberd'];
   return {
     skin: pick(skins), hair: fem ? pick(hf) : pick(hm), hc: pick(hcs),
     beard: fem ? null : (rng() > 0.5 ? pick(['short','goatee','circle']) : null),
-    gear: type === 0 ? pick(gW) : type === 1 ? pick(gI) : pick(gS),
-    wpn: type === 0 ? pick(wW) : type === 1 ? pick(wI) : pick(wS),
+    gear: type === 0 ? pick(gW) : type === 1 ? pick(gI) : type === 3 ? pick(gD) : pick(gS),
+    wpn: type === 0 ? pick(wW) : type === 1 ? pick(wI) : type === 3 ? pick(wD) : pick(wS),
     out: pick(outs[fac] || outs[3]), fem: fem
   };
 };

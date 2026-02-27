@@ -78,9 +78,9 @@ Game.showWelcome = function() {
   modal.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%">' +
     '<div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid rgba(255,215,0,0.3);' +
     'border-radius:16px;padding:30px;max-width:350px;text-align:center">' +
-    '<h2 style="color:var(--gold);font-size:20px;margin-bottom:10px">無課金三国志</h2>' +
-    '<p style="font-size:14px;color:var(--gold);margin:4px 0">〜絆と覇道〜</p>' +
-    '<p style="font-size:12px;color:var(--text2);margin:12px 0">正史三国志の世界へようこそ。<br>武将を集め、絆を発見し、天下を統一せよ。</p>' +
+    '<h2 style="color:var(--gold);font-size:20px;margin-bottom:10px">正史三国志</h2>' +
+    '<p style="font-size:14px;color:var(--gold);margin:4px 0">〜覇者の証〜</p>' +
+    '<p style="font-size:12px;color:var(--text2);margin:12px 0">正史三国志と晋書の世界へようこそ。<br>歴史に名を刻んだ覇者たちを集め、天下を統一せよ。</p>' +
     '<div style="font-size:22px;color:var(--gold);font-weight:bold;margin:16px 0">初回ボーナス<br>武将券×3 + 1000メダル</div>' +
     '<button onclick="Game.state.medals+=1000;Game.saveGame();document.getElementById(\'welcome-modal\').style.display=\'none\';Game.renderAll()" ' +
     'style="padding:14px 40px;border:none;border-radius:8px;background:linear-gradient(135deg,#f57f17,#e65100);' +

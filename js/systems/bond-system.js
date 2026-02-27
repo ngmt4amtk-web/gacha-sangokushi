@@ -86,8 +86,13 @@ Game.showBondDiscovery = function(bond) {
   Game.spawnParticles(cx, cy, '#ffd700', 40);
   Game.spawnParticles(cx, cy, '#ff9800', 30);
 
+  // 絆解放報酬: 武器メダル10,000
+  var bondReward = 10000;
+  Game.state.medals += bondReward;
+  Game.state.totalMedalsEarned += bondReward;
+
   // Show toast
-  Game.showToast('絆発見！【' + bond.name + '】');
+  Game.showToast('絆発見！【' + bond.name + '】+' + Game.formatNum(bondReward) + 'メダル');
   Game.saveGame();
 };
 

@@ -1,7 +1,7 @@
 // ======== GACHA SYSTEM ========
 window.Game = window.Game || {};
 
-// Rates: N=45%, R=35%, SR=18.2%, SSR=1.5%, UR=0.3%
+// Rates: N=45%, R=35%, SR=18.3%, SSR=1.5%, UR=0.2%
 // Pity at 80, soft pity from 65
 
 Game.doGachaPull = function() {
@@ -19,7 +19,7 @@ Game.doGachaPull = function() {
   else if (g.pity >= 65) {
     var bonus = (g.pity - 64) * 0.04;
     var roll = Math.random();
-    if (roll < (0.003 + bonus)) { rarity = 5; g.pity = 0; } // UR
+    if (roll < (0.002 + bonus)) { rarity = 5; g.pity = 0; } // UR
     else if (roll < (0.018 + bonus * 2)) { rarity = 4; g.pity = 0; } // SSR
     else if (roll < 0.200) rarity = 3; // SR
     else if (roll < 0.550) rarity = 2; // R
@@ -27,7 +27,7 @@ Game.doGachaPull = function() {
   }
   else {
     var roll = Math.random();
-    if (roll < 0.003) { rarity = 5; g.pity = 0; } // UR 0.3%
+    if (roll < 0.002) { rarity = 5; g.pity = 0; } // UR 0.2%
     else if (roll < 0.018) { rarity = 4; g.pity = 0; } // SSR 1.5%
     else if (roll < 0.200) rarity = 3; // SR 18.2%
     else if (roll < 0.550) rarity = 2; // R 35%

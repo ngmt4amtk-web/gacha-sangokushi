@@ -97,6 +97,43 @@ Game.migrateSave = function(saved) {
     saved.saveVersion = 12;
   }
 
+  // v12 → v13: 正史準拠キャラクター大改修
+  if (saved.saveVersion < 13) {
+    // 削除キャラID: 貂蝉(14), 于吉(19), 左慈(27), 小喬(38), 祝融(40)
+    // これらのIDは新キャラに再利用される
+    var deletedIds = [14, 19, 27, 38, 40];
+    var compensation = 0;
+    for (var di = 0; di < deletedIds.length; di++) {
+      var did = deletedIds[di];
+      if (saved.owned && saved.owned[did]) {
+        delete saved.owned[did];
+        compensation++;
+      }
+      if (saved.ownedSignatures && saved.ownedSignatures[did]) {
+        delete saved.ownedSignatures[did];
+      }
+    }
+    // 補償: 削除キャラ1体につき英雄チケット5枚+メダル50000
+    if (compensation > 0) {
+      saved.heroTickets = (saved.heroTickets || 0) + compensation * 5;
+      saved.medals = (saved.medals || 0) + compensation * 50000;
+      saved.totalMedalsEarned = (saved.totalMedalsEarned || 0) + compensation * 50000;
+    }
+    // チームから削除キャラを除外
+    if (saved.team) {
+      for (var ti = 0; ti < saved.team.length; ti++) {
+        if (deletedIds.indexOf(saved.team[ti]) >= 0) saved.team[ti] = -1;
+      }
+    }
+    // クイズ履歴リセット（キャラプール変更）
+    saved.quizHistory = {};
+    // 絆リセット（全面改修のため）
+    saved.discoveredBonds = {};
+    saved.bondBattleCounts = {};
+
+    saved.saveVersion = 13;
+  }
+
   return saved;
 };
 

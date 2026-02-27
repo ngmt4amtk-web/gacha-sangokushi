@@ -42,8 +42,8 @@ Game.renderHome = function() {
   var ngHTML = g.ngPlusLevel > 0 ? '<div style="text-align:center;font-size:13px;color:#ff5722;font-weight:bold;margin:4px 0">覇道 ' + g.ngPlusLevel + '周目</div>' : '';
 
   el.innerHTML =
-    '<div class="home-title">無課金三国志</div>' +
-    '<div class="home-subtitle">〜絆と覇道〜</div>' +
+    '<div class="home-title">正史三国志</div>' +
+    '<div class="home-subtitle">〜覇者の証〜</div>' +
     ngHTML +
     loginHTML +
     '<div class="stat-box">' +
