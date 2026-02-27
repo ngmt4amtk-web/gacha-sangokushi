@@ -4,7 +4,7 @@ window.Game = window.Game || {};
 Game.BONDS = [
   // ===== Sworn (5) =====
   {
-    id:0, name:'桃園の誓い', category:'sworn', chapter:3,
+    id:0, name:'桃園の誓い', category:'sworn', chapter:1,
     heroes:[0,1,2], minRequired:3,
     discoveryChance:0.15, isIF:false,
     effect:{ atk:0.25, hp:0.15, def:0.10 },
@@ -16,7 +16,7 @@ Game.BONDS = [
     hint:'寝則同床――三つの命が一つとなる'
   },
   {
-    id:1, name:'江東の虎', category:'sworn', chapter:8,
+    id:1, name:'江東の虎', category:'sworn', chapter:5,
     heroes:[4,17,26], minRequired:3,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.25, def:0.15 },
@@ -52,7 +52,7 @@ Game.BONDS = [
     hint:'陳留に旗あり――隻眼と双戟、覇者の礎となりし者たち'
   },
   {
-    id:4, name:'呉下の阿蒙', category:'sworn', chapter:8,
+    id:4, name:'呉下の阿蒙', category:'sworn', chapter:6,
     heroes:[26,47,22], minRequired:3,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.20, def:0.15 },
@@ -66,7 +66,7 @@ Game.BONDS = [
 
   // ===== Rival (5) =====
   {
-    id:5, name:'虎牢関の死闘', category:'rival', chapter:3,
+    id:5, name:'虎牢関の死闘', category:'rival', chapter:2,
     heroes:[7,1,2], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.40, hp:-0.10, def:0 },
@@ -90,7 +90,7 @@ Game.BONDS = [
     hint:'五丈原の秋風に散りし星と、狼のごとく顧みる影'
   },
   {
-    id:7, name:'宿命の対峙', category:'rival', chapter:8,
+    id:7, name:'宿命の対峙', category:'rival', chapter:6,
     heroes:[1,47], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.25, hp:0.05, def:0.10 },
@@ -176,7 +176,7 @@ Game.BONDS = [
     hint:'総角の好み――喬公の二嬢を娶りし刎頸の友'
   },
   {
-    id:14, name:'夷陵の火計', category:'strategic', chapter:9,
+    id:14, name:'夷陵の火計', category:'strategic', chapter:8,
     heroes:[51,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -190,19 +190,19 @@ Game.BONDS = [
 
   // ===== Betrayal (3) =====
   {
-    id:15, name:'鳳儀亭の誘惑', category:'betrayal', chapter:2,
-    heroes:[14,7,6], minRequired:3,
-    discoveryChance:0.08, isIF:false,
-    effect:{ atk:0.45, hp:-0.15, def:0 },
-    desc:'貂蝉・呂布・董卓。正史に貂蝉の名はなく、呂布が通じたのは「董卓の侍女」と記される',
+    id:15, name:'洛陽の大火', category:'rival', chapter:2,
+    heroes:[6,4], minRequired:2,
+    discoveryChance:0.12, isIF:false,
+    effect:{ atk:0.20, hp:0.10, def:0.10 },
+    desc:'董卓vs孫堅。洛陽を焼き払い長安へ遷都した暴君と、連合軍で唯一洛陽に攻め入った猛将',
     lore:{
-      short:'布、卓の侍婢と私通す。発覚を恐れ心中自ずから安からず――呂布伝',
-      full:'正史に「貂蝉」と「連環の計」は存在しない。実態はこうだ。董卓は些細なことで激怒し、呂布に手戟を投げつけた。呂布は密かに董卓の侍女と通じており、発覚を恐れていた。司徒・王允がこの不安につけ込み董卓暗殺を持ちかけた。呂布は「父子の関係がある」と躊躇したが、王允は「手戟を投げつけられた恩義がどこにある」と一蹴。192年4月、呂布は詔を奉じて董卓を刺殺した。暴虐の主は臣に討たれた。'
+      short:'堅、前に進み大谷を至り、卓の兵を撃ち之を大いに破る――孫堅伝',
+      full:'董卓は反董卓連合の接近を知ると、洛陽に火を放ち陵墓を暴いて長安に遷都した。諸侯の多くは酒宴に明け暮れ進軍しなかったが、孫堅だけは単独で進撃。陽人で董卓の精鋭・華雄を討ち取り、大谷関を破って洛陽に到達した。廃墟と化した都を目にした孫堅は井戸から伝国の玉璽を発見したとされる。暴虐をもって天下を握った者と、武勇をもってそれに立ち向かった者の激突。'
     },
-    hint:'侍婢と手戟と父子の名――鳳儀亭に月蝕が満ちる'
+    hint:'焼け落ちた洛陽の灰の中に、玉璽と覇気が眠る'
   },
   {
-    id:16, name:'泣いて馬謖を斬る', category:'betrayal', chapter:10,
+    id:16, name:'泣いて馬謖を斬る', category:'betrayal', chapter:9,
     heroes:[36,48], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:-0.05, def:0 },
@@ -228,7 +228,7 @@ Game.BONDS = [
 
   // ===== Family (3) =====
   {
-    id:18, name:'曹家一門', category:'family', chapter:9,
+    id:18, name:'曹家一門', category:'family', chapter:8,
     heroes:[3,12,50], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.25 },
@@ -240,7 +240,7 @@ Game.BONDS = [
     hint:'同車に語るを許され、禅譲に手を伸ばした血族の三つの意志'
   },
   {
-    id:19, name:'孫家三代', category:'family', chapter:8,
+    id:19, name:'孫家三代', category:'family', chapter:5,
     heroes:[4,17,26], minRequired:3,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.25, def:0.15 },
@@ -302,7 +302,7 @@ Game.BONDS = [
     hint:'飛将の膂力、狼顧の忍、統一の冠――三つの時が交わるとき'
   },
   {
-    id:24, name:'歴史を超えた絆', category:'if', chapter:12,
+    id:24, name:'歴史を超えた絆', category:'if', chapter:13,
     heroes:[44,36,52,60], minRequired:4,
     discoveryChance:0.02, isIF:true,
     effect:{ atk:0.35, hp:0.25, def:0.20 },
@@ -328,7 +328,7 @@ Game.BONDS = [
     hint:'空の器が届いたとき、王佐の才は旧朝への忠に殉じた'
   },
   {
-    id:26, name:'敵陣の友誼', category:'sworn', chapter:8,
+    id:26, name:'敵陣の友誼', category:'sworn', chapter:6,
     heroes:[1,23], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:0.05, def:0.05 },
@@ -390,16 +390,16 @@ Game.BONDS = [
     hint:'定軍山を駆け下る老弓と、白地将軍と嘆かれた疾風の影'
   },
   {
-    id:31, name:'南蛮夫妻', category:'family', chapter:9,
-    heroes:[39,40], minRequired:2,
-    discoveryChance:0.12, isIF:false,
-    effect:{ atk:0.20, hp:0.15, def:0.10 },
-    desc:'孟獲と祝融夫人。南蛮の王と火神の末裔たる女傑。七度捕らえられても折れぬ誇りの夫婦',
+    id:31, name:'攻心為上', category:'strategic', chapter:9,
+    heroes:[39,48], minRequired:2,
+    discoveryChance:0.10, isIF:false,
+    effect:{ atk:0.10, hp:0.15, def:0.10 },
+    desc:'孟獲と馬謖。南征に際し馬謖が「心を攻めるは上策」と進言し、諸葛亮の方針を決定づけた',
     lore:{
-      short:'獲の妻・祝融氏は飛刀を善くし、百発百中なり――演義',
-      full:'孟獲と祝融夫人の関係は演義の創作であるが、南蛮征伐のエピソードを鮮やかに彩る存在として描かれた。祝融夫人は火神・祝融の末裔を名乗り、飛刀の腕前で蜀の将を次々と捕縛した。孟獲は諸葛亮に七度捕らえられ七度放されたが、最後には「丞相の天威に、南人は二度と反かず」と心から服従した。武力ではなく徳で平定する「心攻」の模範例とされる。'
+      short:'用兵の道は心を攻むるを上と為し、城を攻むるを下と為す――馬謖の進言',
+      full:'建興3年（225年）、諸葛亮が南蛮征伐に出発する際、馬謖は「南中は地が険しく心服させねば何度でも反く。兵戦を上策とせず心戦を上策とすべし」と進言した。諸葛亮はこの助言を容れ、孟獲を七度捕えて七度放す寛大策を実行した。結果、孟獲は心から服従し、諸葛亮の北伐中に南方が反乱を起こすことはなかった。しかし皮肉にも、馬謖自身は3年後の街亭で独断専行し、大敗を喫して処刑された。'
     },
-    hint:'七擒七縦に折れぬ誇り――火神の血を引く刀と、王の膝'
+    hint:'心を攻めよと説いた者が、自らの心に敗れた――南蛮平定の光と影'
   },
   {
     id:32, name:'七擒七縦', category:'strategic', chapter:9,
@@ -498,7 +498,7 @@ Game.BONDS = [
     hint:'禅譲の詔書は二度書かれた――受けた者がまた渡す皮肉'
   },
   {
-    id:40, name:'合肥の衝撃', category:'rival', chapter:8,
+    id:40, name:'合肥の衝撃', category:'rival', chapter:6,
     heroes:[23,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.30, hp:-0.05, def:0.05 },
@@ -524,7 +524,7 @@ Game.BONDS = [
 
   // ===== Zero-bond coverage (19 bonds, IDs 42-60) =====
   {
-    id:42, name:'黄巾の残影', category:'sworn', chapter:1,
+    id:42, name:'黄巾の残影', category:'sworn', chapter:7,
     heroes:[5,11], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -536,7 +536,7 @@ Game.BONDS = [
     hint:'蒼天已に死す――黄天の旗を掲げし兄弟の残影'
   },
   {
-    id:43, name:'同門の絆', category:'sworn', chapter:3,
+    id:43, name:'同門の絆', category:'sworn', chapter:1,
     heroes:[9,0], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -572,19 +572,19 @@ Game.BONDS = [
     hint:'四世三公の血が二つに裂け――一方は僭帝し蜜を求めて死す'
   },
   {
-    id:46, name:'仙道の邂逅', category:'sworn', chapter:9,
-    heroes:[19,27], minRequired:2,
-    discoveryChance:0.12, isIF:false,
-    effect:{ atk:0.10, hp:0.20, def:0.15 },
-    desc:'于吉と左慈。乱世に現れた二人の方士。太平清領道の道士と曹操を翻弄した幻術師',
+    id:46, name:'樊城の旧友', category:'rival', chapter:7,
+    heroes:[19,1], minRequired:2,
+    discoveryChance:0.10, isIF:false,
+    effect:{ atk:0.30, hp:0.05, def:0.05 },
+    desc:'徐晃vs関羽。かつて共に曹操の陣営で轡を並べた旧友が、樊城で敵として対峙した',
     lore:{
-      short:'于吉は太平清領書を行い、符水を以て病者を治す。百姓は之を信ず――于吉伝',
-      full:'于吉は江東で太平清領道を広め、符水治療で民衆の信仰を集めた。孫策はその影響力を恐れて于吉を処刑したが、以後幻影に悩まされたという。左慈は方術に通じた道士で、演義では曹操の宴席に突如現れ、空の盃に酒を注ぎ、釣竿で鱸魚を釣り上げるなどの幻術で翻弄した。二人は乱世において武力とは異なる力――信仰と神秘の力を体現した存在である。'
+      short:'晃、関羽と旧識なれども、軍に臨みて曰く「得関雲長の首者、賞千金」と――徐晃伝',
+      full:'建安24年（219年）、関羽が樊城を包囲し于禁の七軍を水没させた時、曹操は徐晃を救援に派遣した。徐晃と関羽は旧知の間柄であり、陣前で旧交を語り合った。しかし話が終わると徐晃は「関雲長の首を取った者に千金を与える」と全軍に号令した。関羽は「大兄、なんたる言葉か」と驚いたが、徐晃は情に流されず関羽の包囲を撃破した。曹操は「徐将軍には周亞夫の風がある」と賛嘆した。'
     },
-    hint:'符水と幻術――覇者を惑わす仙の道を歩む者たち'
+    hint:'旧交を語りし後に千金の首を掲ぐ――周亞夫の風ある大将の情と理'
   },
   {
-    id:47, name:'小覇王と義将', category:'sworn', chapter:6,
+    id:47, name:'小覇王と義将', category:'sworn', chapter:3,
     heroes:[24,17], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -596,7 +596,7 @@ Game.BONDS = [
     hint:'一騎討ちの末に縄を解き、信じて帰した者と帰った者'
   },
   {
-    id:48, name:'錦帆の勇', category:'sworn', chapter:8,
+    id:48, name:'錦帆の勇', category:'sworn', chapter:5,
     heroes:[25,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.15 },
@@ -632,16 +632,16 @@ Game.BONDS = [
     hint:'衣帯に縫い込まれた密詔――古き血脈を繋ぐ二本の糸'
   },
   {
-    id:51, name:'江東の花', category:'family', chapter:5,
-    heroes:[38,21], minRequired:2,
+    id:51, name:'呉の勇侠', category:'sworn', chapter:5,
+    heroes:[40,25], minRequired:2,
     discoveryChance:0.12, isIF:false,
-    effect:{ atk:0.10, hp:0.25, def:0.15 },
-    desc:'小喬と周瑜。赤壁の英雄を支えた喬公の次女。二喬の名は乱世に咲く花のごとし',
+    effect:{ atk:0.15, hp:0.15, def:0.05 },
+    desc:'周泰と甘寧。卑しい身分から武勇で呉の重臣に上り詰めた二人の猛将',
     lore:{
-      short:'策、橋公の二女を納る。皆国色なり。策は自ら大橋を納め、瑜は小橋を納む――周瑜伝',
-      full:'周瑜と孫策が皖城を攻略した際、喬公の二人の娘を娶った。孫策は姉の大喬を、周瑜は妹の小喬を妻とした。正史では「皆国色なり」とだけ記され、詳細は不明である。しかし曹操が赤壁で「二喬を手に入れたい」と語ったという逸話は、江東の抵抗心に火をつけたとされる。小喬と周瑜の夫婦関係は演義で美談として脚色され、「美周郎」の名と共に三国を代表する佳話となった。'
+      short:'泰、身に十二創を被り、瘡痍の体を孫権の前に示す。権、泣きて其の手を執る――周泰伝',
+      full:'周泰は元は賊出身の兵卒だったが、孫策に見出された。宣城で孫権が山賊に襲われた際、周泰は身を挺して守り全身に十二箇所の傷を負った。後に孫権は宴席で周泰の傷を一つ一つ指差して由来を問い、涙を流して感謝した。甘寧もまた元は長江の水賊で「錦帆賊」と呼ばれたが、孫権に仕えてからは百騎で曹営を急襲する「百騎劫営」の大功を立てた。二人とも出自の卑しさを武勇で覆し、呉の柱石となった。'
     },
-    hint:'国色と美周郎――皖城で結ばれし喬公の一対の花'
+    hint:'十二の傷と百騎の急襲――賊上がりの二人が呉の盾と矛になった'
   },
   {
     id:52, name:'胡笳十八拍', category:'betrayal', chapter:5,
@@ -668,7 +668,7 @@ Game.BONDS = [
     hint:'侍婢百人が刀を執る寝室――虎の妹が嫁いだ仁の陣営'
   },
   {
-    id:54, name:'呉の柱石', category:'sworn', chapter:10,
+    id:54, name:'呉の柱石', category:'sworn', chapter:9,
     heroes:[58,26], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.15 },
@@ -740,7 +740,7 @@ Game.BONDS = [
     hint:'安楽を思い故国を忘れた宴と暴虐の宴――二つの亡国が辿る異なる黄昏'
   },
   {
-    id:60, name:'白眉の才', category:'strategic', chapter:9,
+    id:60, name:'白眉の才', category:'strategic', chapter:8,
     heroes:[67,36], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.15, def:0.10 },
@@ -766,7 +766,7 @@ Game.BONDS = [
     hint:'張繍の宴に双戟が折れ、門に仁王立ちの壮士が散る'
   },
   {
-    id:62, name:'温酒斬華雄', category:'rival', chapter:3,
+    id:62, name:'汜水関の死闘', category:'rival', chapter:2,
     heroes:[10,1], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.35, hp:-0.05, def:0 },
@@ -790,7 +790,7 @@ Game.BONDS = [
     hint:'乱を始めし地公の旗と、山城に定めし老弓の一矢'
   },
   {
-    id:64, name:'書生大都督', category:'strategic', chapter:9,
+    id:64, name:'書生大都督', category:'strategic', chapter:8,
     heroes:[51,47], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.20, hp:0.10, def:0.15 },
@@ -802,7 +802,7 @@ Game.BONDS = [
     hint:'師が推した書生の名は長江を覆い、五十余営を焼く炎となる'
   },
   {
-    id:65, name:'合肥の双壁', category:'rival', chapter:8,
+    id:65, name:'魏の将星', category:'rival', chapter:7,
     heroes:[55,23], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.05, def:0.10 },
@@ -851,16 +851,16 @@ Game.BONDS = [
   },
   // === Additional bonds (69-83) for full 2-bond coverage ===
   {
-    id:69, name:'方術の系譜', category:'sworn', chapter:9,
-    heroes:[5,27], minRequired:2,
-    discoveryChance:0.08, isIF:false,
-    effect:{ atk:0.08, hp:0.10 },
-    desc:'張角と左慈。太平道と仙術、異なる道を歩みながらも天の理を求めた二人の方士',
+    id:69, name:'蒼天と覇道', category:'turning_point', chapter:3,
+    heroes:[5,76], minRequired:2,
+    discoveryChance:0.10, isIF:false,
+    effect:{ atk:0.10, hp:0.10, def:0.05 },
+    desc:'張角と曹操[若]。黄巾の乱がなければ曹操の台頭はなかった。蒼天を呪った者が覇道を切り拓いた',
     lore:{
-      short:'一人は蒼天を呪い、一人は仙境を探した。道は違えど、人の世の外に真理を求めた',
-      full:'張角は太平道の教祖として民衆を束ね、天の意志を掲げて乱を起こした。左慈は仙術を修め、権力者を翻弄しながらも世俗に背を向けた。方術という共通の根を持ちながら、一方は地上の変革を、一方は超越を求めた。'
+      short:'蒼天已に死す、黄天当に立つべし――張角。治世の能臣、乱世の奸雄――許劭の曹操評',
+      full:'中平元年（184年）、張角の蜂起が後漢の秩序を崩壊させた。黄巾討伐で功を挙げた若き曹操は騎都尉に任ぜられ、ここから覇業への道が始まった。張角が「蒼天已に死す」と漢朝の終焉を宣言したことで、群雄割拠の乱世が到来した。曹操はその乱世を利用して中原を制覇していく。破壊者と建設者、二人の運命は黄巾の旗の下で交差した。'
     },
-    hint:'太平の道と仙境の術――天の理を異なる道から求めた二人'
+    hint:'蒼天を呪った旗が、乱世の覇者を生んだ'
   },
   {
     id:70, name:'界橋の死闘', category:'rival', chapter:4,
@@ -875,16 +875,16 @@ Game.BONDS = [
     hint:'白馬の旗が翻る橋上で、河北の猛将が立ちはだかる'
   },
   {
-    id:71, name:'傾城の華', category:'sworn', chapter:5,
-    heroes:[14,38], minRequired:2,
-    discoveryChance:0.06, isIF:false,
-    effect:{ hp:0.12, def:0.08 },
-    desc:'貂蝉と小喬。乱世に翻弄されながらも、その美貌で歴史の転換点に立った二人の女性',
+    id:71, name:'五子筆頭の末路', category:'lord_vassal', chapter:7,
+    heroes:[38,3], minRequired:2,
+    discoveryChance:0.10, isIF:false,
+    effect:{ atk:0.15, hp:0.10, def:0.15 },
+    desc:'于禁と曹操。三十年の忠勤で五子良将の筆頭と称された名将が、樊城の水に全てを失った',
     lore:{
-      short:'一人は暴虐の将を惑わし、一人は炎の夜に英雄を支えた',
-      full:'貂蝉は連環の計で董卓と呂布の間に亀裂を生んだ。小喬は周瑜の妻として赤壁の戦いの時代を生きた。正史では小喬の記述は少ないが、「攬二喬於東南兮」の一句が曹操の野心と結びつけられ、戦の口実となったとも伝わる。'
+      short:'太祖、于禁を知ること三十年、何ぞ危難に臨みて反って人に如かざるや、と嘆ず――于禁伝',
+      full:'于禁は曹操に仕えて三十年、軍紀厳正で知られた。宛城の敗戦で混乱する味方を斬ってでも規律を守り、「古の名将に劣らず」と評された。しかし建安24年、樊城救援に向かった于禁は関羽の水攻めに遭い七軍が壊滅。于禁は降伏した。曹操は「于禁を知ること三十年、まさか危難に際して関羽以下とは」と嘆いた。後に送還された于禁は、曹丕が関羽への降伏場面を描いた壁画を見せつけられ、恥辱のうちに病死した。'
     },
-    hint:'一人は連環に身を投じ、一人は東南の風と共に――乱世に咲いた二輪の花'
+    hint:'三十年の忠義が一夜の水に沈んだ――五子筆頭の栄光と恥辱'
   },
   {
     id:72, name:'去留の岐路', category:'betrayal', chapter:4,
@@ -923,16 +923,16 @@ Game.BONDS = [
     hint:'五禽の術で身体を癒す者と、胡笳の音で魂を綴る者'
   },
   {
-    id:75, name:'天意を聴く者', category:'sworn', chapter:10,
-    heroes:[19,59], minRequired:2,
-    discoveryChance:0.06, isIF:false,
-    effect:{ atk:0.06, hp:0.10, def:0.06 },
-    desc:'于吉と管輅。天の声を聴き、星の動きを読んだ二人の異能者',
+    id:75, name:'人智を超えた才', category:'sworn', chapter:9,
+    heroes:[59,18], minRequired:2,
+    discoveryChance:0.08, isIF:false,
+    effect:{ hp:0.15, def:0.05 },
+    desc:'管輅と華佗。占術と医術――常人には測れぬ異能で乱世を生きた二人の天才',
     lore:{
-      short:'一人は神水で民を救い主君の怒りを買い、一人は星を読み死期を告げた',
-      full:'于吉は太平清領道を広め、孫策の領内で民衆の信望を集めたが、孫策に危険視され処刑された。管輅は三国時代最高の占術者とされ、天文・易・相術に通じた。権力者の死期すら的中させたが、自らも若くして世を去った。'
+      short:'佗の術、実に華氏によりて伝う。輅は天文を仰ぎ、人の生死を断ず',
+      full:'華佗は麻沸散という麻酔薬を開発し、腹部の切開手術を行った世界初の外科医とされる。しかし曹操の侍医となることを拒み、怒りを買って獄死した。管輅は三国時代最高の占術者で、天文・易・相術に通じた。何晏と鄧颺の死を予言して的中させ、司馬懿にも一目置かれた。二人とも常人の理解を超えた才能を持ちながら、権力者の狭間で翻弄された点で共通する。'
     },
-    hint:'神水を施す者と星を読む者――天の声を聴いた二人の異能'
+    hint:'麻沸散で命を救い、天文で死を読む――人の世の外にある二つの才'
   },
   {
     id:76, name:'大局の眼', category:'strategic', chapter:5,
@@ -947,7 +947,7 @@ Game.BONDS = [
     hint:'東南に王業を説く者と、中原で十策を献ずる者――視座の高さだけが同じ'
   },
   {
-    id:77, name:'義侠の士', category:'sworn', chapter:6,
+    id:77, name:'義侠の士', category:'sworn', chapter:5,
     heroes:[24,25], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.12, hp:0.06 },
@@ -959,7 +959,7 @@ Game.BONDS = [
     hint:'弓の名手が義に殉じ、鈴の侠客が夜を切り裂く――型破りの武が東方に轟く'
   },
   {
-    id:78, name:'忠節の果て', category:'sworn', chapter:9,
+    id:78, name:'忠節の果て', category:'sworn', chapter:8,
     heroes:[35,67], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ hp:0.10, def:0.10 },
@@ -971,19 +971,19 @@ Game.BONDS = [
     hint:'退路を断たれた忠と、炎の中に散った才――天のみが報いなかった'
   },
   {
-    id:79, name:'武の女傑', category:'sworn', chapter:9,
-    heroes:[40,42], minRequired:2,
-    discoveryChance:0.06, isIF:false,
-    effect:{ atk:0.10, hp:0.08 },
-    desc:'祝融と孫尚香。武芸に秀でた女性として、乱世の男たちに引けを取らなかった二人',
+    id:79, name:'乱世の才女', category:'sworn', chapter:6,
+    heroes:[42,41], minRequired:2,
+    discoveryChance:0.08, isIF:false,
+    effect:{ atk:0.10, hp:0.12 },
+    desc:'孫尚香と蔡文姫。弓を好む呉の姫君と、胡笳を奏でた漢の才女。乱世に翻弄されながらも自らを貫いた',
     lore:{
-      short:'南方の炎と東方の弓――武を纏った二人の女傑が乱世に花を咲かせた',
-      full:'祝融は南蛮の女王として武勇を振るったとされる。孫尚香は孫権の妹で弓や剣を好み、侍女にも武装させたという。政略結婚で劉備に嫁いだが、気性の激しさは変わらなかった。共に男勝りの武を持ち、乱世に独自の存在感を示した。'
+      short:'孫夫人は才捷剛猛にして兄の風あり、侍婢百余人皆刀を執る――法正伝',
+      full:'孫尚香は孫権の妹として呉に生まれ、武芸を好み侍女にも武装させた。政略結婚で劉備に嫁いだが、気性の激しさは劉備すら恐れさせた。蔡文姫は大学者・蔡邕の娘で、博学多才。匈奴に攫われ12年を異郷で過ごしたが、曹操が身代金を払って帰国させた。亡父の蔵書四百篇を記憶から書き起こし、文化の継承に貢献した。時代に翻弄されながらも、武と文で己の道を刻んだ二人の女性。'
     },
-    hint:'南方の炎と東方の弓弦――武を纏い、乱世の男たちに退かなかった'
+    hint:'刀を執る侍女と、胡笳を奏でる才媛――乱世が生んだ二つの凛'
   },
   {
-    id:80, name:'義烈の魂', category:'sworn', chapter:8,
+    id:80, name:'義烈の魂', category:'sworn', chapter:13,
     heroes:[44,49], minRequired:2,
     discoveryChance:0.06, isIF:false,
     effect:{ atk:0.15, def:0.08 },
@@ -995,7 +995,7 @@ Game.BONDS = [
     hint:'千里を走る忠義と、首を刎ねよと叫ぶ矜持――敵すら膝を折る気概'
   },
   {
-    id:81, name:'才幹と慢心', category:'strategic', chapter:10,
+    id:81, name:'才幹と慢心', category:'strategic', chapter:9,
     heroes:[46,48], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.10, hp:0.06 },
@@ -1007,7 +1007,7 @@ Game.BONDS = [
     hint:'恩讐を忘れぬ策士と山上に登った参謀――才は同じ、戒めが違った'
   },
   {
-    id:82, name:'老臣の壁', category:'sworn', chapter:10,
+    id:82, name:'老臣の壁', category:'sworn', chapter:9,
     heroes:[58,65], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ def:0.15, hp:0.08 },
@@ -1033,7 +1033,7 @@ Game.BONDS = [
 
   // ===== 追加絆: 新キャラ参加 + lord_vassal/turning_point =====
   {
-    id:84, name:'合肥の三将', category:'sworn', chapter:8,
+    id:84, name:'合肥の三将', category:'sworn', chapter:6,
     heroes:[23,68,69], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.25, hp:0.15, def:0.10 },
@@ -1045,7 +1045,7 @@ Game.BONDS = [
     hint:'不仲の三人が私怨を捨てた時、十万の大軍が震えた'
   },
   {
-    id:85, name:'五子良将', category:'lord_vassal', chapter:8,
+    id:85, name:'五子良将', category:'lord_vassal', chapter:7,
     heroes:[23,19,27,38,69], minRequired:3,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.30, hp:0.15, def:0.10 },
@@ -1081,7 +1081,7 @@ Game.BONDS = [
     hint:'虎侯ありや――西涼の猛将が名を問うた相手'
   },
   {
-    id:88, name:'高平陵の変', category:'strategic', chapter:11,
+    id:88, name:'高平陵の変', category:'strategic', chapter:10,
     heroes:[52,70], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.20 },
@@ -1141,7 +1141,7 @@ Game.BONDS = [
     hint:'敵の薬を飲む勇気――それは武勇ではなく徳への信頼'
   },
   {
-    id:93, name:'雪中の老将', category:'lord_vassal', chapter:12,
+    id:93, name:'雪中の老将', category:'lord_vassal', chapter:10,
     heroes:[73,26], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.10, def:0.10 },
@@ -1177,7 +1177,7 @@ Game.BONDS = [
     hint:'上等の酒のように――古参が若き天才に酔った'
   },
   {
-    id:96, name:'七歩の詩', category:'family', chapter:9,
+    id:96, name:'七歩の詩', category:'family', chapter:8,
     heroes:[50,75], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.10, hp:0.10, def:0.05 },
@@ -1189,7 +1189,7 @@ Game.BONDS = [
     hint:'同根相煎――七歩の詩に込めた弟の悲嘆'
   },
   {
-    id:97, name:'曹家三代の文才', category:'family', chapter:9,
+    id:97, name:'曹家三代の文才', category:'family', chapter:8,
     heroes:[3,50,75,76], minRequired:2,
     discoveryChance:0.08, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.10 },
@@ -1201,7 +1201,7 @@ Game.BONDS = [
     hint:'剣を振るう手が筆を持てば、千年の詩が生まれる'
   },
   {
-    id:98, name:'陳留の旗揚げ', category:'lord_vassal', chapter:3,
+    id:98, name:'陳留の旗揚げ', category:'lord_vassal', chapter:4,
     heroes:[76,29,57], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.15, def:0.10 },
@@ -1213,7 +1213,7 @@ Game.BONDS = [
     hint:'三つの城が若き覇者を救った――覇業の最初の危機'
   },
   {
-    id:99, name:'街亭の真実', category:'turning_point', chapter:10,
+    id:99, name:'街亭の真実', category:'turning_point', chapter:9,
     heroes:[27,48], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.05, def:0.10 },
@@ -1249,7 +1249,7 @@ Game.BONDS = [
     hint:'十二の傷、一つ一つに物語がある'
   },
   {
-    id:102, name:'好学の転身', category:'turning_point', chapter:8,
+    id:102, name:'好学の転身', category:'turning_point', chapter:6,
     heroes:[47,22], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.10, def:0.10 },
@@ -1273,7 +1273,7 @@ Game.BONDS = [
     hint:'万人の敵と虎の勇が並び立つ――ありえなかった戦場'
   },
   {
-    id:104, name:'合肥の私情なき共闘', category:'turning_point', chapter:8,
+    id:104, name:'合肥の私情なき共闘', category:'turning_point', chapter:6,
     heroes:[23,68], minRequired:2,
     discoveryChance:0.12, isIF:false,
     effect:{ atk:0.15, hp:0.10, def:0.10 },
@@ -1285,7 +1285,7 @@ Game.BONDS = [
     hint:'私怨を超えた時、八百が十万を破った'
   },
   {
-    id:105, name:'呉の四代を支えた将たち', category:'lord_vassal', chapter:12,
+    id:105, name:'呉の四代を支えた将たち', category:'lord_vassal', chapter:10,
     heroes:[73,74,37], minRequired:2,
     discoveryChance:0.10, isIF:false,
     effect:{ atk:0.15, hp:0.10, def:0.15 },
