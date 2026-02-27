@@ -67,12 +67,9 @@ Game.shuffleChoices = function(question) {
   };
 };
 
-// Calculate reward tickets from score
+// Calculate reward tickets from score (correct answers = pulls)
 Game.calcQuizReward = function(correct) {
-  if (correct >= 10) return 3;
-  if (correct >= 7) return 2;
-  if (correct >= 4) return 1;
-  return 0;
+  return correct;
 };
 
 // Chapter-specific gacha pull (exact chapter match, generous rates)

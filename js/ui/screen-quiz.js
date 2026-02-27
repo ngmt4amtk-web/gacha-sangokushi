@@ -27,11 +27,8 @@ Game.renderQuizChapterSelect = function() {
 
   // Reward info
   html += '<div style="font-size:12px;color:var(--text2);margin:0 4px 12px;padding:10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:8px;line-height:1.6">' +
-    '<div style="color:var(--gold);font-weight:bold;margin-bottom:4px">報酬: 章限定武将ガチャ券</div>' +
-    '全問正解(10問) → <span style="color:var(--gold)">3枚</span>　' +
-    '7-9問 → <span style="color:var(--gold)">2枚</span>　' +
-    '4-6問 → <span style="color:var(--gold)">1枚</span>　' +
-    '0-3問 → 0枚<br>' +
+    '<div style="color:var(--gold);font-weight:bold;margin-bottom:4px">報酬: 章限定武将ガチャ</div>' +
+    '正解数 = ガチャ回数（最大10連）<br>' +
     '<span style="color:var(--sr)">章限定ガチャ: UR 3% / SSR 12% / SR 35%</span>' +
     '</div>';
 
@@ -270,7 +267,7 @@ Game.renderQuizResult = function() {
     var chName = chData ? chData.name : '';
     html += '<div style="padding:12px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;margin-bottom:12px">' +
       '<div style="font-size:16px;color:var(--gold);font-weight:bold">第' + s.chapterId + '章限定ガチャ</div>' +
-      '<div style="font-size:28px;color:var(--gold);font-weight:bold;margin:4px 0">× ' + tickets + '</div>' +
+      '<div style="font-size:28px;color:var(--gold);font-weight:bold;margin:4px 0">' + tickets + '連</div>' +
       '<div style="font-size:11px;color:var(--text2)">' + chName + ' の武将のみ排出</div>' +
       '</div>';
     html += '<div style="font-size:14px;color:var(--gold);animation:pulse 1s infinite;margin-bottom:8px">ガチャ自動発動中...</div>';
