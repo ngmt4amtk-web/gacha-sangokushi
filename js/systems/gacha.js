@@ -136,3 +136,56 @@ Game.pullWeaponMulti = function() {
   Game.showGachaAnimation(results, true);
   Game.saveGame();
 };
+
+Game.pullWeaponAll = function() {
+  var g = Game.state;
+  if (g.medals < 100 || Game.isGachaAnimating) return;
+  Game.initAudio();
+  var results = [];
+  // 10-pulls first, then singles
+  while (g.medals >= 900) {
+    g.medals -= 900;
+    for (var i = 0; i < 10; i++) results.push(Game.doWeaponPull());
+  }
+  while (g.medals >= 100) {
+    g.medals -= 100;
+    results.push(Game.doWeaponPull());
+  }
+  // Show summary instead of animation for large pulls
+  if (results.length > 30) {
+    Game.showWeaponAllSummary(results);
+  } else {
+    Game.showGachaAnimation(results, true);
+  }
+  Game.saveGame();
+};
+
+Game.showWeaponAllSummary = function(results) {
+  var counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+  var newCount = 0;
+  results.forEach(function(r) {
+    var w = Game.getWeapon(r.charId);
+    if (w) counts[w.rarity] = (counts[w.rarity] || 0) + 1;
+    if (r.isNew) newCount++;
+  });
+  var overlay = document.getElementById('gacha-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'gacha-overlay';
+    overlay.className = 'gacha-overlay';
+    document.body.appendChild(overlay);
+  }
+  overlay.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:center;height:100%;padding:20px">' +
+    '<div style="background:rgba(0,0,0,0.95);border:2px solid var(--gold);max-width:340px;width:90%;padding:24px;border-radius:12px;text-align:center">' +
+      '<h2 style="color:var(--gold);margin-bottom:16px">武器鍛造結果</h2>' +
+      '<div style="font-size:18px;margin-bottom:12px">' + results.length + '回 鍛造</div>' +
+      (counts[4] ? '<div style="color:var(--ssr);font-size:16px;font-weight:bold">★4 SSR x' + counts[4] + '</div>' : '') +
+      (counts[3] ? '<div style="color:var(--sr);font-size:15px">★3 SR x' + counts[3] + '</div>' : '') +
+      (counts[2] ? '<div style="color:var(--r);font-size:14px">★2 R x' + counts[2] + '</div>' : '') +
+      (counts[1] ? '<div style="color:var(--n);font-size:13px">★1 N x' + counts[1] + '</div>' : '') +
+      (newCount > 0 ? '<div style="color:#4caf50;font-size:14px;margin-top:8px">NEW x' + newCount + '</div>' : '') +
+      '<button class="battle-close-btn" style="margin-top:16px" onclick="this.closest(\'.gacha-overlay\').classList.remove(\'show\');Game.renderGacha()">閉じる</button>' +
+    '</div></div>';
+  overlay.classList.add('show');
+};

@@ -74,11 +74,16 @@ Game.renderGacha = function() {
       '<div class="pity-text">天井: ' + (g.weaponPity || 0) + ' / 60</div>' +
       '</div>';
 
+    var maxPulls = Math.floor(g.medals / 900) * 10 + Math.floor((g.medals % 900) / 100);
     html += '<div class="gacha-btns">' +
       '<button class="gacha-btn single" onclick="Game.pullWeaponSingle()" ' + (g.medals < 100 ? 'disabled' : '') + '>' +
         '単発<span class="cost">100メダル</span></button>' +
       '<button class="gacha-btn multi" onclick="Game.pullWeaponMulti()" ' + (g.medals < 900 ? 'disabled' : '') + '>' +
         '10連<span class="cost">900メダル</span></button>' +
+      '</div>' +
+      '<div class="gacha-btns" style="margin-top:6px">' +
+      '<button class="gacha-btn multi" style="width:auto;padding:10px 24px;background:linear-gradient(135deg,#e65100,#bf360c)" onclick="Game.pullWeaponAll()" ' + (g.medals < 100 ? 'disabled' : '') + '>' +
+        '🎰 全部回す<span class="cost">' + maxPulls + '回 (' + Game.formatNum(g.medals) + 'メダル)</span></button>' +
       '</div>';
 
     // Owned weapons

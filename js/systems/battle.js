@@ -1,6 +1,40 @@
 // ======== BATTLE SYSTEM ========
 window.Game = window.Game || {};
 
+Game.autoBattleActive = false;
+Game.autoBattleResults = { cleared: 0, medals: 0, tickets: 0 };
+
+Game.startAutoBattle = function(startStageId) {
+  if (Game.isBattling || Game.autoBattleActive) return;
+  var teamCount = Game.state.team.filter(function(id) { return id >= 0 && Game.state.owned[id]; }).length;
+  if (teamCount === 0) { alert('編成が空です！'); return; }
+  Game.autoBattleActive = true;
+  Game.autoBattleResults = { cleared: 0, medals: 0, tickets: 0 };
+  Game.startBattle(startStageId);
+};
+
+Game.stopAutoBattle = function() {
+  Game.autoBattleActive = false;
+};
+
+Game.showAutoBattleSummary = function(reason) {
+  Game.autoBattleActive = false;
+  var r = Game.autoBattleResults;
+  var overlay = document.getElementById('battle-overlay');
+  overlay.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:center;height:100%">' +
+    '<div class="battle-result" style="background:rgba(0,0,0,0.95);border:2px solid var(--gold);max-width:320px;width:90%;padding:24px;border-radius:12px">' +
+      '<h2 style="color:var(--gold);margin-bottom:12px">連戦結果</h2>' +
+      '<div style="color:var(--text2);font-size:13px;margin-bottom:12px">' + reason + '</div>' +
+      '<div style="font-size:16px;margin:8px 0">クリア: <span style="color:#4caf50;font-weight:bold">' + r.cleared + '</span> ステージ</div>' +
+      '<div class="reward" style="font-size:15px">+' + Game.formatNum(r.medals) + ' メダル</div>' +
+      '<div style="color:#42a5f5;font-size:14px;font-weight:bold;margin:4px 0">武将券 x' + r.tickets + ' GET!</div>' +
+      '<button class="battle-close-btn" onclick="Game.closeBattle()">閉じる</button>' +
+    '</div></div>';
+  overlay.classList.add('show');
+};
+
+
 Game.getStageEnemies = function(stageData, chapterData) {
   if (!stageData || !chapterData) return [];
   var tmpl = Game.ENEMY_TEMPLATES[stageData.enemyTemplate] || Game.ENEMY_TEMPLATES.yellowTurban;
@@ -281,6 +315,27 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
           '<button class="battle-close-btn" style="background:linear-gradient(135deg,#4caf50,#388e3c);margin-top:6px" ' +
           'onclick="Game.closeBattle();setTimeout(function(){Game.startBattle(\'' + nextStageId + '\')},300)">次のステージへ</button>' : '';
 
+        // Auto-battle: continue to next stage
+        if (Game.autoBattleActive) {
+          Game.autoBattleResults.cleared++;
+          Game.autoBattleResults.medals += medalReward;
+          Game.autoBattleResults.tickets += ticketReward;
+          Game.isBattling = false;
+          Game.saveGame();
+
+          // Check if chapter boss was cleared or no more stages
+          var nextInChapter = Game.getNextStageInChapter(stageData.id);
+          if (!nextInChapter) {
+            Game.showAutoBattleSummary('章クリア！');
+          } else {
+            // Brief pause then next battle
+            await wait(300);
+            document.getElementById('battle-overlay').classList.remove('show');
+            setTimeout(function() { Game.startBattle(nextInChapter); }, 200);
+          }
+          return;
+        }
+
         document.getElementById('battle-result-area').innerHTML =
           '<div class="battle-result win">' +
             '<h2>勝利！</h2>' +
@@ -301,6 +356,15 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
         Game.state.medals += consolation;
         Game.state.totalMedalsEarned += consolation;
         Game.playSound('lose');
+
+        // Auto-battle: stop on loss
+        if (Game.autoBattleActive) {
+          Game.autoBattleResults.medals += consolation;
+          Game.isBattling = false;
+          Game.saveGame();
+          Game.showAutoBattleSummary('敗北で連戦終了');
+          return;
+        }
 
         document.getElementById('battle-result-area').innerHTML =
           '<div class="battle-result lose">' +
@@ -343,4 +407,12 @@ Game.advanceStage = function(clearedId) {
   if (next) {
     g.currentStageId = next;
   }
+};
+
+Game.getNextStageInChapter = function(currentId) {
+  var parts = currentId.split('-');
+  var ch = parseInt(parts[0]), st = parseInt(parts[1]);
+  var nextSt = ch + '-' + (st + 1);
+  if (Game.getStageData(nextSt)) return nextSt;
+  return null; // no more stages in this chapter
 };

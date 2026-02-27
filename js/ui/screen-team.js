@@ -9,9 +9,13 @@ Game.renderTeam = function() {
   var el = document.getElementById('screen-team');
   var html = '';
 
-  // Team power
+  // Team power + auto-form button
   var power = Game.getTeamPower();
-  html += '<div class="team-power">総戦力: ' + Game.formatNum(power) + '</div>';
+  var ownedCount = Object.keys(g.owned).length;
+  html += '<div class="team-power" style="display:flex;align-items:center;justify-content:space-between">' +
+    '<span>総戦力: ' + Game.formatNum(power) + '</span>' +
+    (ownedCount > 0 ? '<button class="filter-btn active" style="font-size:12px;padding:6px 14px" onclick="Game.autoFormTeam()">⚡ オート編成</button>' : '') +
+    '</div>';
 
   // Active bonds
   var teamIds = g.team.filter(function(id) { return id >= 0; });
@@ -242,6 +246,50 @@ Game.assignWeaponToSlot = function(slotIdx, weaponId) {
 Game.removeFromSlot = function(idx) {
   Game.state.team[idx] = -1;
   Game.state.teamWeapons[idx] = -1;
+  Game.editingSlot = -1;
+  Game.editingWeaponSlot = -1;
+  Game.saveGame();
+  Game.renderTeam();
+  Game.updateTopbar();
+};
+
+Game.autoFormTeam = function() {
+  var g = Game.state;
+
+  // Get all owned characters with power
+  var chars = [];
+  for (var id in g.owned) {
+    var cid = parseInt(id);
+    var s = Game.getCharStats(cid);
+    if (s) chars.push({ id: cid, power: s.atk + s.hp / 5 + s.def });
+  }
+  // Sort by power descending
+  chars.sort(function(a, b) { return b.power - a.power; });
+
+  // Assign top 5
+  g.team = [-1, -1, -1, -1, -1];
+  g.teamWeapons = [-1, -1, -1, -1, -1];
+  for (var i = 0; i < Math.min(5, chars.length); i++) {
+    g.team[i] = chars[i].id;
+  }
+
+  // Get all owned weapons with power
+  var weapons = [];
+  for (var wid in g.ownedWeapons) {
+    var ws = Game.getWeaponStats(parseInt(wid));
+    if (ws) weapons.push({ id: parseInt(wid), power: ws.atk + ws.hp / 5 + ws.def });
+  }
+  weapons.sort(function(a, b) { return b.power - a.power; });
+
+  // Assign top weapons to filled slots
+  var wIdx = 0;
+  for (var i = 0; i < 5; i++) {
+    if (g.team[i] >= 0 && wIdx < weapons.length) {
+      g.teamWeapons[i] = weapons[wIdx].id;
+      wIdx++;
+    }
+  }
+
   Game.editingSlot = -1;
   Game.editingWeaponSlot = -1;
   Game.saveGame();

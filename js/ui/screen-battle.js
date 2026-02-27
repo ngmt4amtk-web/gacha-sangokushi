@@ -48,6 +48,30 @@ Game.renderBattle = function() {
         '覇道' + g.ngPlusLevel + '周目 (敵強化x' + (1 + g.ngPlusLevel * 0.5).toFixed(1) + ')</div>';
     }
 
+    // Auto-battle button
+    var firstPlayable = null;
+    for (var si = 0; si < chapterData.stages.length; si++) {
+      var stg = chapterData.stages[si];
+      if (!g.clearedStages[stg.id] || si === 0) {
+        // Find first uncleaared or first stage
+        var prevOk = si === 0 || g.clearedStages[chapterData.stages[si - 1].id];
+        if (prevOk && chapterData.id <= g.currentChapter) {
+          firstPlayable = stg.id;
+          break;
+        }
+      }
+    }
+    if (!firstPlayable) {
+      // All cleared — replay from first
+      firstPlayable = chapterData.stages[0].id;
+    }
+    if (teamCount > 0 && displayChapter <= g.currentChapter) {
+      html += '<div style="text-align:center;margin:8px 0">' +
+        '<button class="gacha-btn multi" style="width:auto;padding:10px 24px" ' +
+        'onclick="Game.startAutoBattle(\'' + firstPlayable + '\')">' +
+        '⚔ 連戦 (負けるまで自動)</button></div>';
+    }
+
     // Stage list
     html += '<div class="stage-list">';
     for (var s = 0; s < chapterData.stages.length; s++) {
