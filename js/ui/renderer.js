@@ -44,6 +44,7 @@ Game.renderScreen = function(name) {
     case 'battle': if (Game.renderBattle) Game.renderBattle(); break;
     case 'story': if (Game.renderStory) Game.renderStory(); break;
     case 'encyclopedia': if (Game.renderEncyclopedia) Game.renderEncyclopedia(); break;
+    case 'quiz': if (Game.renderQuiz) Game.renderQuiz(); break;
   }
 };
 
@@ -84,6 +85,37 @@ Game.showDetail = function(charId) {
     html += '</div>';
     html += '<div class="lore-text" id="lore-text">' + (c.lore.novel || '') + '</div>';
     html += '</div>';
+  }
+
+  // Signature item
+  if (Game.SIGNATURE_ITEMS && Game.SIGNATURE_ITEMS[charId]) {
+    var sig = Game.SIGNATURE_ITEMS[charId];
+    var hasSig = !!(Game.state.ownedSignatures && Game.state.ownedSignatures[charId]);
+    html += '<div class="section-title">専用装備</div>';
+    if (hasSig) {
+      var rarityMult = Game.getSignatureMultiplier(c.rarity);
+      var ch = Game.getChar(charId);
+      var boostText = '';
+      if (ch) {
+        switch(ch.type) {
+          case 0: boostText = 'スキル倍率×2.0 / 会心率+30%'; break;
+          case 1: boostText = 'スキル毎ターン確定発動'; break;
+          case 2: boostText = '2回攻撃 / SPD×1.5'; break;
+          case 3: boostText = 'DEF×1.5 / 自動反撃50%'; break;
+        }
+      }
+      html += '<div style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:8px;padding:10px;margin:8px 0">' +
+        '<div style="font-size:16px;color:#ffd700;font-weight:bold">' + sig.name + '</div>' +
+        '<div style="font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5">' + sig.lore + '</div>' +
+        '<div style="font-size:13px;color:#ff6f00;margin-top:6px">全ステータス ×' + rarityMult.toFixed(1) + '</div>' +
+        '<div style="font-size:13px;color:#ffd700;margin-top:2px">' + boostText + '</div>' +
+        '</div>';
+    } else {
+      html += '<div style="background:rgba(100,100,100,0.2);border:1px solid rgba(100,100,100,0.3);border-radius:8px;padding:10px;margin:8px 0;text-align:center">' +
+        '<div style="font-size:14px;color:var(--text2)">??? 未入手</div>' +
+        '<div style="font-size:11px;color:var(--text2);margin-top:4px">武器鍛造ガチャから超低確率で出現</div>' +
+        '</div>';
+    }
   }
 
   // Bonds

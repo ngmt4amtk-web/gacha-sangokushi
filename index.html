@@ -42,6 +42,7 @@
     <div id="screen-battle" class="screen"></div>
     <div id="screen-story" class="screen"></div>
     <div id="screen-encyclopedia" class="screen"></div>
+    <div id="screen-quiz" class="screen"></div>
   </div>
 
   <!-- Bottom Navigation -->
@@ -63,6 +64,9 @@
     </button>
     <button class="nav-btn" data-screen="encyclopedia">
       <span>📖</span>図鑑
+    </button>
+    <button class="nav-btn" data-screen="quiz">
+      <span>📝</span>クイズ
     </button>
   </div>
 </div>
@@ -89,6 +93,8 @@
 <script src="js/data/weapons.js"></script>
 <script src="js/data/stages.js"></script>
 <script src="js/data/story-text.js"></script>
+<script src="js/data/quiz-questions.js"></script>
+<script src="js/data/signature-items.js"></script>
 
 <!-- Core -->
 <script src="js/core/state.js"></script>
@@ -111,6 +117,7 @@
 <script src="js/systems/bond-system.js"></script>
 <script src="js/systems/idle.js"></script>
 <script src="js/systems/progression.js"></script>
+<script src="js/systems/quiz.js"></script>
 
 <!-- UI -->
 <script src="js/ui/renderer.js"></script>
@@ -120,6 +127,7 @@
 <script src="js/ui/screen-battle.js"></script>
 <script src="js/ui/screen-story.js"></script>
 <script src="js/ui/screen-encyclopedia.js"></script>
+<script src="js/ui/screen-quiz.js"></script>
 
 <!-- App Init (must be last) -->
 <script src="js/app.js"></script>

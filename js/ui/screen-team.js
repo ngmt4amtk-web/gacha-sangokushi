@@ -44,12 +44,17 @@ Game.renderTeam = function() {
     if (hasChar) {
       var c = Game.getCharStats(charId);
       var rc = Game.rarityClass(c.rarity);
+      var sigBadge = '';
+      if (c.hasSignature && Game.SIGNATURE_ITEMS && Game.SIGNATURE_ITEMS[charId]) {
+        sigBadge = '<div style="font-size:9px;color:#ffd700;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);border-radius:4px;padding:1px 4px;display:inline-block;margin-top:2px">' + Game.SIGNATURE_ITEMS[charId].name + '</div>';
+      }
       html += '<div class="char-area filled" onclick="Game.toggleSlotEdit(' + i + ')">' +
-        '<img class="slot-avatar" src="' + Game.genAvatar(charId, 88) + '">' +
+        '<img class="slot-avatar" src="' + Game.genAvatar(charId, 88) + '"' + (c.hasSignature ? ' style="border:2px solid #ffd700;box-shadow:0 0 8px rgba(255,215,0,0.5)"' : '') + '>' +
         '<div class="slot-info">' +
           '<div class="slot-name" style="color:' + Game.RARITY_COLORS[c.rarity] + '">' + c.name + '</div>' +
           '<div class="slot-sub">' + Game.RARITY_NAMES[c.rarity] + ' ' + Game.TYPE_NAMES[c.type] + ' ' +
             Game.FACTION_NAMES[c.faction] + ' ATK:' + Game.formatNum(c.atk) + '</div>' +
+          sigBadge +
         '</div></div>';
     } else {
       html += '<div class="char-area" onclick="Game.toggleSlotEdit(' + i + ')">' +

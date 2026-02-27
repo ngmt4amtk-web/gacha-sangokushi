@@ -40,11 +40,11 @@ Game.renderGacha = function() {
     // Rates
     html += '<div class="rate-info">' +
       '<div style="font-weight:bold;margin-bottom:6px">排出確率</div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--ur)">UR ★5</span><span>2%</span></div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--ssr)">SSR ★4</span><span>8%</span></div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--sr)">SR ★3</span><span>20%</span></div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--r)">R ★2</span><span>30%</span></div>' +
-      '<div class="rate-row"><span class="rarity" style="color:var(--n)">N ★1</span><span>40%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--ur)">UR ★5</span><span>0.3%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--ssr)">SSR ★4</span><span>1.5%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--sr)">SR ★3</span><span>18.2%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--r)">R ★2</span><span>35%</span></div>' +
+      '<div class="rate-row"><span class="rarity" style="color:var(--n)">N ★1</span><span>45%</span></div>' +
       '<div style="margin-top:8px;font-size:11px;color:var(--text2)">65回目から確率UP、80回で★4以上確定</div>' +
       '</div>';
 
@@ -66,6 +66,7 @@ Game.renderGacha = function() {
     html += '<div class="banner">' +
       '<div class="banner-title">武器鍛造</div>' +
       '<div style="font-size:16px;margin:4px 0;color:var(--text2)">メダルで武器を鍛造</div>' +
+      '<div style="font-size:12px;color:#ffd700;margin-top:4px">★ 超低確率で専用装備が出現 ★</div>' +
       '</div>';
 
     var wpPityPct = Math.min(100, (g.weaponPity || 0) / 60 * 100);

@@ -268,12 +268,56 @@ Game.finishMultiReveal = function(sorted, isWeapon, overlay) {
 };
 
 Game.endGachaAnim = function() {
+  // Check for pending signature item reveals
+  if (Game.pendingSignatureReveals && Game.pendingSignatureReveals.length > 0) {
+    var sigId = Game.pendingSignatureReveals.shift();
+    Game.showSignatureReveal(sigId);
+    return;
+  }
   var overlay = document.getElementById('gacha-overlay');
   overlay.classList.remove('show');
   overlay.innerHTML = '';
   Game.isGachaAnimating = false;
   Game.gachaSkipped = false;
   Game.renderAll();
+};
+
+Game.showSignatureReveal = function(charId) {
+  var overlay = document.getElementById('gacha-overlay');
+  var c = Game.getChar(charId);
+  var sig = Game.SIGNATURE_ITEMS ? Game.SIGNATURE_ITEMS[charId] : null;
+  if (!c || !sig) { Game.endGachaAnim(); return; }
+
+  Game.playSound('jackpot');
+  var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+  Game.spawnParticles(cx, cy, '#ffd700', 60);
+  Game.spawnParticles(cx, cy, '#ff6f00', 40);
+
+  var avatarSrc = Game.genAvatar(charId, 360);
+  var rarityMult = Game.getSignatureMultiplier(c.rarity);
+  var boostDesc = '';
+  switch(c.type) {
+    case 0: boostDesc = 'スキル倍率2倍 / 会心率+30%'; break;
+    case 1: boostDesc = 'スキル毎ターン確定発動'; break;
+    case 2: boostDesc = '2回攻撃 / SPD×1.5'; break;
+    case 3: boostDesc = 'DEF×1.5 / 自動反撃50%'; break;
+  }
+
+  overlay.innerHTML =
+    '<div class="gacha-anim-container">' +
+      '<div style="text-align:center;padding:20px">' +
+        '<div style="font-size:24px;color:#ffd700;font-weight:bold;text-shadow:0 0 20px #ff6f00;margin-bottom:16px;animation:pulse 0.8s infinite">★ 専用装備 獲得 ★</div>' +
+        '<img class="reveal-avatar" src="' + avatarSrc + '" style="width:120px;height:120px;border-radius:50%;border:3px solid #ffd700;box-shadow:0 0 30px rgba(255,215,0,0.6)">' +
+        '<div style="font-size:20px;color:#fff;margin-top:12px">' + c.name + '</div>' +
+        '<div style="font-size:22px;color:#ffd700;font-weight:bold;margin:8px 0">' + sig.name + '</div>' +
+        '<div style="font-size:13px;color:var(--text2);max-width:280px;margin:0 auto;line-height:1.5">' + sig.lore + '</div>' +
+        '<div style="margin-top:12px;padding:8px 12px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:8px;display:inline-block">' +
+          '<div style="font-size:12px;color:#ffd700">全ステータス ×' + rarityMult.toFixed(1) + '</div>' +
+          '<div style="font-size:12px;color:#ff6f00;margin-top:2px">' + boostDesc + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="gacha-done-btn" style="margin-top:16px" onclick="Game.endGachaAnim()">OK</button>' +
+    '</div>';
 };
 
 Game.skipGachaAnim = function() {

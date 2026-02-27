@@ -2,7 +2,7 @@
 window.Game = window.Game || {};
 
 Game.SAVE_KEY = 'sangoku_v2_save';
-Game.SAVE_VERSION = 10;
+Game.SAVE_VERSION = 11;
 
 Game.RARITY_NAMES = { 1:'N', 2:'R', 3:'SR', 4:'SSR', 5:'UR' };
 Game.RARITY_STARS = { 1:'★', 2:'★★', 3:'★★★', 4:'★★★★', 5:'★★★★★' };
@@ -44,6 +44,8 @@ Game.defaultState = function() {
     totalStageClears: 0,
     gachaTab: 'hero',
     firstPlay: true,
+    quizHistory: {},
+    ownedSignatures: {},
   };
 };
 

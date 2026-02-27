@@ -45,7 +45,7 @@ Game.renderBattle = function() {
     // NG+ indicator
     if (g.ngPlusLevel > 0) {
       html += '<div style="text-align:center;color:var(--ur);font-size:12px;margin:4px 0">' +
-        '覇道' + g.ngPlusLevel + '周目 (敵強化x' + (1 + g.ngPlusLevel * 0.5).toFixed(1) + ')</div>';
+        '覇道' + g.ngPlusLevel + '周目 (敵強化x' + (1 + g.ngPlusLevel * 0.7).toFixed(1) + ')</div>';
     }
 
     // Auto-battle button

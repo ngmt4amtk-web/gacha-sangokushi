@@ -1,7 +1,7 @@
 // ======== GACHA SYSTEM ========
 window.Game = window.Game || {};
 
-// Rates: N=40%, R=30%, SR=20%, SSR=8%, UR=2%
+// Rates: N=45%, R=35%, SR=18.2%, SSR=1.5%, UR=0.3%
 // Pity at 80, soft pity from 65
 
 Game.doGachaPull = function() {
@@ -19,19 +19,19 @@ Game.doGachaPull = function() {
   else if (g.pity >= 65) {
     var bonus = (g.pity - 64) * 0.04;
     var roll = Math.random();
-    if (roll < (0.02 + bonus)) { rarity = 5; g.pity = 0; } // UR
-    else if (roll < (0.10 + bonus * 2)) { rarity = 4; g.pity = 0; } // SSR
-    else if (roll < 0.30) rarity = 3; // SR
-    else if (roll < 0.60) rarity = 2; // R
+    if (roll < (0.003 + bonus)) { rarity = 5; g.pity = 0; } // UR
+    else if (roll < (0.018 + bonus * 2)) { rarity = 4; g.pity = 0; } // SSR
+    else if (roll < 0.200) rarity = 3; // SR
+    else if (roll < 0.550) rarity = 2; // R
     else rarity = 1; // N
   }
   else {
     var roll = Math.random();
-    if (roll < 0.02) { rarity = 5; g.pity = 0; } // UR 2%
-    else if (roll < 0.10) { rarity = 4; g.pity = 0; } // SSR 8%
-    else if (roll < 0.30) rarity = 3; // SR 20%
-    else if (roll < 0.60) rarity = 2; // R 30%
-    else rarity = 1; // N 40%
+    if (roll < 0.003) { rarity = 5; g.pity = 0; } // UR 0.3%
+    else if (roll < 0.018) { rarity = 4; g.pity = 0; } // SSR 1.5%
+    else if (roll < 0.200) rarity = 3; // SR 18.2%
+    else if (roll < 0.550) rarity = 2; // R 35%
+    else rarity = 1; // N 45%
   }
 
   // Pick character of that rarity from unlocked chapters
@@ -115,7 +115,25 @@ Game.doWeaponPull = function() {
     Game.state.ownedWeapons[wid].count++;
     Game.state.ownedWeapons[wid].totsu++;
   }
-  return { charId: wid, isNew: isNew, isWeapon: true };
+  // Signature item lottery (bonus roll alongside weapon)
+  var signatureId = null;
+  if (Game.SIGNATURE_ITEMS && Game.CHARACTERS) {
+    var sigRoll = Math.random();
+    var sigCumul = 0;
+    var sigRates = {1:0.00002, 2:0.000006, 3:0.000002, 4:0.000001, 5:0.0000002};
+    for (var sid = 0; sid < Game.CHARACTERS.length; sid++) {
+      if (!Game.SIGNATURE_ITEMS[sid]) continue;
+      if (Game.state.ownedSignatures[sid]) continue; // already owned
+      var sch = Game.CHARACTERS[sid];
+      sigCumul += sigRates[sch.rarity] || 0;
+      if (sigRoll < sigCumul) {
+        Game.state.ownedSignatures[sid] = true;
+        signatureId = sid;
+        break;
+      }
+    }
+  }
+  return { charId: wid, isNew: isNew, isWeapon: true, signatureId: signatureId };
 };
 
 Game.pullWeaponSingle = function() {
@@ -123,6 +141,8 @@ Game.pullWeaponSingle = function() {
   Game.state.medals -= 100;
   Game.initAudio();
   var result = Game.doWeaponPull();
+  Game.pendingSignatureReveals = [];
+  if (result.signatureId !== null) Game.pendingSignatureReveals.push(result.signatureId);
   Game.showGachaAnimation([result], true);
   Game.saveGame();
 };
@@ -132,7 +152,12 @@ Game.pullWeaponMulti = function() {
   Game.state.medals -= 900;
   Game.initAudio();
   var results = [];
-  for (var i = 0; i < 10; i++) results.push(Game.doWeaponPull());
+  Game.pendingSignatureReveals = [];
+  for (var i = 0; i < 10; i++) {
+    var r = Game.doWeaponPull();
+    results.push(r);
+    if (r.signatureId !== null) Game.pendingSignatureReveals.push(r.signatureId);
+  }
   Game.showGachaAnimation(results, true);
   Game.saveGame();
 };
@@ -142,14 +167,21 @@ Game.pullWeaponAll = function() {
   if (g.medals < 100 || Game.isGachaAnimating) return;
   Game.initAudio();
   var results = [];
+  Game.pendingSignatureReveals = [];
   // 10-pulls first, then singles
   while (g.medals >= 900) {
     g.medals -= 900;
-    for (var i = 0; i < 10; i++) results.push(Game.doWeaponPull());
+    for (var i = 0; i < 10; i++) {
+      var r = Game.doWeaponPull();
+      results.push(r);
+      if (r.signatureId !== null) Game.pendingSignatureReveals.push(r.signatureId);
+    }
   }
   while (g.medals >= 100) {
     g.medals -= 100;
-    results.push(Game.doWeaponPull());
+    var r = Game.doWeaponPull();
+    results.push(r);
+    if (r.signatureId !== null) Game.pendingSignatureReveals.push(r.signatureId);
   }
   // Show summary instead of animation for large pulls
   if (results.length > 30) {
@@ -163,11 +195,14 @@ Game.pullWeaponAll = function() {
 Game.showWeaponAllSummary = function(results) {
   var counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
   var newCount = 0;
+  var sigCount = 0;
   results.forEach(function(r) {
     var w = Game.getWeapon(r.charId);
     if (w) counts[w.rarity] = (counts[w.rarity] || 0) + 1;
     if (r.isNew) newCount++;
+    if (r.signatureId !== null) sigCount++;
   });
+  Game.isGachaAnimating = true;
   var overlay = document.getElementById('gacha-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -185,7 +220,8 @@ Game.showWeaponAllSummary = function(results) {
       (counts[2] ? '<div style="color:var(--r);font-size:14px">★2 R x' + counts[2] + '</div>' : '') +
       (counts[1] ? '<div style="color:var(--n);font-size:13px">★1 N x' + counts[1] + '</div>' : '') +
       (newCount > 0 ? '<div style="color:#4caf50;font-size:14px;margin-top:8px">NEW x' + newCount + '</div>' : '') +
-      '<button class="battle-close-btn" style="margin-top:16px" onclick="this.closest(\'.gacha-overlay\').classList.remove(\'show\');Game.renderGacha()">閉じる</button>' +
+      (sigCount > 0 ? '<div style="color:#ffd700;font-size:16px;font-weight:bold;margin-top:8px;text-shadow:0 0 10px #ff6f00">★専用装備 x' + sigCount + '★</div>' : '') +
+      '<button class="battle-close-btn" style="margin-top:16px" onclick="Game.endGachaAnim()">閉じる</button>' +
     '</div></div>';
   overlay.classList.add('show');
 };

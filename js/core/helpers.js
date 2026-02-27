@@ -28,6 +28,12 @@ Game.getCharStats = function(id) {
     var ws = Game.getWeaponStats(g.teamWeapons[teamIdx]);
     if (ws) { wAtk=ws.atk; wHp=ws.hp; wDef=ws.def; }
   }
+  // Signature item multiplier
+  var sigMult = 1;
+  var hasSig = !!(g.ownedSignatures && g.ownedSignatures[id] && Game.SIGNATURE_ITEMS && Game.SIGNATURE_ITEMS[id]);
+  if (hasSig) {
+    sigMult = Game.getSignatureMultiplier(c.rarity);
+  }
   return {
     id: c.id, name: c.name, title: c.title, rarity: c.rarity,
     type: c.type, faction: c.faction, chapter: c.chapter,
@@ -35,12 +41,13 @@ Game.getCharStats = function(id) {
     skillMult: c.skill.mult, skillTarget: c.skill.target,
     lore: c.lore, voiceLine: c.voiceLine, look: c.look,
     totsu: totsu, count: owned ? owned.count : 0,
-    atk: Math.floor(c.atk * mult) + wAtk,
-    hp: Math.floor(c.hp * mult) + wHp,
-    def: Math.floor(c.def * mult) + wDef,
-    spd: c.spd || 50,
+    atk: Math.floor(c.atk * mult * sigMult) + wAtk,
+    hp: Math.floor(c.hp * mult * sigMult) + wHp,
+    def: Math.floor(c.def * mult * sigMult) + wDef,
+    spd: hasSig && c.type === 2 ? Math.floor((c.spd || 50) * 1.5) : (c.spd || 50),
     baseAtk: c.atk, baseHp: c.hp, baseDef: c.def,
-    power: Math.floor((c.atk + c.hp/5 + c.def) * mult) + wAtk + wHp/5 + wDef,
+    hasSignature: hasSig,
+    power: Math.floor((c.atk + c.hp/5 + c.def) * mult * sigMult) + wAtk + wHp/5 + wDef,
   };
 };
 

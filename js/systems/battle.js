@@ -40,17 +40,19 @@ Game.getStageEnemies = function(stageData, chapterData) {
   var tmpl = Game.ENEMY_TEMPLATES[stageData.enemyTemplate] || Game.ENEMY_TEMPLATES.yellowTurban;
   var count = stageData.enemyCount || 3;
   var diff = stageData.difficulty || 1;
-  var ngMult = 1 + (Game.state.ngPlusLevel || 0) * 0.5;
+  var ngMult = 1 + (Game.state.ngPlusLevel || 0) * 0.7;
   var enemies = [];
 
   for (var i = 0; i < count; i++) {
     var isBoss = stageData.isBoss && i === 0;
-    var mult = isBoss ? diff * 1.8 * ngMult : diff * ngMult;
+    var mult = isBoss ? diff * 2.5 * ngMult : diff * ngMult;
     var name = isBoss ? (stageData.bossName || '???') : tmpl.names[Math.floor(Math.random() * tmpl.names.length)];
     var atk = Math.floor((tmpl.atkRange[0] + Math.random() * (tmpl.atkRange[1] - tmpl.atkRange[0])) * mult);
     var hp = Math.floor((tmpl.hpRange[0] + Math.random() * (tmpl.hpRange[1] - tmpl.hpRange[0])) * mult);
     var def = Math.floor((tmpl.defRange[0] + Math.random() * (tmpl.defRange[1] - tmpl.defRange[0])) * mult);
-    enemies.push({ name: name, atk: atk, hp: hp, maxHp: hp, def: def, isBoss: isBoss, alive: true, buffs: [], debuffs: [], counterFlag: false, counterMult: 0 });
+    var enemy = { name: name, atk: atk, hp: hp, maxHp: hp, def: def, isBoss: isBoss, alive: true, buffs: [], debuffs: [], counterFlag: false, counterMult: 0 };
+    if (isBoss && stageData.bossSpecial) enemy.bossSpecial = stageData.bossSpecial;
+    enemies.push(enemy);
   }
   return enemies;
 };
@@ -91,12 +93,25 @@ Game.startBattle = function(stageId) {
       var finalAtk = Math.floor(s.atk * (1 + atkBonus));
       var finalHp = Math.floor(s.hp * (1 + hpBonus));
       var finalDef = Math.floor(s.def * (1 + defBonus));
+      // Signature item: transfer boost info
+      var sigBoost = null;
+      var charType = Game.CHARACTERS[id] ? Game.CHARACTERS[id].type : -1;
+      if (s.hasSignature && Game.getSignatureBoost) {
+        sigBoost = Game.getSignatureBoost(charType);
+      }
+      // 守タイプ with signature: DEF×1.5 + auto counter
+      if (sigBoost && sigBoost.defMult) {
+        finalDef = Math.floor(finalDef * sigBoost.defMult);
+      }
       teamChars.push({
         id: s.id, name: s.name, atk: finalAtk, hp: finalHp, def: finalDef, spd: s.spd,
         maxHp: finalHp, currentHp: finalHp, alive: true,
         skillName: s.skillName, skillDesc: s.skillDesc, skillMult: s.skillMult,
         skillTarget: s.skillTarget, skillType: s.skillType, rarity: s.rarity,
-        buffs: [], debuffs: [], counterFlag: false, counterMult: 0
+        buffs: [], debuffs: [],
+        counterFlag: !!(sigBoost && sigBoost.autoCounter),
+        counterMult: sigBoost && sigBoost.autoCounter ? sigBoost.autoCounter : 0,
+        hasSignature: !!s.hasSignature, sigBoost: sigBoost, charType: charType
       });
     }
   }
@@ -252,6 +267,26 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
       // Tick buffs/debuffs (skip turn 1)
       if (turn > 1) tickBuffsDebuffs();
 
+      // Boss special abilities
+      enemies.forEach(function(e) {
+        if (e.isBoss && e.bossSpecial && e.alive) {
+          var sp = e.bossSpecial;
+          if (sp.type === 'atkBuff') {
+            e.buffs.push({ stat: 'atk', amount: sp.amount, turns: 99 });
+            addLog('<span style="color:#ff5722">' + e.name + 'の覇気が増す！（ATK+' + Math.round(sp.amount * 100) + '%）</span>', 'skill');
+          }
+          if (sp.type === 'defBuff' || sp.type2 === 'defBuff') {
+            var amt = sp.type === 'defBuff' ? sp.amount : sp.amount2;
+            e.buffs.push({ stat: 'def', amount: amt, turns: 99 });
+            addLog('<span style="color:#42a5f5">' + e.name + 'が守りを固める！（DEF+' + Math.round(amt * 100) + '%）</span>', 'skill');
+          }
+          if (sp.type === 'counter' || sp.type2 === 'counter') {
+            e.counterFlag = true;
+            e.counterMult = sp.counterMult || 1.0;
+          }
+        }
+      });
+
       addLog('--- ターン ' + turn + ' ---');
       await wait(200);
 
@@ -270,11 +305,20 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
           if (livingEnemies.length === 0) break;
           var target = livingEnemies[Math.floor(Math.random() * livingEnemies.length)];
           var targetIdx = enemies.indexOf(target);
-          var useSkill = Math.random() < 0.3;
+          // Signature boost: 智 type = 100% skill activation
+          var skillChance = 0.3;
+          if (unit.hasSignature && unit.sigBoost && unit.sigBoost.activation) {
+            skillChance = unit.sigBoost.activation;
+          }
+          var useSkill = Math.random() < skillChance;
           var unitAtk = getEffectiveAtk(unit);
 
           if (useSkill && unit.skillName) {
             var skillMult = unit.skillMult || 1.2;
+            // Signature boost: 武 type = skill mult ×2
+            if (unit.hasSignature && unit.sigBoost && unit.sigBoost.multScale) {
+              skillMult *= unit.sigBoost.multScale;
+            }
             var sType = unit.skillType || 'damage';
             var sDesc = unit.skillDesc || '';
 
@@ -478,15 +522,36 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
             }
           } else {
             // Normal attack
+            var critRate = 0.15;
+            // Signature boost: 武 type = crit +30%
+            if (unit.hasSignature && unit.sigBoost && unit.sigBoost.critBonus) {
+              critRate += unit.sigBoost.critBonus;
+            }
             var dmg = Math.floor(unitAtk * (0.85 + Math.random() * 0.3));
             var actualDmg = Math.max(1, dmg - getEffectiveDef(target) * 0.5);
-            var isCrit = Math.random() < 0.15;
+            var isCrit = Math.random() < critRate;
             var finalDmg = isCrit ? Math.floor(actualDmg * 1.5) : actualDmg;
             target.hp -= finalDmg;
             spawnDmgNum(document.getElementById('enemy-' + targetIdx), finalDmg, isCrit ? 'crit' : '');
             if (isCrit) addLog(unit.name + 'の攻撃！ ' + target.name + 'に' + finalDmg + 'ダメージ！ <span style="color:#ff5722">会心！</span>', 'crit');
             else addLog(unit.name + 'の攻撃！ ' + target.name + 'に' + finalDmg + 'ダメージ！');
             Game.playSound('hit');
+
+            // Signature boost: 速 type = double attack
+            if (unit.hasSignature && unit.sigBoost && unit.sigBoost.doubleAttack) {
+              var livingEnemies2 = enemies.filter(function(e) { return e.hp > 0; });
+              if (livingEnemies2.length > 0) {
+                var target2 = livingEnemies2[Math.floor(Math.random() * livingEnemies2.length)];
+                var targetIdx2 = enemies.indexOf(target2);
+                var dmg2 = Math.floor(unitAtk * (0.85 + Math.random() * 0.3));
+                var actualDmg2 = Math.max(1, dmg2 - getEffectiveDef(target2) * 0.5);
+                var isCrit2 = Math.random() < critRate;
+                var finalDmg2 = isCrit2 ? Math.floor(actualDmg2 * 1.5) : actualDmg2;
+                target2.hp -= finalDmg2;
+                spawnDmgNum(document.getElementById('enemy-' + targetIdx2), finalDmg2, isCrit2 ? 'crit' : '');
+                addLog(unit.name + 'の追撃！ ' + target2.name + 'に' + finalDmg2 + 'ダメージ！' + (isCrit2 ? ' <span style="color:#ff5722">会心！</span>' : ''));
+              }
+            }
           }
 
           var allyEl = document.getElementById('ally-' + entry.idx);
