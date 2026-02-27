@@ -218,7 +218,7 @@ Game.CHARACTERS = [
   },
   // 76: 曹操[若] (SR) ★NEW★
   {
-    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:3, type:1, faction:1, chapter:3,
+    id:76, name:'曹操[若]', title:'陳留の旗揚げ', rarity:3, type:1, faction:1, chapter:1,
     atk:165, hp:1200, def:100, spd:50,
     skill:{ name:'唯才是挙', desc:'味方全体攻撃力20%UP(3ターン)+味方全体HP8%回復', type:'buff', mult:1.2, target:'all_ally' },
     lore:{
