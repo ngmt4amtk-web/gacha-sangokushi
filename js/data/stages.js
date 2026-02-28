@@ -2,14 +2,14 @@
 window.Game = window.Game || {};
 
 Game.ENEMY_TEMPLATES = {
-  yellowTurban: { names:['黄巾賊','黄巾兵','黄巾将'], atkRange:[50,80], hpRange:[300,500], defRange:[20,40] },
-  dongzhuoArmy: { names:['董卓軍兵','西涼騎兵','暴虐兵'], atkRange:[65,95], hpRange:[400,600], defRange:[30,50] },
-  warlordArmy: { names:['諸侯兵','軍閥兵','精鋭兵'], atkRange:[80,120], hpRange:[500,800], defRange:[35,60] },
-  weiArmy: { names:['魏軍兵','魏精鋭','曹操軍兵'], atkRange:[100,150], hpRange:[600,900], defRange:[45,70] },
-  wuArmy: { names:['呉軍兵','呉水軍','呉精鋭'], atkRange:[90,140], hpRange:[550,850], defRange:[40,65] },
-  shuArmy: { names:['蜀軍兵','蜀精鋭','蜀山兵'], atkRange:[95,145], hpRange:[580,880], defRange:[42,68] },
-  nanman: { names:['南蛮兵','蛮族戦士','象兵'], atkRange:[110,160], hpRange:[700,1000], defRange:[35,55] },
-  jinArmy: { names:['晋軍兵','晋精鋭','晋重装兵'], atkRange:[130,180], hpRange:[800,1200], defRange:[55,85] },
+  yellowTurban: { names:['黄巾賊','黄巾兵','黄巾将'], atkRange:[55,90], hpRange:[400,700], defRange:[20,40] },
+  dongzhuoArmy: { names:['董卓軍兵','西涼騎兵','暴虐兵'], atkRange:[85,130], hpRange:[600,1000], defRange:[35,60] },
+  warlordArmy: { names:['諸侯兵','軍閥兵','精鋭兵'], atkRange:[140,210], hpRange:[1000,1600], defRange:[60,95] },
+  weiArmy: { names:['魏軍兵','魏精鋭','曹操軍兵'], atkRange:[250,360], hpRange:[2000,3200], defRange:[110,165] },
+  wuArmy: { names:['呉軍兵','呉水軍','呉精鋭'], atkRange:[230,330], hpRange:[1800,2800], defRange:[100,150] },
+  shuArmy: { names:['蜀軍兵','蜀精鋭','蜀山兵'], atkRange:[240,340], hpRange:[1900,3000], defRange:[105,155] },
+  nanman: { names:['南蛮兵','蛮族戦士','象兵'], atkRange:[320,450], hpRange:[2800,4400], defRange:[90,140] },
+  jinArmy: { names:['晋軍兵','晋精鋭','晋重装兵'], atkRange:[450,630], hpRange:[4500,7000], defRange:[200,290] },
 };
 
 Game.CHAPTERS = [
