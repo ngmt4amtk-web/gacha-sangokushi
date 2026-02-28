@@ -47,7 +47,7 @@ Game.getStageEnemies = function(stageData, chapterData) {
 
   for (var i = 0; i < count; i++) {
     var isBoss = stageData.isBoss && i === 0;
-    var mult = isBoss ? diff * 2.5 * ngMult : diff * ngMult;
+    var mult = isBoss ? diff * 1.8 * ngMult : diff * ngMult;
     var name = isBoss ? (stageData.bossName || '???') : tmpl.names[Math.floor(Math.random() * tmpl.names.length)];
     var atk = Math.floor((tmpl.atkRange[0] + Math.random() * (tmpl.atkRange[1] - tmpl.atkRange[0])) * mult);
     var hp = Math.floor((tmpl.hpRange[0] + Math.random() * (tmpl.hpRange[1] - tmpl.hpRange[0])) * mult);
@@ -105,6 +105,14 @@ Game.startBattle = function(stageId) {
       if (sigBoost && sigBoost.defMult) {
         finalDef = Math.floor(finalDef * sigBoost.defMult);
       }
+      // Chapter character bonus: +20% all stats for matching chapter
+      var charChapter = Game.getChar(id) ? Game.getChar(id).chapter : 0;
+      var isChapterChar = data.chapter && charChapter === data.chapter.id;
+      if (isChapterChar) {
+        finalAtk = Math.floor(finalAtk * 1.2);
+        finalHp = Math.floor(finalHp * 1.2);
+        finalDef = Math.floor(finalDef * 1.2);
+      }
       teamChars.push({
         id: s.id, name: s.name, atk: finalAtk, hp: finalHp, def: finalDef, spd: s.spd,
         maxHp: finalHp, currentHp: finalHp, alive: true,
@@ -113,7 +121,8 @@ Game.startBattle = function(stageId) {
         buffs: [], debuffs: [],
         counterFlag: !!(sigBoost && sigBoost.autoCounter),
         counterMult: sigBoost && sigBoost.autoCounter ? sigBoost.autoCounter : 0,
-        hasSignature: !!s.hasSignature, sigBoost: sigBoost, charType: charType
+        hasSignature: !!s.hasSignature, sigBoost: sigBoost, charType: charType,
+        chapterBonus: isChapterChar
       });
     }
   }
@@ -126,6 +135,11 @@ Game.startBattle = function(stageId) {
   if (activeBonds.length > 0) {
     bondHTML = '<div style="font-size:11px;color:#ffd700;margin-top:3px">' +
       activeBonds.map(function(b) { return '[' + b.name + ']'; }).join(' ') + '</div>';
+  }
+  var chapterBonusNames = teamChars.filter(function(c) { return c.chapterBonus; }).map(function(c) { return c.name; });
+  var chapterHTML = '';
+  if (chapterBonusNames.length > 0) {
+    chapterHTML = '<div style="font-size:11px;color:#4caf50;margin-top:2px">章ボーナス(+20%): ' + chapterBonusNames.join(', ') + '</div>';
   }
 
   var autoBattleHeader = '';
@@ -142,7 +156,7 @@ Game.startBattle = function(stageId) {
       autoBattleHeader +
       '<h3>' + (data.stage.isBoss ? 'BOSS ' : '') + data.stage.name + '</h3>' +
       '<div style="font-size:13px;color:var(--text2)">第' + data.chapter.id + '章 ' + data.chapter.name + '</div>' +
-      bondHTML +
+      bondHTML + chapterHTML +
     '</div>' +
     '<div class="battle-field">' +
       '<div class="battle-side"><div class="battle-side-label">味方</div>' +
