@@ -430,56 +430,29 @@ Game.renderBulkCharSelect = function() {
   }
   html += '</div>';
 
-  // Bond hints for current selection
-  if (Game.BONDS && Game.bulkEditSelections.length > 0) {
-    var selSet = {};
-    Game.bulkEditSelections.forEach(function(id) { selSet[id] = true; });
-    var activeBulk = [];
-    var potentialBulk = [];
+  // Bond hints (same as regular team screen)
+  if (Game.BONDS) {
+    var shown = 0;
+    var hintHtml = '';
     Game.BONDS.forEach(function(bond) {
+      if (shown >= 5) return;
+      if (g.discoveredBonds[bond.id]) return;
       if (bond.isIF && (g.ngPlusLevel || 0) < 1) return;
-      var inTeam = 0;
       var allOwned = true;
       for (var j = 0; j < bond.heroes.length; j++) {
-        if (selSet[bond.heroes[j]]) inTeam++;
-        if (!g.owned[bond.heroes[j]]) allOwned = false;
+        if (!g.owned[bond.heroes[j]]) { allOwned = false; break; }
       }
-      if (inTeam >= bond.minRequired) {
-        activeBulk.push(bond);
-      } else if (allOwned && inTeam >= bond.minRequired - 2 && inTeam > 0) {
-        var missing = [];
-        for (var k = 0; k < bond.heroes.length; k++) {
-          if (!selSet[bond.heroes[k]]) {
-            var mc = Game.getChar(bond.heroes[k]);
-            if (mc) missing.push(mc);
-          }
-        }
-        potentialBulk.push({ bond: bond, missing: missing });
-      }
+      if (!allOwned) return;
+      var battleCount = g.bondBattleCounts[bond.id] || 0;
+      hintHtml += '<div style="padding:6px 8px;margin:3px 0;background:rgba(255,255,255,0.03);border-radius:6px;font-size:12px">' +
+        '<span style="color:var(--gold)">???</span> ' + (bond.hint || '未知の絆') +
+        ' <span style="color:var(--text2)">(' + battleCount + '/20)</span></div>';
+      shown++;
     });
-    if (activeBulk.length > 0 || potentialBulk.length > 0) {
+    if (shown > 0) {
       html += '<div style="margin:10px 0 6px;padding:0 4px">';
-      html += '<div style="font-size:13px;font-weight:bold;color:var(--gold);margin-bottom:6px">絆</div>';
-      activeBulk.forEach(function(b) {
-        var fx = [];
-        if (b.effect.atk) fx.push('ATK+' + Math.round(b.effect.atk * 100) + '%');
-        if (b.effect.hp) fx.push('HP+' + Math.round(b.effect.hp * 100) + '%');
-        if (b.effect.def) fx.push('DEF+' + Math.round(b.effect.def * 100) + '%');
-        html += '<div style="padding:5px 8px;margin:3px 0;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);border-radius:6px;font-size:12px">' +
-          '<span style="color:var(--gold)">✓ ' + b.name + '</span> <span style="color:var(--text2)">' + fx.join(' ') + '</span></div>';
-      });
-      potentialBulk.slice(0, 5).forEach(function(p) {
-        var types = {};
-        for (var m = 0; m < p.missing.length; m++) {
-          var t = Game.TYPE_NAMES[p.missing[m].type];
-          if (t) types[t] = true;
-        }
-        var typeList = Object.keys(types);
-        var hintText = 'あと' + p.missing.length + '人';
-        if (typeList.length > 0 && typeList.length <= 2) hintText += '（' + typeList.join('・') + '）';
-        html += '<div style="padding:5px 8px;margin:3px 0;background:rgba(255,255,255,0.03);border-radius:6px;font-size:12px">' +
-          '<span style="color:var(--text2)">△ ' + p.bond.name + '</span> <span style="font-size:11px;color:var(--text2)">' + hintText + '</span></div>';
-      });
+      html += '<div class="section-title">絆ヒント</div>';
+      html += hintHtml;
       html += '</div>';
     }
   }
