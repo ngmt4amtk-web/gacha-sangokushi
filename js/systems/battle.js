@@ -2,6 +2,7 @@
 window.Game = window.Game || {};
 
 Game.autoBattleActive = false;
+Game.autoBattleStopRequested = false;
 Game.autoBattleResults = { cleared: 0, medals: 0, tickets: 0 };
 
 Game.startAutoBattle = function(startStageId) {
@@ -9,12 +10,13 @@ Game.startAutoBattle = function(startStageId) {
   var teamCount = Game.state.team.filter(function(id) { return id >= 0 && Game.state.owned[id]; }).length;
   if (teamCount === 0) { alert('編成が空です！'); return; }
   Game.autoBattleActive = true;
+  Game.autoBattleStopRequested = false;
   Game.autoBattleResults = { cleared: 0, medals: 0, tickets: 0 };
   Game.startBattle(startStageId);
 };
 
 Game.stopAutoBattle = function() {
-  Game.autoBattleActive = false;
+  Game.autoBattleStopRequested = true;
 };
 
 Game.showAutoBattleSummary = function(reason) {
@@ -126,9 +128,18 @@ Game.startBattle = function(stageId) {
       activeBonds.map(function(b) { return '[' + b.name + ']'; }).join(' ') + '</div>';
   }
 
+  var autoBattleHeader = '';
+  if (Game.autoBattleActive) {
+    autoBattleHeader = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">' +
+      '<div style="font-size:12px;color:#ff9800">連戦中 (' + (Game.autoBattleResults.cleared + 1) + '戦目)</div>' +
+      '<button onclick="Game.stopAutoBattle()" style="background:#f44336;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:12px;cursor:pointer">停止</button>' +
+    '</div>';
+  }
+
   var overlay = document.getElementById('battle-overlay');
   overlay.innerHTML =
     '<div class="battle-header">' +
+      autoBattleHeader +
       '<h3>' + (data.stage.isBoss ? 'BOSS ' : '') + data.stage.name + '</h3>' +
       '<div style="font-size:13px;color:var(--text2)">第' + data.chapter.id + '章 ' + data.chapter.name + '</div>' +
       bondHTML +
@@ -644,9 +655,12 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
           Game.isBattling = false;
           Game.saveGame();
 
-          // Check if chapter boss was cleared or no more stages
+          // Check if stopped, chapter boss cleared, or no more stages
           var nextInChapter = Game.getNextStageInChapter(stageData.id);
-          if (!nextInChapter) {
+          if (Game.autoBattleStopRequested) {
+            Game.autoBattleStopRequested = false;
+            Game.showAutoBattleSummary('手動停止');
+          } else if (!nextInChapter) {
             Game.showAutoBattleSummary('章クリア！');
           } else {
             // Brief pause then next battle
