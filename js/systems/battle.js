@@ -715,6 +715,31 @@ Game.runBattle = function(allies, enemies, stageData, chapterData) {
 
       await wait(200);
     }
+
+    // Turn limit exceeded — treat as loss
+    await wait(500);
+    var consolation = Math.floor((stageData.rewards ? stageData.rewards.medals : 20) * 0.3);
+    Game.state.medals += consolation;
+    Game.state.totalMedalsEarned += consolation;
+    Game.playSound('lose');
+
+    if (Game.autoBattleActive) {
+      Game.autoBattleResults.medals += consolation;
+      Game.isBattling = false;
+      Game.saveGame();
+      Game.showAutoBattleSummary('時間切れで連戦終了');
+      return;
+    }
+
+    document.getElementById('battle-result-area').innerHTML =
+      '<div class="battle-result lose">' +
+        '<h2>時間切れ...</h2>' +
+        '<div style="font-size:13px;color:var(--text2);margin:8px 0">50ターン以内に決着がつきませんでした</div>' +
+        '<div class="reward" style="font-size:14px">+' + consolation + ' メダル (慰め)</div>' +
+        '<button class="battle-close-btn" onclick="Game.closeBattle()">閉じる</button>' +
+      '</div>';
+    Game.saveGame();
+    Game.isBattling = false;
   }
 
   runTurns();
