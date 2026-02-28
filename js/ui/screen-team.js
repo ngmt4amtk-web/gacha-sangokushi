@@ -451,7 +451,7 @@ Game.renderBulkCharSelect = function() {
         for (var k = 0; k < bond.heroes.length; k++) {
           if (!selSet[bond.heroes[k]]) {
             var mc = Game.getChar(bond.heroes[k]);
-            if (mc) missing.push(mc.name);
+            if (mc) missing.push(mc);
           }
         }
         potentialBulk.push({ bond: bond, missing: missing });
@@ -469,8 +469,16 @@ Game.renderBulkCharSelect = function() {
           '<span style="color:var(--gold)">✓ ' + b.name + '</span> <span style="color:var(--text2)">' + fx.join(' ') + '</span></div>';
       });
       potentialBulk.slice(0, 5).forEach(function(p) {
+        var types = {};
+        for (var m = 0; m < p.missing.length; m++) {
+          var t = Game.TYPE_NAMES[p.missing[m].type];
+          if (t) types[t] = true;
+        }
+        var typeList = Object.keys(types);
+        var hintText = 'あと' + p.missing.length + '人';
+        if (typeList.length > 0 && typeList.length <= 2) hintText += '（' + typeList.join('・') + '）';
         html += '<div style="padding:5px 8px;margin:3px 0;background:rgba(255,255,255,0.03);border-radius:6px;font-size:12px">' +
-          '<span style="color:var(--text2)">△ ' + p.bond.name + '</span> <span style="font-size:11px;color:var(--text2)">あと: ' + p.missing.slice(0, 3).join(', ') + '</span></div>';
+          '<span style="color:var(--text2)">△ ' + p.bond.name + '</span> <span style="font-size:11px;color:var(--text2)">' + hintText + '</span></div>';
       });
       html += '</div>';
     }
