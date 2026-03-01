@@ -73,14 +73,18 @@ Game.calcQuizReward = function(correct) {
 };
 
 // Chapter-specific gacha pull (exact chapter match, generous rates)
-Game.doChapterGacha = function(chapterId) {
-  var roll = Math.random();
+Game.doChapterGacha = function(chapterId, forceUR) {
   var rarity;
-  if (roll < 0.03) rarity = 5;       // UR 3%
-  else if (roll < 0.15) rarity = 4;  // SSR 12%
-  else if (roll < 0.50) rarity = 3;  // SR 35%
-  else if (roll < 0.85) rarity = 2;  // R 35%
-  else rarity = 1;                    // N 15%
+  if (forceUR) {
+    rarity = 5; // Guaranteed UR from perfect quiz
+  } else {
+    var roll = Math.random();
+    if (roll < 0.03) rarity = 5;       // UR 3%
+    else if (roll < 0.15) rarity = 4;  // SSR 12%
+    else if (roll < 0.50) rarity = 3;  // SR 35%
+    else if (roll < 0.85) rarity = 2;  // R 35%
+    else rarity = 1;                    // N 15%
+  }
 
   // Exact chapter match
   var pool = Game.CHARACTERS.filter(function(c) {
@@ -108,8 +112,9 @@ Game.runChapterGachaReward = function(chapterId, ticketCount) {
   }
   Game.initAudio();
   var results = [];
+  var perfectClear = ticketCount >= 10;
   for (var i = 0; i < ticketCount; i++) {
-    results.push(Game.doChapterGacha(chapterId));
+    results.push(Game.doChapterGacha(chapterId, perfectClear && i === 0));
   }
   Game.showGachaAnimation(results, false);
   Game.saveGame();

@@ -29,7 +29,8 @@ Game.renderQuizChapterSelect = function() {
   html += '<div style="font-size:12px;color:var(--text2);margin:0 4px 12px;padding:10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:8px;line-height:1.6">' +
     '<div style="color:var(--gold);font-weight:bold;margin-bottom:4px">報酬: 章限定武将ガチャ</div>' +
     '正解数 = ガチャ回数（最大10連）<br>' +
-    '<span style="color:var(--sr)">章限定ガチャ: UR 3% / SSR 12% / SR 35%</span>' +
+    '<span style="color:var(--sr)">章限定ガチャ: UR 3% / SSR 12% / SR 35%</span><br>' +
+    '<span style="color:var(--ur);font-weight:bold">全問正解でUR確定！</span>' +
     '</div>';
 
   // Chapter grid
@@ -111,9 +112,19 @@ Game.renderQuizQuestion = function() {
     '<div style="background:var(--gold);height:100%;border-radius:3px;width:' + pct + '%;transition:width 0.3s"></div>' +
     '</div>';
 
-  // Score so far
-  html += '<div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px">' +
-    '現在 ' + correctSoFar + ' 問正解</div>';
+  // Score so far + streak indicator
+  var streakText = '現在 ' + correctSoFar + ' 問正解';
+  var streakStyle = 'text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px';
+  if (correctSoFar > 0 && correctSoFar === s.currentIndex) {
+    streakText = correctSoFar + ' 問連続正解中！';
+    if (correctSoFar >= 7) {
+      streakStyle = 'text-align:center;font-size:13px;color:var(--ur);font-weight:bold;margin-bottom:8px;animation:pulse 1s infinite';
+      streakText += '（全問正解でUR確定）';
+    } else {
+      streakStyle = 'text-align:center;font-size:12px;color:#4caf50;font-weight:bold;margin-bottom:8px';
+    }
+  }
+  html += '<div style="' + streakStyle + '">' + streakText + '</div>';
 
   // Question
   html += '<div style="margin:0 0 12px;padding:16px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px">' +
@@ -265,6 +276,14 @@ Game.renderQuizResult = function() {
   if (tickets > 0) {
     var chData = Game.CHAPTERS ? Game.CHAPTERS[s.chapterId - 1] : null;
     var chName = chData ? chData.name : '';
+
+    // Perfect clear UR guarantee banner
+    if (correct === 10) {
+      html += '<div style="padding:12px;margin-bottom:12px;background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,140,0,0.2));border:2px solid var(--ur);border-radius:10px;animation:pulse 1.5s infinite">' +
+        '<div style="font-size:18px;color:var(--ur);font-weight:bold;text-shadow:0 0 8px rgba(255,140,0,0.5)">全問正解！UR確定！</div>' +
+        '</div>';
+    }
+
     html += '<div style="padding:12px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;margin-bottom:12px">' +
       '<div style="font-size:16px;color:var(--gold);font-weight:bold">第' + s.chapterId + '章限定ガチャ</div>' +
       '<div style="font-size:28px;color:var(--gold);font-weight:bold;margin:4px 0">' + tickets + '連</div>' +
